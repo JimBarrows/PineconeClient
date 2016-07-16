@@ -1,10 +1,29 @@
+
+stages:
+  - setup
+  - build
+  - test
+  - deploy
+
+setup_and_install:
+  - stage: setup
+  script:
+    - apt-get update -qy
+    - apt-get install -y nodejs
+    - npm install
+
+build:
+  - stage: build
+  script:
+    - npm run client:package
+
 build_image:
   image: docker:git
+  stage: deploy
   services:
   - docker:dind
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/reallybigtree/pinecone-server .
     - docker push registry.gitlab.com/reallybigtree/pinecone-server
-  only:
-    - develop
+
