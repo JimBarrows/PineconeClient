@@ -1,27 +1,22 @@
-image: node:4.2.2
+image: docker:git
 
 stages:
-  - setup
-  - build
   - test
   - deploy
 
-cache:
-  paths:
-  - node_modules/
-
 before_script:
   - apt-get update -qy
+  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  - sudo apt-get install -y nodejs
   - npm install -g webpack
   - npm install
 
 build:
   stage: build
   script:
-    - ls -la
     - npm run client:package
 
-create_docker:
+create_staging_docker:
   stage: deploy
   services:
     - docker:dind
