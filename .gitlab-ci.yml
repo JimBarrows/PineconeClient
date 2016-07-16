@@ -6,14 +6,14 @@ stages:
   - deploy
 
 setup_and_install:
-  - stage: setup
+  stage: setup
   script:
     - apt-get update -qy
     - apt-get install -y nodejs
     - npm install
 
 build:
-  - stage: build
+  stage: build
   script:
     - npm run client:package
 
