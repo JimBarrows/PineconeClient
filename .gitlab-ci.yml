@@ -1,15 +1,14 @@
-
+image: node:4.2.2
 stages:
   - setup
   - build
   - test
   - deploy
 
-setup_and_install:
+setup:
   stage: setup
   script:
     - apt-get update -qy
-    - apt-get install -y nodejs
     - npm install
 
 build:
