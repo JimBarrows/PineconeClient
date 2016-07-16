@@ -11,10 +11,9 @@ cache:
   - node_modules/
 
 before_script:
-  script:
-    - apt-get update -qy
-    - npm install -g webpack
-    - npm install
+  - apt-get update -qy
+  - npm install -g webpack
+  - npm install
 
 build:
   stage: build
