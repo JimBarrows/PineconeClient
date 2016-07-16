@@ -5,12 +5,12 @@ stages:
   - build
   - test
   - deploy
+
 cache:
   paths:
   - node_modules/
 
-setup:
-  stage: setup
+before_script:
   script:
     - apt-get update -qy
     - npm install -g webpack
@@ -22,10 +22,10 @@ build:
     - ls -la
     - npm run client:package
 
-build_image:
+create_docker:
   stage: deploy
   services:
-  - docker:dind
+    - docker:dind
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - docker build -t registry.gitlab.com/reallybigtree/pinecone-server .
