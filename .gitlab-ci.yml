@@ -9,6 +9,7 @@ setup:
   stage: setup
   script:
     - apt-get update -qy
+    - npm install -g webpack
     - npm install
 
 build:
@@ -17,7 +18,6 @@ build:
     - npm run client:package
 
 build_image:
-  image: docker:git
   stage: deploy
   services:
   - docker:dind
