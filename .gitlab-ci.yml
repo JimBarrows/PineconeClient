@@ -2,6 +2,7 @@ image: docker:git
 
 stages:
   - test
+  - build
   - deploy
 
 before_script:
