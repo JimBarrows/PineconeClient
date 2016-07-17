@@ -1,5 +1,8 @@
 FROM nginx
 
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY mime.types /etc/nginx/mime.types
+
 VOLUME /usr/share/nginx/html
 WORKDIR /usr/share/nginx/html
 
