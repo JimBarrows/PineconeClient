@@ -30,16 +30,11 @@ export function deleteChannel(channel) {
 			})
 }
 
-export function updateChannel(channel) {
-	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
-			.then((response) => {
-				dispatcher.dispatch({
-					type: ChannelEventNames.UPDATE_CHANNEL,
-					channel
-				})
-			})
-			.catch((error) => dispatcher.dispatch({type: ChannelEventNames.UDPATE_CHANNEL_ERROR, error}));
-
+export function editChannel(channel) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.EDIT_CHANNEL,
+		channel
+	})
 }
 
 export function loadChannels() {
@@ -69,3 +64,29 @@ export function loadChannels() {
 				}
 			})
 }
+
+export function newChannel() {
+	dispatcher.dispatch({
+		type: ChannelEventNames.NEW_CHANNEL,
+		channel: {
+			name: "New Channel",
+			wordPressDestinations: [],
+			facebookDestinations: [],
+			twitterDestinations: []
+		}
+	});
+}
+
+export function updateChannel(channel) {
+	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
+			.then((response) => {
+				dispatcher.dispatch({
+					type: ChannelEventNames.UPDATE_CHANNEL,
+					channel
+				})
+			})
+			.catch((error) => dispatcher.dispatch({type: ChannelEventNames.UDPATE_CHANNEL_ERROR, error}));
+
+}
+
+

@@ -5,11 +5,16 @@ import {ChannelStoreEventName, ChannelEventNames} from "../constants";
 class ChannelStore extends EventEmitter {
 	constructor() {
 		super();
-		this.channels = [];
+		this.channels       = [];
+		this.currentChannel = {};
 	}
 
 	getAll() {
 		return this.channels;
+	}
+
+	current() {
+		return this.currentChannel;
 	}
 
 	findById(id) {
@@ -26,6 +31,25 @@ class ChannelStore extends EventEmitter {
 			case ChannelEventNames.CREATE_CHANNEL_ERROR:
 				this.emit(ChannelStoreEventName.ERROR, action.error);
 				break;
+			case ChannelEventNames.DELETE_CHANNEL:
+				this.channels = this.channels.filter((channel) => channel._id !== action.channel._id);
+				this.emit(ChannelStoreEventName.CHANGE);
+				break;
+			case ChannelEventNames.DELETE_CHANNEL_ERROR:
+				this.emit(ChannelStoreEventName.ERROR, action.error);
+				break;
+			case ChannelEventNames.EDIT_CHANNEL:
+				this.currentChannel = action.channel;
+				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
+				break;
+			case ChannelEventNames.FETCHING_CHANNELS_SUCCESS:
+				this.channels = action.channels;
+				this.emit(ChannelStoreEventName.CHANGE);
+				break;
+			case ChannelEventNames.NEW_CHANNEL:
+				this.currentChannel = action.channel;
+				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
+				break;
 			case ChannelEventNames.UPDATE_CHANNEL:
 				let updateChannel   = action.channel;
 				let originalChannel = this.findById(updateChannel.id);
@@ -34,17 +58,6 @@ class ChannelStore extends EventEmitter {
 				break;
 			case ChannelEventNames.UPDATE_CHANNEL_ERROR:
 				this.emit(ChannelStoreEventName.ERROR, action.error);
-				break;
-			case ChannelEventNames.DELETE_CHANNEL:
-				this.channels = this.channels.filter((channel) => channel._id !== action.channel._id);
-				this.emit(ChannelStoreEventName.CHANGE);
-				break;
-			case ChannelEventNames.DELETE_CHANNEL_ERROR:
-				this.emit(ChannelStoreEventName.ERROR, action.error);
-				break;
-			case ChannelEventNames.FETCHING_CHANNELS_SUCCESS:
-				this.channels = action.channels;
-				this.emit(ChannelStoreEventName.CHANGE);
 				break;
 		}
 	}

@@ -16,20 +16,9 @@ export default withRouter(class ChannelEdit extends React.Component {
 	constructor(props) {
 		super();
 		this.backToList = this.backToList.bind(this);
-		let {channelId} = props.location.query;
-		let {_id, name, wordPressDestinations, facebookDestinations} = (channelId) ? ChannelStore.findById(channelId) : {
-			_id: "",
-			name: "",
-			wordPressDestinations: [],
-			facebookDestinations: []
-		};
-		if (!wordPressDestinations) {
-			wordPressDestinations = [];
-		}
-		if (!facebookDestinations) {
-			facebookDestinations = [];
-		}
-		this.state = {
+		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
+		let _id         = ChannelStore.current()._id || null;
+		this.state      = {
 			error: false,
 			channelNameError: false,
 			_id,

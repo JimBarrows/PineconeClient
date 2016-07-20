@@ -24,6 +24,7 @@ export default class FacebookLoginComponent extends React.Component {
 						appId="1236802509686356"
 						autoLoad={true}
 						fields="name,email"
+						icon="fa-facebook"
 						callback={this.responseFacebook.bind(this)}/>
 		);
 	}
