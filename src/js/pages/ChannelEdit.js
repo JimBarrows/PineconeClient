@@ -7,6 +7,9 @@ import PageHeader from "../components/bootstrap/PageHeader";
 import React from "react";
 import {withRouter} from "react-router";
 import WordPressDestinationList from "../components/WordPressDestinationList";
+import Panel from "../components/bootstrap/Panel";
+import FacebookLogin from "../components/FacebookLogin";
+import FacebookDestinationList from "../components/FacebookDestinationList";
 
 export default withRouter(class ChannelEdit extends React.Component {
 
@@ -14,22 +17,26 @@ export default withRouter(class ChannelEdit extends React.Component {
 		super();
 		this.backToList = this.backToList.bind(this);
 		let {channelId} = props.location.query;
-		let {_id, name, wordPressDestinations} = (channelId) ? ChannelStore.findById(channelId) : {
+		let {_id, name, wordPressDestinations, facebookDestinations} = (channelId) ? ChannelStore.findById(channelId) : {
 			_id: "",
 			name: "",
-			wordPressDestinations: []
+			wordPressDestinations: [],
+			facebookDestinations: []
 		};
 		if (!wordPressDestinations) {
 			wordPressDestinations = [];
+		}
+		if (!facebookDestinations) {
+			facebookDestinations = [];
 		}
 		this.state = {
 			error: false,
 			channelNameError: false,
 			_id,
 			name,
-			wordPressDestinations
+			wordPressDestinations,
+			facebookDestinations
 		}
-
 	}
 
 	componentWillMount() {
@@ -57,13 +64,11 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	saveChannel() {
-
+		let {name, wordPressDestinations, facebookDestinations} = this.state;
 		if (this.state._id) {
-			let {_id, name, wordPressDestinations} = this.state;
-			ChannelAction.updateChannel({_id, name, wordPressDestinations});
+			ChannelAction.updateChannel({_id: this.state._id, name, wordPressDestinations, facebookDestinations});
 		} else {
-			let {name, wordPressDestinations} = this.state;
-			ChannelAction.createChannel({name, wordPressDestinations});
+			ChannelAction.createChannel({name, wordPressDestinations, facebookDestinations});
 		}
 	}
 
@@ -77,6 +82,22 @@ export default withRouter(class ChannelEdit extends React.Component {
 		});
 		this.setState({
 			wordPressDestinations
+		})
+	}
+
+	addFacebookDestination(name, email, accessToken, expiresIn, signedRequest, userID) {
+		let {facebookDestinations} = this.state;
+		facebookDestinations.push({
+			name,
+			email,
+			accessToken,
+			expiresIn,
+			signedRequest,
+			userId: userID
+		});
+		console.log("facebookDestinations: ", facebookDestinations);
+		this.setState({
+			facebookDestinations
 		})
 	}
 
@@ -111,7 +132,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	render() {
-		let {error, channelNameError, name, wordPressDestinations} = this.state;
+		let {error, channelNameError, name, wordPressDestinations, facebookDestinations} = this.state;
 		return (
 				<div class="channelEdit">
 					<PageHeader title="Edit Channel"/>
@@ -130,12 +151,14 @@ export default withRouter(class ChannelEdit extends React.Component {
 							</div>
 						</div>
 						<div class="panel-body">
-							<div>
-								<WordPressDestinationList list={wordPressDestinations} onRowChange={this.handleChangeEvent.bind(this)}
-								                          deleteDestination={this.deleteDestination.bind(this)}/>
-							</div>
+							<WordPressDestinationList list={wordPressDestinations} onRowChange={this.handleChangeEvent.bind(this)}
+							                          deleteDestination={this.deleteDestination.bind(this)}/>
 						</div>
 					</div>
+					<Panel title="Facebook">
+						<FacebookLogin saveFacebook={this.addFacebookDestination.bind(this)}/>
+						<FacebookDestinationList list={facebookDestinations}/>
+					</Panel>
 					<button type="button" class="btn btn-primary" onClick={this.saveChannel.bind(this)}>Save
 					</button>
 					<button type="button" class="btn btn-default" onClick={this.cancel.bind(this)}>Cancel</button>
