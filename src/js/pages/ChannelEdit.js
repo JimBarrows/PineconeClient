@@ -7,8 +7,7 @@ import PageHeader from "../components/bootstrap/PageHeader";
 import React from "react";
 import {withRouter} from "react-router";
 import WordPressDestinationList from "../components/WordPressDestinationList";
-import Panel from "../components/bootstrap/Panel";
-import FacebookLogin from "../components/FacebookLogin";
+import TablePanel from "../components/bootstrap/TablePanel";
 import FacebookDestinationList from "../components/FacebookDestinationList";
 
 export default withRouter(class ChannelEdit extends React.Component {
@@ -120,6 +119,10 @@ export default withRouter(class ChannelEdit extends React.Component {
 		})
 	}
 
+	addFacebookDestinationRow() {
+		console.log("Add facebook destination row");
+	}
+
 	render() {
 		let {error, channelNameError, name, wordPressDestinations, facebookDestinations} = this.state;
 		return (
@@ -129,25 +132,14 @@ export default withRouter(class ChannelEdit extends React.Component {
 							label="ChannelName"
 							type="text" value={name} placeholder="Channel Name" name="channelName" error={channelNameError}
 							onChange={this.handleFieldEvent.bind(this)}/>
-					<div class="panel panel-default">
-						<div class="panel-heading clearfix">
-							<div class="panel-title pull-left">Word Press Destinations</div>
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-default btn-xs" onClick={this.addWordPressDestination.bind(this)}>
-									<span class="glyphicon glyphicon-plus"/></button>
-								<button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"/>
-								</button>
-							</div>
-						</div>
-						<div class="panel-body">
-							<WordPressDestinationList list={wordPressDestinations} onRowChange={this.handleChangeEvent.bind(this)}
-							                          deleteDestination={this.deleteDestination.bind(this)}/>
-						</div>
-					</div>
-					<Panel title="Facebook">
-						<FacebookLogin saveFacebook={this.addFacebookDestination.bind(this)}/>
+					<TablePanel title="Word Press Destinations" addRow={this.addWordPressDestination.bind(this)}>
+						<WordPressDestinationList list={wordPressDestinations}
+						                          onRowChange={this.handleChangeEvent.bind(this)}
+						                          deleteDestination={this.deleteDestination.bind(this)}/>
+					</TablePanel>
+					<TablePanel title="Facebook" addRow={this.addFacebookDestinationRow.bind(this)}>
 						<FacebookDestinationList list={facebookDestinations}/>
-					</Panel>
+					</TablePanel>
 					<button type="button" class="btn btn-primary" onClick={this.saveChannel.bind(this)}>Save
 					</button>
 					<button type="button" class="btn btn-default" onClick={this.cancel.bind(this)}>Cancel</button>

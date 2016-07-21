@@ -1,29 +1,18 @@
 'use strict';
 import React from "react";
+import FacebookDestinationRow from "./FacebookDestinationRow";
 
 export default class FacebookDestinationList extends React.Component {
 
 	render() {
 		let list = this.props.list;
-		console.log("fdl list: ", list);
-		let rows = list.map((item, index) => <tr key={index}>
-			<td>{item.name}</td>
-			<td>{item.email}</td>
-			<td>{item.accessToken.substring(0, 30)}</td>
-			<td>{item.expiresIn.toString()}</td>
-			<td>{item.signedRequest.substring(0, 30)}</td>
-			<td>{item.userId}</td>
-		</tr>);
+		let rows = list.map((item, index) => <FacebookDestinationRow index={index} name={item.name} pageId={pageId}/>);
 		return (
 				<table class="table table-striped">
 					<thead>
 					<tr>
 						<th>Name</th>
-						<th>Email</th>
-						<th>Access Token</th>
-						<th>Expires In</th>
-						<th>Signed Request</th>
-						<th>UserId</th>
+						<th>Page Id</th>
 					</tr>
 					</thead>
 					<tbody>

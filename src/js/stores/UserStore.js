@@ -5,13 +5,18 @@ import {UserEventNames} from "../constants";
 class UserStore extends EventEmitter {
 	constructor() {
 		super();
-		this.username = null;
-		this.id       = null;
+		this.username       = null;
+		this.id             = null;
+		this.facebookUserId = null;
 	}
 
 
 	handleActions(action) {
 		switch (action.type) {
+			case UserEventNames.USER_FACEBOOK_ID_ADDED:
+				this.facebookUserId = action.facebookUserId;
+				this.emit(UserEventNames.USER_FACEBOOK_ID_ADDED);
+				break;
 			case UserEventNames.USER_LOGGED_IN :
 				this.username = action.username;
 				this.id       = action.id;
