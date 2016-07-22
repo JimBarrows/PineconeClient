@@ -28,6 +28,10 @@ class ChannelStore extends EventEmitter {
 				this.current().facebookDestinations.push(action.facebookDestination);
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
+			case ChannelEventNames.ADD_TWITTER_DESTINATION:
+				this.current().twitterDestinations.push(action.twitterDestination);
+				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
+				break;
 			case ChannelEventNames.CREATE_CHANNEL:
 				this.channels.push(action.newChannel);
 				this.currentChannel = {};
@@ -61,15 +65,11 @@ class ChannelStore extends EventEmitter {
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
 			case ChannelEventNames.UPDATE_CHANNEL:
-				console.log("ChannelStore.updateChannel: ", action);
 				let updateChannel   = action.channel;
 				let originalChannel = this.findById(updateChannel._id);
-				console.log("ChannelStore.updateChannel before original: ", originalChannel);
 				originalChannel.name                  = updateChannel.name;
 				originalChannel.wordPressDestinations = updateChannel.wordPressDestinations;
 				originalChannel.facebookDestinations  = updateChannel.facebookDestinations;
-				console.log("ChannelStore.updateChannel after original: ", originalChannel);
-				console.log("ChannelStore.updateChannel list: ", this.channels);
 				this.currentChannel = {};
 
 				this.emit(ChannelStoreEventName.CHANGE);
