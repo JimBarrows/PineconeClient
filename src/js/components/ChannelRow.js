@@ -1,5 +1,4 @@
 import React from "react";
-import {Link} from "react-router";
 import * as ChannelActions from "../actions/ChannelAction";
 
 export default class ChannelRow extends React.Component {
@@ -14,18 +13,23 @@ export default class ChannelRow extends React.Component {
 		ChannelActions.deleteChannel(this.state.channel);
 	}
 
+	editRow() {
+		ChannelActions.editChannel(this.state.channel);
+	}
+
 	render() {
-		let {_id, name, wordPressDestinations} = this.state.channel;
+		let {name} = this.state.channel;
 
 		return (
 				<tr>
 					<td>{name}</td>
 					<td>
-						<Link to={{pathname: '/channelEdit', query: {channelId: _id}}} class="btn btn-default btn-xs"><span
-								class="glyphicon glyphicon-pencil"
-								aria-hidden="true"></span></Link>
-						<button type="button" class="btn btn-danger btn-xs" onClick={this.deleteRow.bind(this)}><span
-								class="glyphicon glyphicon-remove"></span></button>
+						<button type="button" class="btn btn-default btn-xs" onClick={this.editRow.bind(this)}>
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-danger btn-xs" onClick={this.deleteRow.bind(this)}>
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
 					</td>
 				</tr>
 		);
