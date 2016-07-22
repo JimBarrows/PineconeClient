@@ -15,6 +15,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 	constructor(props) {
 		super();
 		this.backToList = this.backToList.bind(this);
+		this.change     = this.change.bind(this);
 		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
 		let _id         = ChannelStore.current()._id || null;
 		this.state      = {
@@ -29,10 +30,12 @@ export default withRouter(class ChannelEdit extends React.Component {
 
 	componentWillMount() {
 		ChannelStore.on(ChannelStoreEventName.CHANGE, this.backToList);
+		ChannelStore.on(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE, this.change);
 	}
 
 	componentWillUnmount() {
 		ChannelStore.removeListener(ChannelStoreEventName.CHANGE, this.backToList);
+		ChannelStore.removeListener(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE, this.change);
 	}
 
 	handleFieldEvent(event) {
@@ -43,7 +46,19 @@ export default withRouter(class ChannelEdit extends React.Component {
 		}
 	}
 
+	change() {
+		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
+		let _id = ChannelStore.current()._id || null;
+		this.setState({
+			_id,
+			name,
+			wordPressDestinations,
+			facebookDestinations
+		})
+	}
+
 	backToList() {
+		console.log("ChannelEdit.backToList");
 		this.props.router.push('/');
 	}
 
@@ -52,6 +67,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	saveChannel() {
+		console.log("ChannelEdit.saveChannel");
 		let {name, wordPressDestinations, facebookDestinations} = this.state;
 		if (this.state._id) {
 			ChannelAction.updateChannel({_id: this.state._id, name, wordPressDestinations, facebookDestinations});
@@ -73,25 +89,9 @@ export default withRouter(class ChannelEdit extends React.Component {
 		})
 	}
 
-	addFacebookDestination(name, email, accessToken, expiresIn, signedRequest, userID) {
-		let {facebookDestinations} = this.state;
-		facebookDestinations.push({
-			name,
-			email,
-			accessToken,
-			expiresIn,
-			signedRequest,
-			userId: userID
-		});
-		console.log("facebookDestinations: ", facebookDestinations);
-		this.setState({
-			facebookDestinations
-		})
-	}
-
-	handleChangeEvent(index, event) {
+	wordpressRowChangeEvent(index, event) {
 		let {wordPressDestinations} = this.state;
-		let destination = wordPressDestinations[index - 1];
+		let destination = wordPressDestinations[index];
 		switch (event.target.name) {
 			case "name":
 				destination.name = event.target.value;
@@ -106,7 +106,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 				destination.password = event.target.value;
 				break;
 		}
-		wordPressDestinations[index - 1] = destination;
+		wordPressDestinations[index] = destination;
 		this.setState({
 			wordPressDestinations
 		})
@@ -120,7 +120,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	addFacebookDestinationRow() {
-		console.log("Add facebook destination row");
+		ChannelAction.addFacebookDestination();
 	}
 
 	render() {
@@ -134,7 +134,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 							onChange={this.handleFieldEvent.bind(this)}/>
 					<TablePanel title="Word Press Destinations" addRow={this.addWordPressDestination.bind(this)}>
 						<WordPressDestinationList list={wordPressDestinations}
-						                          onRowChange={this.handleChangeEvent.bind(this)}
+						                          onRowChange={this.wordpressRowChangeEvent.bind(this)}
 						                          deleteDestination={this.deleteDestination.bind(this)}/>
 					</TablePanel>
 					<TablePanel title="Facebook" addRow={this.addFacebookDestinationRow.bind(this)}>

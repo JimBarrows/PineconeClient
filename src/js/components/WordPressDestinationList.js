@@ -8,10 +8,11 @@ export default class WordPressDestinationList extends React.Component {
 	}
 
 	render() {
-		let count = 0;
 		let {list, deleteDestination} = this.props;
-		let rows  = list.map((destination) =>
-				<WordPressDestinationRow key={count++} destination={destination} onChange={this.onChange.bind(this, count)}
+		let rows = list.map((destination, index) =>
+				<WordPressDestinationRow key={index}
+				                         destination={destination}
+				                         onChange={this.onChange.bind(this, index)}
 				                         deleteDestination={deleteDestination}/>
 		);
 		return (

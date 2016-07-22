@@ -4,6 +4,17 @@ import dispatcher from "../Dispatcher";
 import {ChannelEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
 
+export function addFacebookDestination() {
+	dispatcher.dispatch({
+		type: ChannelEventNames.ADD_FACEBOOK_DESTINATION,
+		facebookDestination: {
+			_id: null,
+			name: "",
+			pageId: ""
+		}
+	});
+}
+
 export function createChannel(channel) {
 	axios.post('/api/' + UserStore.id + '/channels', channel)
 			.then((response) => {
@@ -28,6 +39,13 @@ export function deleteChannel(channel) {
 					channel
 				})
 			})
+}
+
+export function deleteFacebookDestination(facebookDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.DELETE_FACEBOOK_DESTINATION,
+		facebookDestination
+	})
 }
 
 export function editChannel(channel) {
@@ -78,15 +96,28 @@ export function newChannel() {
 }
 
 export function updateChannel(channel) {
+	console.log("ChannelAction.updateChannel");
 	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
 			.then((response) => {
+				console.log("Success");
 				dispatcher.dispatch({
 					type: ChannelEventNames.UPDATE_CHANNEL,
 					channel
 				})
 			})
-			.catch((error) => dispatcher.dispatch({type: ChannelEventNames.UDPATE_CHANNEL_ERROR, error}));
+			.catch((error) => {
+				console.log("Couldn't update channel because ", error);
+				dispatcher.dispatch({type: ChannelEventNames.UDPATE_CHANNEL_ERROR, error})
+			});
 
 }
+
+export function updateFacebookDestination(facebookDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.UPDATE_FACEBOOK_DESTINATION,
+		facebookDestination
+	});
+}
+
 
 
