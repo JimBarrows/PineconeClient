@@ -7,37 +7,35 @@ import PageHeader from "../components/bootstrap/PageHeader";
 import React from "react";
 import {withRouter} from "react-router";
 import WordPressDestinationList from "../components/WordPressDestinationList";
+import TablePanel from "../components/bootstrap/TablePanel";
+import FacebookDestinationList from "../components/FacebookDestinationList";
 
 export default withRouter(class ChannelEdit extends React.Component {
 
 	constructor(props) {
 		super();
 		this.backToList = this.backToList.bind(this);
-		let {channelId} = props.location.query;
-		let {_id, name, wordPressDestinations} = (channelId) ? ChannelStore.findById(channelId) : {
-			_id: "",
-			name: "",
-			wordPressDestinations: []
-		};
-		if (!wordPressDestinations) {
-			wordPressDestinations = [];
-		}
-		this.state = {
+		this.change     = this.change.bind(this);
+		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
+		let _id         = ChannelStore.current()._id || null;
+		this.state      = {
 			error: false,
 			channelNameError: false,
 			_id,
 			name,
-			wordPressDestinations
+			wordPressDestinations,
+			facebookDestinations
 		}
-
 	}
 
 	componentWillMount() {
 		ChannelStore.on(ChannelStoreEventName.CHANGE, this.backToList);
+		ChannelStore.on(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE, this.change);
 	}
 
 	componentWillUnmount() {
 		ChannelStore.removeListener(ChannelStoreEventName.CHANGE, this.backToList);
+		ChannelStore.removeListener(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE, this.change);
 	}
 
 	handleFieldEvent(event) {
@@ -48,7 +46,19 @@ export default withRouter(class ChannelEdit extends React.Component {
 		}
 	}
 
+	change() {
+		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
+		let _id = ChannelStore.current()._id || null;
+		this.setState({
+			_id,
+			name,
+			wordPressDestinations,
+			facebookDestinations
+		})
+	}
+
 	backToList() {
+		console.log("ChannelEdit.backToList");
 		this.props.router.push('/');
 	}
 
@@ -57,13 +67,12 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	saveChannel() {
-
+		console.log("ChannelEdit.saveChannel");
+		let {name, wordPressDestinations, facebookDestinations} = this.state;
 		if (this.state._id) {
-			let {_id, name, wordPressDestinations} = this.state;
-			ChannelAction.updateChannel({_id, name, wordPressDestinations});
+			ChannelAction.updateChannel({_id: this.state._id, name, wordPressDestinations, facebookDestinations});
 		} else {
-			let {name, wordPressDestinations} = this.state;
-			ChannelAction.createChannel({name, wordPressDestinations});
+			ChannelAction.createChannel({name, wordPressDestinations, facebookDestinations});
 		}
 	}
 
@@ -80,9 +89,9 @@ export default withRouter(class ChannelEdit extends React.Component {
 		})
 	}
 
-	handleChangeEvent(index, event) {
+	wordpressRowChangeEvent(index, event) {
 		let {wordPressDestinations} = this.state;
-		let destination = wordPressDestinations[index - 1];
+		let destination = wordPressDestinations[index];
 		switch (event.target.name) {
 			case "name":
 				destination.name = event.target.value;
@@ -97,7 +106,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 				destination.password = event.target.value;
 				break;
 		}
-		wordPressDestinations[index - 1] = destination;
+		wordPressDestinations[index] = destination;
 		this.setState({
 			wordPressDestinations
 		})
@@ -110,8 +119,12 @@ export default withRouter(class ChannelEdit extends React.Component {
 		})
 	}
 
+	addFacebookDestinationRow() {
+		ChannelAction.addFacebookDestination();
+	}
+
 	render() {
-		let {error, channelNameError, name, wordPressDestinations} = this.state;
+		let {error, channelNameError, name, wordPressDestinations, facebookDestinations} = this.state;
 		return (
 				<div class="channelEdit">
 					<PageHeader title="Edit Channel"/>
@@ -119,23 +132,14 @@ export default withRouter(class ChannelEdit extends React.Component {
 							label="ChannelName"
 							type="text" value={name} placeholder="Channel Name" name="channelName" error={channelNameError}
 							onChange={this.handleFieldEvent.bind(this)}/>
-					<div class="panel panel-default">
-						<div class="panel-heading clearfix">
-							<div class="panel-title pull-left">Word Press Destinations</div>
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-default btn-xs" onClick={this.addWordPressDestination.bind(this)}>
-									<span class="glyphicon glyphicon-plus"/></button>
-								<button type="button" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-refresh"/>
-								</button>
-							</div>
-						</div>
-						<div class="panel-body">
-							<div>
-								<WordPressDestinationList list={wordPressDestinations} onRowChange={this.handleChangeEvent.bind(this)}
-								                          deleteDestination={this.deleteDestination.bind(this)}/>
-							</div>
-						</div>
-					</div>
+					<TablePanel title="Word Press Destinations" addRow={this.addWordPressDestination.bind(this)}>
+						<WordPressDestinationList list={wordPressDestinations}
+						                          onRowChange={this.wordpressRowChangeEvent.bind(this)}
+						                          deleteDestination={this.deleteDestination.bind(this)}/>
+					</TablePanel>
+					<TablePanel title="Facebook" addRow={this.addFacebookDestinationRow.bind(this)}>
+						<FacebookDestinationList list={facebookDestinations}/>
+					</TablePanel>
 					<button type="button" class="btn btn-primary" onClick={this.saveChannel.bind(this)}>Save
 					</button>
 					<button type="button" class="btn btn-default" onClick={this.cancel.bind(this)}>Cancel</button>

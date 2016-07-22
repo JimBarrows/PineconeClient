@@ -5,15 +5,15 @@ import * as ChannelActions from "../actions/ChannelAction";
 import PageHeader from "../components/bootstrap/PageHeader";
 import Alert from "../components/bootstrap/Alert";
 import ChannelList from "../components/ChannelList";
-import {Link} from "react-router";
+import {withRouter} from "react-router";
 
-
-export default class Channels extends React.Component {
+export default withRouter(class Channels extends React.Component {
 
 	constructor() {
 		super();
 		this.getChannels  = this.getChannels.bind(this);
 		this.displayError = this.displayError.bind(this);
+		this.gotoChannel  = this.gotoChannel.bind(this);
 		this.state        = {
 			channels: ChannelStore.getAll(),
 			newChannelName: "",
@@ -25,12 +25,18 @@ export default class Channels extends React.Component {
 	componentWillMount() {
 		ChannelStore.on(ChannelStoreEventName.CHANGE, this.getChannels);
 		ChannelStore.on(ChannelStoreEventName.ERROR, this.displayError);
+		ChannelStore.on(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE, this.gotoChannel);
 		ChannelActions.loadChannels();
 	}
 
 	componentWillUnmount() {
 		ChannelStore.removeListener(ChannelStoreEventName.CHANGE, this.getChannels);
 		ChannelStore.removeListener(ChannelStoreEventName.ERROR, this.displayError);
+		ChannelStore.removeListener(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE, this.gotoChannel);
+	}
+
+	gotoChannel() {
+		this.props.router.push('/channelEdit');
 	}
 
 	getChannels() {
@@ -47,6 +53,10 @@ export default class Channels extends React.Component {
 
 	reloadChannels() {
 		ChannelActions.loadChannels();
+	}
+
+	newChannel() {
+		ChannelActions.newChannel();
 	}
 
 	render() {
@@ -66,14 +76,14 @@ export default class Channels extends React.Component {
 								<div class="panel-heading clearfix">
 									<div class="panel-title pull-left">Channels</div>
 									<div class="btn-group pull-right">
-										<button type="button" class="btn btn-devault btn-xs" onClick={this.reloadChannels.bind(this)}>
+										<button type="button" class="btn btn-default btn-xs" onClick={this.reloadChannels.bind(this)}>
 											<span
 													class="glyphicon glyphicon-refresh"/>
 										</button>
-										<Link to="channelEdit" class="btn btn-success btn-xs">
+										<button type="button" class="btn btn-default btn-xs" onClick={this.newChannel.bind(this)}>
 											<span
 													class="glyphicon glyphicon-plus"/>
-										</Link>
+										</button>
 									</div>
 								</div>
 								<div class="panel-body">
@@ -85,4 +95,4 @@ export default class Channels extends React.Component {
 				</div>
 		);
 	}
-}
+});

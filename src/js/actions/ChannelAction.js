@@ -4,6 +4,17 @@ import dispatcher from "../Dispatcher";
 import {ChannelEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
 
+export function addFacebookDestination() {
+	dispatcher.dispatch({
+		type: ChannelEventNames.ADD_FACEBOOK_DESTINATION,
+		facebookDestination: {
+			_id: null,
+			name: "",
+			pageId: ""
+		}
+	});
+}
+
 export function createChannel(channel) {
 	axios.post('/api/' + UserStore.id + '/channels', channel)
 			.then((response) => {
@@ -30,16 +41,18 @@ export function deleteChannel(channel) {
 			})
 }
 
-export function updateChannel(channel) {
-	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
-			.then((response) => {
-				dispatcher.dispatch({
-					type: ChannelEventNames.UPDATE_CHANNEL,
-					channel
-				})
-			})
-			.catch((error) => dispatcher.dispatch({type: ChannelEventNames.UDPATE_CHANNEL_ERROR, error}));
+export function deleteFacebookDestination(facebookDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.DELETE_FACEBOOK_DESTINATION,
+		facebookDestination
+	})
+}
 
+export function editChannel(channel) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.EDIT_CHANNEL,
+		channel
+	})
 }
 
 export function loadChannels() {
@@ -69,3 +82,42 @@ export function loadChannels() {
 				}
 			})
 }
+
+export function newChannel() {
+	dispatcher.dispatch({
+		type: ChannelEventNames.NEW_CHANNEL,
+		channel: {
+			name: "New Channel",
+			wordPressDestinations: [],
+			facebookDestinations: [],
+			twitterDestinations: []
+		}
+	});
+}
+
+export function updateChannel(channel) {
+	console.log("ChannelAction.updateChannel");
+	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
+			.then((response) => {
+				console.log("Success");
+				dispatcher.dispatch({
+					type: ChannelEventNames.UPDATE_CHANNEL,
+					channel
+				})
+			})
+			.catch((error) => {
+				console.log("Couldn't update channel because ", error);
+				dispatcher.dispatch({type: ChannelEventNames.UDPATE_CHANNEL_ERROR, error})
+			});
+
+}
+
+export function updateFacebookDestination(facebookDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.UPDATE_FACEBOOK_DESTINATION,
+		facebookDestination
+	});
+}
+
+
+
