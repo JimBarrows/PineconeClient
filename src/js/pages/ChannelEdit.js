@@ -61,7 +61,6 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	backToList() {
-		console.log("ChannelEdit.backToList");
 		this.props.router.push('/');
 	}
 
@@ -70,7 +69,6 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	saveChannel() {
-		console.log("ChannelEdit.saveChannel");
 		let {name, wordPressDestinations, facebookDestinations, twitterDestinations} = this.state;
 		if (this.state._id) {
 			ChannelAction.updateChannel({
@@ -138,7 +136,6 @@ export default withRouter(class ChannelEdit extends React.Component {
 
 	render() {
 		let {error, channelNameError, name, wordPressDestinations, facebookDestinations, twitterDestinations} = this.state;
-		console.log("edit: ", twitterDestinations);
 		return (
 				<div class="channelEdit">
 					<PageHeader title="Edit Channel"/>

@@ -15,7 +15,7 @@ export default class TwitterDestinationRow extends React.Component {
 			oauthToken,
 			oauthVerifier,
 			accessToken,
-			edit: !(name && oauthToken && oauthVerifier && accessToken)
+			edit: !(name)
 		};
 	}
 
@@ -51,7 +51,10 @@ export default class TwitterDestinationRow extends React.Component {
 	}
 
 	delete() {
-
+		let {accessToken, _id, index, name, oauthToken, oauthVerifier} = this.state;
+		ChannelAction.deleteTwitterDestination({
+			accessToken, _id, index, name, oauthToken, oauthVerifier
+		});
 	}
 
 	render() {

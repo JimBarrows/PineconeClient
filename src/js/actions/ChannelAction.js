@@ -58,6 +58,13 @@ export function deleteFacebookDestination(facebookDestination) {
 	})
 }
 
+export function deleteTwitterDestination(twitterDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.DELETE_TWITTER_DESTINATION,
+		twitterDestination
+	})
+}
+
 export function editChannel(channel) {
 	dispatcher.dispatch({
 		type: ChannelEventNames.EDIT_CHANNEL,
@@ -106,7 +113,6 @@ export function newChannel() {
 }
 
 export function updateChannel(channel) {
-	console.log("ChannelAction.updateChannel");
 	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
 			.then((response) => {
 				dispatcher.dispatch({

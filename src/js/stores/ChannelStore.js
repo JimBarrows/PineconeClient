@@ -52,6 +52,14 @@ class ChannelStore extends EventEmitter {
 				this.current().facebookDestinations.splice(index, 1);
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
+			case ChannelEventNames.DELETE_TWITTER_DESTINATION:
+				let twitterDestinationIndex = action.twitterDestination._id ? this.current().twitterDestinations.findIndex((twitterDestination) => twitterDestination._id === action.twitterDestination._id) : index;
+				console.log("twitterDestinationIndex: ", twitterDestinationIndex);
+				console.log("before: ", this.current().twitterDestinations);
+				this.current().twitterDestinations.splice(twitterDestinationIndex, 1);
+				console.log("after: ", this.current().twitterDestinations);
+				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
+				break;
 			case ChannelEventNames.EDIT_CHANNEL:
 				this.currentChannel = action.channel;
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
@@ -70,8 +78,8 @@ class ChannelStore extends EventEmitter {
 				originalChannel.name                  = updateChannel.name;
 				originalChannel.wordPressDestinations = updateChannel.wordPressDestinations;
 				originalChannel.facebookDestinations  = updateChannel.facebookDestinations;
+				originalChannel.twitterDestinations   = updateChannel.twitterDestinations;
 				this.currentChannel                   = {};
-
 				this.emit(ChannelStoreEventName.CHANGE);
 				break;
 			case ChannelEventNames.UPDATE_CHANNEL_ERROR:
