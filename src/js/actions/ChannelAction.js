@@ -8,13 +8,23 @@ export function addFacebookDestination() {
 	dispatcher.dispatch({
 		type: ChannelEventNames.ADD_FACEBOOK_DESTINATION,
 		facebookDestination: {
-			_id: null,
 			name: "",
 			pageId: ""
 		}
 	});
 }
 
+export function addTwitterDestination() {
+	dispatcher.dispatch({
+		type: ChannelEventNames.ADD_TWITTER_DESTINATION,
+		twitterDestination: {
+			name: '',
+			oauth_token: "",
+			oauth_verifier: "",
+			access_token: ""
+		}
+	})
+}
 export function createChannel(channel) {
 	axios.post('/api/' + UserStore.id + '/channels', channel)
 			.then((response) => {
@@ -45,6 +55,13 @@ export function deleteFacebookDestination(facebookDestination) {
 	dispatcher.dispatch({
 		type: ChannelEventNames.DELETE_FACEBOOK_DESTINATION,
 		facebookDestination
+	})
+}
+
+export function deleteTwitterDestination(twitterDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.DELETE_TWITTER_DESTINATION,
+		twitterDestination
 	})
 }
 
@@ -96,10 +113,8 @@ export function newChannel() {
 }
 
 export function updateChannel(channel) {
-	console.log("ChannelAction.updateChannel");
 	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
 			.then((response) => {
-				console.log("Success");
 				dispatcher.dispatch({
 					type: ChannelEventNames.UPDATE_CHANNEL,
 					channel
@@ -118,6 +133,14 @@ export function updateFacebookDestination(facebookDestination) {
 		facebookDestination
 	});
 }
+
+export function updateTwitterDestination(twitterDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.UPDATE_TWITTER_DESTINATION,
+		twitterDestination
+	});
+}
+
 
 
 
