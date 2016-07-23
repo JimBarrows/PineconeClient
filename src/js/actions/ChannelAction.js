@@ -8,7 +8,6 @@ export function addFacebookDestination() {
 	dispatcher.dispatch({
 		type: ChannelEventNames.ADD_FACEBOOK_DESTINATION,
 		facebookDestination: {
-			_id: null,
 			name: "",
 			pageId: ""
 		}
@@ -19,7 +18,6 @@ export function addTwitterDestination() {
 	dispatcher.dispatch({
 		type: ChannelEventNames.ADD_TWITTER_DESTINATION,
 		twitterDestination: {
-			_id: null,
 			name: '',
 			oauth_token: "",
 			oauth_verifier: "",
@@ -111,7 +109,6 @@ export function updateChannel(channel) {
 	console.log("ChannelAction.updateChannel");
 	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
 			.then((response) => {
-				console.log("Success");
 				dispatcher.dispatch({
 					type: ChannelEventNames.UPDATE_CHANNEL,
 					channel
@@ -130,6 +127,14 @@ export function updateFacebookDestination(facebookDestination) {
 		facebookDestination
 	});
 }
+
+export function updateTwitterDestination(twitterDestination) {
+	dispatcher.dispatch({
+		type: ChannelEventNames.UPDATE_TWITTER_DESTINATION,
+		twitterDestination
+	});
+}
+
 
 
 

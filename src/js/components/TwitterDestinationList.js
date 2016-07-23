@@ -6,7 +6,6 @@ export default class TwitterDestinationList extends React.Component {
 
 	render() {
 		let {list} = this.props;
-		console.log("list: ", list);
 		let rows = list.map((item, index) =>
 				<TwitterDestinationRow key={index}
 				                       index={index}

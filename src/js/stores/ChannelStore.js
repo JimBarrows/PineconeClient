@@ -65,12 +65,12 @@ class ChannelStore extends EventEmitter {
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
 			case ChannelEventNames.UPDATE_CHANNEL:
-				let updateChannel   = action.channel;
-				let originalChannel = this.findById(updateChannel._id);
+				let updateChannel                     = action.channel;
+				let originalChannel                   = this.findById(updateChannel._id);
 				originalChannel.name                  = updateChannel.name;
 				originalChannel.wordPressDestinations = updateChannel.wordPressDestinations;
 				originalChannel.facebookDestinations  = updateChannel.facebookDestinations;
-				this.currentChannel = {};
+				this.currentChannel                   = {};
 
 				this.emit(ChannelStoreEventName.CHANGE);
 				break;
@@ -78,9 +78,16 @@ class ChannelStore extends EventEmitter {
 				this.emit(ChannelStoreEventName.ERROR, action.error);
 				break;
 			case ChannelEventNames.UPDATE_FACEBOOK_DESTINATION:
-				let target    = (action.facebookDestination._id) ? this.current().facebookDestinations.find((fbd) => fbd._id === action.facebookDestination._id) : this.current().facebookDestinations[action.facebookDestination.index];
-				target.name   = action.facebookDestination.name;
-				target.pageId = action.facebookDestination.pageId;
+				let targetFB    = (action.facebookDestination._id) ? this.current().facebookDestinations.find((fbd) => fbd._id === action.facebookDestination._id) : this.current().facebookDestinations[action.facebookDestination.index];
+				targetFB.name   = action.facebookDestination.name;
+				targetFB.pageId = action.facebookDestination.pageId;
+				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
+				break;
+			case ChannelEventNames.UPDATE_TWITTER_DESTINATION:
+				let targetTwitter           = (action.twitterDestination._id) ? this.current().twitterDestinations.find((twitterDestination) => twitterDestination._id === action.twitterDestination._id) : this.current().twitterDestinations[action.twitterDestination.index];
+				targetTwitter.name          = action.twitterDestination.name;
+				targetTwitter.oauthToken    = action.twitterDestination.oauthToken;
+				targetTwitter.oauthVerifier = action.twitterDestination.oauthVerifier;
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
 		}
