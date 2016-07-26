@@ -128,10 +128,24 @@ export function updateChannel(channel) {
 }
 
 export function updateFacebookDestination(facebookDestination) {
-	dispatcher.dispatch({
-		type: ChannelEventNames.UPDATE_FACEBOOK_DESTINATION,
-		facebookDestination
-	});
+	console.log("Before: ", facebookDestination);
+	axios.get('/api/user/pageAcccessToken/' + facebookDestination.pageId)
+			.then((response)=> {
+				console.log("response: ", response);
+				facebookDestination.accessToken = response.data.accessToken;
+				console.log("After: ", facebookDestination);
+				dispatcher.dispatch({
+					type: ChannelEventNames.UPDATE_FACEBOOK_DESTINATION,
+					facebookDestination
+				});
+			})
+			.catch((error) => {
+				dispatcher.dispatch({
+					type: ChannelEventNames.UPDATE_FACEBOOK_DESTINATION_ERROR,
+					facebookDestination,
+					error
+				});
+			});
 }
 
 export function updateTwitterDestination(twitterDestination) {

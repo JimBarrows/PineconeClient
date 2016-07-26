@@ -86,10 +86,17 @@ class ChannelStore extends EventEmitter {
 				this.emit(ChannelStoreEventName.ERROR, action.error);
 				break;
 			case ChannelEventNames.UPDATE_FACEBOOK_DESTINATION:
-				let targetFB    = (action.facebookDestination._id) ? this.current().facebookDestinations.find((fbd) => fbd._id === action.facebookDestination._id) : this.current().facebookDestinations[action.facebookDestination.index];
-				targetFB.name   = action.facebookDestination.name;
-				targetFB.pageId = action.facebookDestination.pageId;
+			case ChannelEventNames.UPDATE_FACEBOOK_DESTINATION_ERROR:
+				let targetFB         = (action.facebookDestination._id) ? this.current().facebookDestinations.find((fbd) => fbd._id === action.facebookDestination._id) : this.current().facebookDestinations[action.facebookDestination.index];
+				targetFB.name        = action.facebookDestination.name;
+				targetFB.pageId      = action.facebookDestination.pageId;
+				targetFB.accessToken = action.facebookDestination.accessToken;
+				if (action.type === ChannelEventNames) {
+					//TODO don't ignore this error
+					console.log("Error setting facebook destination: ", action.error);
+				}
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
+				break;
 				break;
 			case ChannelEventNames.UPDATE_TWITTER_DESTINATION:
 				let targetTwitter           = (action.twitterDestination._id) ? this.current().twitterDestinations.find((twitterDestination) => twitterDestination._id === action.twitterDestination._id) : this.current().twitterDestinations[action.twitterDestination.index];

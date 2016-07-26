@@ -3,13 +3,12 @@ import axios from "axios";
 import dispatcher from "../Dispatcher";
 import {UserEventNames} from "../constants";
 
-export function addFacebookUserId(facebookUserId) {
-
-	axios.put("/api/user/facebookId", {facebookUserId})
+export function addFacebookUserId(facebookUserId, accessToken, expiresIn) {
+	axios.put("/api/user/facebookId", {facebookUserId, accessToken, expiresIn})
 			.then(() =>
 					dispatcher.dispatch({
 						type: UserEventNames.USER_FACEBOOK_ID_ADDED,
-						facebookUserId
+						facebookUserId, accessToken, expiresIn
 					}))
 			.catch((error) => dispatcher.dispatch({
 				type: UserEventNames.USER_FACEBOOK_ID_ADD_ERROR,
