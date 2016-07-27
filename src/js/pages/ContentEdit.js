@@ -112,7 +112,7 @@ export default withRouter(class ContentEdit extends React.Component {
 			valid = false;
 		}
 
-		if (!publishDate || !publishDate.trim()) {
+		if (!publishDate) {
 			this.setState({
 				publishDateError: "Content must have a publish date"
 			});
