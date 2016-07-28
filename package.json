@@ -45,25 +45,13 @@
     "react-dom": "^15.2.0",
     "react-router": "^2.5.2",
     "style-loader": "^0.13.1",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
     "wdio-jasmine-framework": "^0.2.3",
     "webdriver-manager": "^10.2.1",
-    "webdriverio": "^4.2.1"
-  },
-  "devDependencies": {
-    "wdio-jasmine-framework": "^0.2.3",
-    "css-loader": "^0.23.1",
-    "flux": "^2.1.1",
-    "history": "^3.0.0",
-    "moment": "^2.14.1",
-    "react": "^15.2.0",
-    "react-datetime": "^2.3.2",
-    "react-dom": "^15.2.0",
-    "react-facebook-login": "^3.1.0",
-    "react-router": "^2.5.2",
-    "style-loader": "^0.13.1",
+    "webdriverio": "^4.2.1",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
+  },
+  "devDependencies": {
+    "wdio-jasmine-framework": "^0.2.3"
   }
 }

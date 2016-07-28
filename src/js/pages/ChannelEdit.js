@@ -9,6 +9,7 @@ import {withRouter} from "react-router";
 import WordPressDestinationList from "../components/WordPressDestinationList";
 import TablePanel from "../components/bootstrap/TablePanel";
 import FacebookDestinationList from "../components/FacebookDestinationList";
+import TwitterDestinationList from "../components/TwitterDestinationList";
 
 export default withRouter(class ChannelEdit extends React.Component {
 
@@ -16,7 +17,7 @@ export default withRouter(class ChannelEdit extends React.Component {
 		super();
 		this.backToList = this.backToList.bind(this);
 		this.change     = this.change.bind(this);
-		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
+		let {name, wordPressDestinations, facebookDestinations, twitterDestinations} = ChannelStore.current();
 		let _id         = ChannelStore.current()._id || null;
 		this.state      = {
 			error: false,
@@ -24,7 +25,8 @@ export default withRouter(class ChannelEdit extends React.Component {
 			_id,
 			name,
 			wordPressDestinations,
-			facebookDestinations
+			facebookDestinations,
+			twitterDestinations
 		}
 	}
 
@@ -47,18 +49,18 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	change() {
-		let {name, wordPressDestinations, facebookDestinations} = ChannelStore.current();
+		let {name, wordPressDestinations, facebookDestinations, twitterDestinations} = ChannelStore.current();
 		let _id = ChannelStore.current()._id || null;
 		this.setState({
 			_id,
 			name,
 			wordPressDestinations,
-			facebookDestinations
+			facebookDestinations,
+			twitterDestinations
 		})
 	}
 
 	backToList() {
-		console.log("ChannelEdit.backToList");
 		this.props.router.push('/');
 	}
 
@@ -67,12 +69,17 @@ export default withRouter(class ChannelEdit extends React.Component {
 	}
 
 	saveChannel() {
-		console.log("ChannelEdit.saveChannel");
-		let {name, wordPressDestinations, facebookDestinations} = this.state;
+		let {name, wordPressDestinations, facebookDestinations, twitterDestinations} = this.state;
 		if (this.state._id) {
-			ChannelAction.updateChannel({_id: this.state._id, name, wordPressDestinations, facebookDestinations});
+			ChannelAction.updateChannel({
+				_id: this.state._id,
+				name,
+				wordPressDestinations,
+				facebookDestinations,
+				twitterDestinations
+			});
 		} else {
-			ChannelAction.createChannel({name, wordPressDestinations, facebookDestinations});
+			ChannelAction.createChannel({name, wordPressDestinations, facebookDestinations, twitterDestinations});
 		}
 	}
 
@@ -123,8 +130,12 @@ export default withRouter(class ChannelEdit extends React.Component {
 		ChannelAction.addFacebookDestination();
 	}
 
+	addTwitterDestinationRow() {
+		ChannelAction.addTwitterDestination();
+	}
+
 	render() {
-		let {error, channelNameError, name, wordPressDestinations, facebookDestinations} = this.state;
+		let {error, channelNameError, name, wordPressDestinations, facebookDestinations, twitterDestinations} = this.state;
 		return (
 				<div class="channelEdit">
 					<PageHeader title="Edit Channel"/>
@@ -139,6 +150,9 @@ export default withRouter(class ChannelEdit extends React.Component {
 					</TablePanel>
 					<TablePanel title="Facebook" addRow={this.addFacebookDestinationRow.bind(this)}>
 						<FacebookDestinationList list={facebookDestinations}/>
+					</TablePanel>
+					<TablePanel title="Twitter" addRow={this.addTwitterDestinationRow.bind(this)}>
+						<TwitterDestinationList list={twitterDestinations}/>
 					</TablePanel>
 					<button type="button" class="btn btn-primary" onClick={this.saveChannel.bind(this)}>Save
 					</button>
