@@ -15,9 +15,10 @@ export default class TwitterDestinationList extends React.Component {
 					<thead>
 					<tr>
 						<th>Name</th>
-						<th>Oauth Token</th>
-						<th>Oauth Verifier</th>
+						<th>Owner Name</th>
+						<th>Owner Id</th>
 						<th>Access Token</th>
+						<th>Access Token Secret</th>
 					</tr>
 					</thead>
 					<tbody>

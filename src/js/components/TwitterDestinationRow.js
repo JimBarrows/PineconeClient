@@ -7,23 +7,39 @@ export default class TwitterDestinationRow extends React.Component {
 	constructor(props) {
 		super(props);
 		let {index, twitterDestination} = props;
-		let {_id, name, oauthToken, oauthVerifier, accessToken} = twitterDestination;
+		let {accessToken, accessTokenSecret, _id, name, owner, ownerId} = twitterDestination;
 		this.state = {
-			_id,
-			index,
-			name,
-			oauthToken,
-			oauthVerifier,
-			accessToken,
+			accessToken, accessTokenSecret, _id, index, name, owner, ownerId,
 			edit: !(name)
 		};
 	}
 
 	onChange(event) {
+		console.log("onChange( ", event, ")");
 		switch (event.target.name) {
 			case "name":
 				this.setState({
 					name: event.target.value
+				});
+				break;
+			case "accessToken":
+				this.setState({
+					accessToken: event.target.value
+				});
+				break;
+			case "accessTokenSecret":
+				this.setState({
+					accessTokenSecret: event.target.value
+				});
+				break;
+			case "owner":
+				this.setState({
+					owner: event.target.value
+				});
+				break;
+			case "ownerId":
+				this.setState({
+					ownerId: event.target.value
 				});
 				break;
 		}
@@ -36,14 +52,9 @@ export default class TwitterDestinationRow extends React.Component {
 	}
 
 	save() {
-		let {accessToken, _id, index, name, oauthToken, oauthVerifier} = this.state;
+		let {accessToken, accessTokenSecret, _id, name, owner, ownerId} = this.state;
 		ChannelAction.updateTwitterDestination({
-			accessToken,
-			_id,
-			index,
-			name,
-			oauthToken,
-			oauthVerifier
+			accessToken, accessTokenSecret, _id, name, owner, ownerId
 		});
 		this.setState({
 			edit: false
@@ -51,18 +62,36 @@ export default class TwitterDestinationRow extends React.Component {
 	}
 
 	delete() {
-		let {accessToken, _id, index, name, oauthToken, oauthVerifier} = this.state;
+		let {accessToken, accessTokenSecret, edit, _id, index, name, owner, ownerId} = this.state;
 		ChannelAction.deleteTwitterDestination({
-			accessToken, _id, index, name, oauthToken, oauthVerifier
+			accessToken, accessTokenSecret, edit, _id, index, name, owner, ownerId
 		});
 	}
 
 	render() {
-		let {accessToken, edit, _id, index, name, oauthToken, oauthVerifier} = this.state;
-		let id       = _id || "tdr_" + index;
-		let nameTd   = edit ? <td><input name="name" type="text" value={name} onChange={this.onChange.bind(this)}/></td> :
+		let {accessToken, accessTokenSecret, edit, _id, index, name, owner, ownerId} = this.state;
+		let id                  = _id || "tdr_" + index;
+		let nameTd              = edit ?
+				<td><input name="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
 				<td>{name}</td>;
-		let buttonTd = edit ? (<td>
+		let accessTokenTd       = edit ?
+				<td><input name="accessToken" type="text" defaultValue={accessToken} onChange={this.onChange.bind(this)}/>
+				</td> :
+				<td>{accessToken}</td>;
+		let accessTokenSecretTd = edit ?
+				<td><input name="accessTokenSecret" type="text" defaultValue={accessTokenSecret}
+				           onChange={this.onChange.bind(this)}/>
+				</td> :
+				<td>{accessTokenSecret}</td>;
+		let ownerTd             = edit ?
+				<td><input name="owner" type="text" defaultValue={owner} onChange={this.onChange.bind(this)}/>
+				</td> :
+				<td>{owner}</td>;
+		let ownerIdTd           = edit ?
+				<td><input name="ownerId" type="text" defaultValue={ownerId} onChange={this.onChange.bind(this)}/>
+				</td> :
+				<td>{ownerId}</td>;
+		let buttonTd            = edit ? (<td>
 			<button type="button" class="btn btn-default btn-xs" onClick={this.save.bind(this)}>
 				<span class="glyphicon glyphicon-ok"/>
 			</button>
@@ -77,9 +106,10 @@ export default class TwitterDestinationRow extends React.Component {
 		return (
 				<tr id={id}>
 					{nameTd}
-					<td>{oauthToken}</td>
-					<td>{oauthVerifier}</td>
-					<td>{accessToken}</td>
+					{ownerTd}
+					{ownerIdTd}
+					{accessTokenTd}
+					{accessTokenSecretTd}
 					{buttonTd}
 				</tr>
 		);

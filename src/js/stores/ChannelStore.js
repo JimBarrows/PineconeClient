@@ -96,10 +96,12 @@ class ChannelStore extends EventEmitter {
 				break;
 				break;
 			case ChannelEventNames.UPDATE_TWITTER_DESTINATION:
-				let targetTwitter           = (action.twitterDestination._id) ? this.current().twitterDestinations.find((twitterDestination) => twitterDestination._id === action.twitterDestination._id) : this.current().twitterDestinations[action.twitterDestination.index];
-				targetTwitter.name          = action.twitterDestination.name;
-				targetTwitter.oauthToken    = action.twitterDestination.oauthToken;
-				targetTwitter.oauthVerifier = action.twitterDestination.oauthVerifier;
+				let targetTwitter               = (action.twitterDestination._id) ? this.current().twitterDestinations.find((twitterDestination) => twitterDestination._id === action.twitterDestination._id) : this.current().twitterDestinations[action.twitterDestination.index];
+				targetTwitter.accessToken       = action.twitterDestination.accessToken;
+				targetTwitter.accessTokenSecret = action.twitterDestination.accessTokenSecret;
+				targetTwitter.name              = action.twitterDestination.name;
+				targetTwitter.owner             = action.twitterDestination.owner;
+				targetTwitter.ownerId           = action.twitterDestination.ownerId;
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
 		}

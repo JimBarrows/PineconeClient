@@ -108,6 +108,7 @@ export function newChannel() {
 }
 
 export function updateChannel(channel) {
+	console.log("updateChannel( ", channel, ")");
 	axios.put('/api/' + UserStore.id + '/channels/' + channel._id, channel)
 			.then((response) => {
 				dispatcher.dispatch({
@@ -142,6 +143,7 @@ export function updateFacebookDestination(facebookDestination) {
 }
 
 export function updateTwitterDestination(twitterDestination) {
+	console.log("updateTwitterDestination( ", twitterDestination, ")");
 	dispatcher.dispatch({
 		type: ChannelEventNames.UPDATE_TWITTER_DESTINATION,
 		twitterDestination
