@@ -8,16 +8,16 @@
 	"email" : "jim@reallybigtree.com"
   },
   "scripts" : {
-	"pinecone:client:test:webdriver:start" : "webdriver-manager start",
-	"test" : "babel-node run.js",
-	"pinecone:client:test" : "echo \"Error: no test specified\" && exit 1",
-	"pinecone:client:dev:start" : "webpack-dev-server --hot --inline",
-	"pinecone:client:package" : "webpack",
-	"prepinecone:client:docker:build" : "npm run pinecone:client:package",
-	"pinecone:client:docker:dev:run" : "docker run --detach --name pinecone-client -p 80:80 --link pinecone-server:server registry.gitlab.com/reallybigtree/pinecone-client",
-	"pinecone:client:docker:build" : "docker build -t registry.gitlab.com/reallybigtree/pinecone-client .",
 	"pinecone:client::docker:push" : "docker push registry.gitlab.com/reallybigtree/pinecone-client",
-	"pinecone:client:update-webdriver" : "webdriver-manager update"
+	"pinecone:client:docker:build" : "docker build -t registry.gitlab.com/reallybigtree/pinecone-client .",
+	"pinecone:client:docker:run" : "docker run --detach --name pinecone-client -p 80:80 --link pinecone-server:server registry.gitlab.com/reallybigtree/pinecone-client",
+	"pinecone:client:package" : "webpack",
+	"pinecone:client:start" : "webpack-dev-server --hot --inline",
+	"pinecone:client:test" : "babel-node run.js",
+	"pinecone:client:test:webdriver:start" : "webdriver-manager start",
+	"pinecone:client:update-webdriver" : "webdriver-manager update",
+	"prepinecone:client:docker:build" : "npm run pinecone:client:package",
+	"test" : "npm run pinecone:client:test"
   },
   "author" : {
 	"name" : "Jim Barrows",
