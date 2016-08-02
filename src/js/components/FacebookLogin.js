@@ -11,7 +11,6 @@ export default class FacebookLoginComponent extends React.Component {
 	}
 
 	responseFacebook = (response) => {
-		console.log(response);
 		let {name, email, accessToken, expiresIn, signedRequest, userID} = response;
 		expiresIn = moment().add(expiresIn, 'ms');
 		this.addFacebook(name, email, accessToken, expiresIn, signedRequest, userID);

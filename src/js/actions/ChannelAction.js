@@ -73,11 +73,6 @@ export function editChannel(channel) {
 }
 
 export function loadChannels() {
-	// TODO figure out how the waitfor is supposed to work.
-	// console.log("dispatcher: ", dispatcher);
-	// dispatcher.dispatch({
-	// 	type: ChannelEventNames.FETCHING_CHANNEL_BEGIN
-	// });
 	axios.get('/api/' + UserStore.id + '/channels')
 			.then(function (response) {
 				dispatcher.dispatch({
@@ -128,12 +123,10 @@ export function updateChannel(channel) {
 }
 
 export function updateFacebookDestination(facebookDestination) {
-	console.log("Before: ", facebookDestination);
+
 	axios.get('/api/user/pageAcccessToken/' + facebookDestination.pageId)
 			.then((response)=> {
-				console.log("response: ", response);
 				facebookDestination.accessToken = response.data.accessToken;
-				console.log("After: ", facebookDestination);
 				dispatcher.dispatch({
 					type: ChannelEventNames.UPDATE_FACEBOOK_DESTINATION,
 					facebookDestination

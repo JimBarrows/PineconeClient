@@ -54,10 +54,7 @@ class ChannelStore extends EventEmitter {
 				break;
 			case ChannelEventNames.DELETE_TWITTER_DESTINATION:
 				let twitterDestinationIndex = action.twitterDestination._id ? this.current().twitterDestinations.findIndex((twitterDestination) => twitterDestination._id === action.twitterDestination._id) : index;
-				console.log("twitterDestinationIndex: ", twitterDestinationIndex);
-				console.log("before: ", this.current().twitterDestinations);
 				this.current().twitterDestinations.splice(twitterDestinationIndex, 1);
-				console.log("after: ", this.current().twitterDestinations);
 				this.emit(ChannelStoreEventName.CURRENT_CHANNEL_CHANGE);
 				break;
 			case ChannelEventNames.EDIT_CHANNEL:
