@@ -5,10 +5,10 @@ import FormGroup from "./FormGroup2";
 export default class TextFormGroup extends React.Component {
 
 	render() {
-		let {label, name, onChange, error, value} = this.props;
+		let {label, name, onChange, error, value, placeholder} = this.props;
 		return (
 				<FormGroup label={label} name={name} error={error}>
-					<input type={type} class="form-control" id={name} placeholder={placeholder} onChange={onChange}
+					<input type="text" class="form-control" id={name} placeholder={placeholder} onChange={onChange}
 					       value={value}/>
 				</FormGroup>
 		);

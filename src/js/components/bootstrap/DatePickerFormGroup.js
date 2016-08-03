@@ -1,6 +1,7 @@
 'use strict';
 import React from "react";
 import FormGroup from "./FormGroup2";
+import DatePicker from "react-datetime";
 
 
 export default class DatePickerForm extends React.Component {

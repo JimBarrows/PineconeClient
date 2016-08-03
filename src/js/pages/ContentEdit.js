@@ -2,14 +2,17 @@
 import React from "react";
 import PageHeader from "../components/bootstrap/PageHeader";
 import * as Actions from "../actions/ContentActions";
-import FormGroup from "../components/bootstrap/FormGroup";
+import TextFormGroup from "../components/bootstrap/TextFormGroup";
+import TextAreaFormGroup from "../components/bootstrap/TextAreaFormGroup";
+import DatePickerFormGroup from "../components/bootstrap/DatePickerFormGroup";
+import SelectFormGroup from "../components/bootstrap/DatePickerFormGroup";
 import {withRouter} from "react-router";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import moment from "moment";
 import ChannelStore from "../stores/ChannelStore";
 import TwitterPanel from "../components/TwitterPanel";
-import FacebookPanel from "../components/FacebookPanel";
+import FacebookPanel from "../components/FacebookContent";
 import WordpressPanel from "../components/WordpressPanel";
 
 export default withRouter(class ContentEdit extends React.Component {
@@ -57,11 +60,24 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	fieldChange(event) {
+		console.log("ChannelEdit.fieldChange( ", event, ")");
 		switch (event.target.id) {
 			case "body" :
-				this.setState({
-					body: event.target.value
-				});
+				console.log("ChannelEdit.fieldChange body: ", event.target.value);
+				if (this.state.facebook.useBody) {
+					console.log("ChannelEdit.fieldChange using body");
+					let {facebook} = this.state;
+					facebook.post = event.target.value;
+					this.setState({
+						body: event.target.value,
+						facebook: facebook
+					});
+				} else {
+					console.log("ChannelEdit.fieldChange nope body");
+					this.setState({
+						body: event.target.value
+					});
+				}
 				break;
 			case "channel" :
 				this.setState({
@@ -154,7 +170,7 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	render() {
-		console.log("ContentEdit.state: ", this.state);
+		console.log("ChannelEdit.render state: ", this.state);
 		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter} = this.state;
 		let {titleError, bodyError, publishDateError, excerptError, statusError, channelError, formatError} = this.state;
 		let channelOptions = ChannelStore.getAll().map((channel) => {
@@ -165,16 +181,18 @@ export default withRouter(class ContentEdit extends React.Component {
 		return (
 				<div class="contentEdit">
 					<PageHeader title="Edit Content"/>
-					<FormGroup name="title" label="Title" type="text" placeholder="10 ways to do something cool"
-					           onChange={this.fieldChange.bind(this)} value={title} error={titleError}/>
-					<FormGroup name="body" label="Body" type="textarea"
-					           onChange={this.fieldChange.bind(this)} value={body} error={bodyError}/>
-					<FormGroup name="publishDate" label="Publish Date" type="date"
-					           onChange={this.publishDateChange.bind(this)} value={publishDate} error={publishDateError}/>
-					<FormGroup name="channel" label="Channel" type="select"
-					           onChange={this.fieldChange.bind(this)} value={channel} options={channelOptions}
-					           error={channelError}/>
-					<FacebookPanel facebook={facebook}/>
+					<TextFormGroup name="title" label="Title" placeholder="10 ways to do something cool"
+					               onChange={this.fieldChange.bind(this)} value={title} error={titleError}/>
+
+					<TextAreaFormGroup name="body" label="Body"
+					                   onChange={this.fieldChange.bind(this)} value={body} error={bodyError}/>
+					<DatePickerFormGroup name="publishDate" label="Publish Date" type="date"
+					                     onChange={this.publishDateChange.bind(this)} value={publishDate}
+					                     error={publishDateError}/>
+					<SelectFormGroup name="channel" label="Channel"
+					                 onChange={this.fieldChange.bind(this)} value={channel} options={channelOptions}
+					                 error={channelError}/>
+					<FacebookPanel facebook={facebook} onChange={this.fieldChange.bind(this)}/>
 					<TwitterPanel twitter={twitter}/>
 					<WordpressPanel wordpress={wordpress}/>
 					<button id='saveButton' type="button" class="btn btn-primary" onClick={this.save.bind(this)}>Save
