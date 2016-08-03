@@ -63,11 +63,11 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	fieldChange(event) {
+		let {facebook, twitter, wordpress} = this.state;
 		switch (event.target.id) {
 			case "body" :
 				let body = event.target.value;
-				let {facebook, wordpress} = this.state;
-				if (this.state.facebook.useBody) {
+				if (facebook.useBody) {
 					facebook.post = body;
 				}
 				if (wordpress.useBody) {
@@ -90,19 +90,28 @@ export default withRouter(class ContentEdit extends React.Component {
 				});
 				break;
 			case "title" :
-				if (this.state.twitter.useTitle) {
-					let {twitter} = this.state;
+				if (twitter.useTitle) {
 					twitter.status = event.target.value;
-					this.setState({
-						title: event.target.value,
-						twitter
-					});
-				} else {
-					this.setState({
-						title: event.target.value
-					});
 				}
-
+				this.setState({
+					title: event.target.value,
+					twitter
+				});
+				break;
+			case "twitterUseTitle" :
+				twitter.useTitle = !twitter.useTitle;
+				if (twitter.useTitle) {
+					twitter.status = this.state.title
+				}
+				this.setState({
+					twitter
+				});
+				break;
+			case "twitterStatus" :
+				twitter.status = event.target.value;
+				this.setState({
+					twitter
+				});
 				break;
 			case "wpExcerpt" :
 				this.state.wpFields.excerpt = event.target.value;

@@ -9,7 +9,6 @@ export default class FacebookContent extends React.Component {
 
 	render() {
 		let {post, useBody, postError}  = this.props.facebook;
-		console.log("FacebookPanel.render: ", this.props);
 		return (
 				<Panel title="Facebook">
 					<CheckboxFormGroup name="facebookUseBody" label="Use content  body" onChange={this.props.onChange}

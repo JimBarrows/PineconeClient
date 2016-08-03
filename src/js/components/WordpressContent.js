@@ -11,7 +11,6 @@ export default class WordpressContent extends React.Component {
 	render() {
 		let {excerpt, status, format, useBody, count, typeToCount, excerptError, statusError, formatError} = this.props.wordpress;
 
-		console.log("WordpressPanel.render props: ", this.props.wordpress);
 		return (
 				<Panel title="Word Press">
 					<CheckboxFormGroup name="wordpressUseBody"
