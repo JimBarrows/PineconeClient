@@ -8,36 +8,40 @@ import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import moment from "moment";
 import ChannelStore from "../stores/ChannelStore";
+import TwitterPanel from "../components/TwitterPanel";
+import FacebookPanel from "../components/FacebookPanel";
+import WordpressPanel from "../components/WordpressPanel";
 
 export default withRouter(class ContentEdit extends React.Component {
 
 	constructor(props) {
-		super();
+		super(props);
 		this.saveSucces  = this.saveSucces.bind(this);
 		this.saveFailure = this.saveFailure.bind(this);
 		let {contentId} = props.location.query;
-		let {_id, body, channel, createDate, owner, publishDate, title, wpFields} = contentId ? ContentStore.findById(contentId) : {
+		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter} = contentId ? ContentStore.findById(contentId) : {
 			_id: '',
 			body: '',
 			channel: '',
 			createDate: moment(),
 			publishDate: moment(),
 			title: '',
-			wpFields: {
+			wordpress: {
 				excerpt: '',
 				status: '',
 				format: ''
+			},
+			twitter: {
+				status: '',
+				useTitle: true
+			},
+			facebook: {
+				post: '',
+				useBody: true
 			}
 		};
-		if (!wpFields) {
-			wpFields = {
-				excerpt: '',
-				status: '',
-				format: ''
-			}
-		}
-		this.state = {
-			_id, body, channel, createDate, owner, publishDate, title, wpFields
+		this.state       = {
+			_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter
 		}
 	}
 
@@ -87,6 +91,7 @@ export default withRouter(class ContentEdit extends React.Component {
 					wpFields: this.state.wpFields
 				});
 				break;
+
 		}
 	};
 
@@ -127,9 +132,9 @@ export default withRouter(class ContentEdit extends React.Component {
 
 		if (valid) {
 			if (this.state._id) {
-				Actions.update(_id, {body, channel, createDate, owner, publishDate, title, wpFields});
+				Actions.update(_id, {body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter});
 			} else {
-				Actions.create({body, channel, createDate, owner, publishDate, title, wpFields});
+				Actions.create({body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter});
 			}
 		}
 	}
@@ -149,7 +154,8 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	render() {
-		let {_id, body, channel, createDate, owner, publishDate, title, wpFields} = this.state;
+		console.log("ContentEdit.state: ", this.state);
+		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter} = this.state;
 		let {titleError, bodyError, publishDateError, excerptError, statusError, channelError, formatError} = this.state;
 		let channelOptions = ChannelStore.getAll().map((channel) => {
 			return {
@@ -168,17 +174,9 @@ export default withRouter(class ContentEdit extends React.Component {
 					<FormGroup name="channel" label="Channel" type="select"
 					           onChange={this.fieldChange.bind(this)} value={channel} options={channelOptions}
 					           error={channelError}/>
-					<div class="panel panel-default">
-						<div class="panel-heading">Word Press</div>
-						<div class="panel-body">
-							<FormGroup name="wpExcerpt" label="Excerpt" type="textarea"
-							           onChange={this.fieldChange.bind(this)} value={wpFields.excerpt} error={excerptError}/>
-							<FormGroup name="wpStatus" label="Status" type="text" placeholder="publish"
-							           onChange={this.fieldChange.bind(this)} value={wpFields.status} error={statusError}/>
-							<FormGroup name="wpFormat" label="Format" type="text"
-							           onChange={this.fieldChange.bind(this)} value={wpFields.format} error={formatError}/>
-						</div>
-					</div>
+					<FacebookPanel facebook={facebook}/>
+					<TwitterPanel twitter={twitter}/>
+					<WordpressPanel wordpress={wordpress}/>
 					<button id='saveButton' type="button" class="btn btn-primary" onClick={this.save.bind(this)}>Save
 					</button>
 					<button type="button" class="btn btn-default" onClick={this.cancel.bind(this)}>Cancel</button>
