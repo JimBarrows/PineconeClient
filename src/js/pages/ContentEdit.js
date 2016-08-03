@@ -11,7 +11,7 @@ import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import moment from "moment";
 import ChannelStore from "../stores/ChannelStore";
-import TwitterPanel from "../components/TwitterPanel";
+import TwitterPanel from "../components/TwitterContent";
 import FacebookPanel from "../components/FacebookContent";
 import WordpressPanel from "../components/WordpressPanel";
 
@@ -85,9 +85,19 @@ export default withRouter(class ContentEdit extends React.Component {
 				});
 				break;
 			case "title" :
-				this.setState({
-					title: event.target.value
-				});
+				if (this.state.twitter.useTitle) {
+					let {twitter} = this.state;
+					twitter.status = event.target.value;
+					this.setState({
+						title: event.target.value,
+						twitter
+					});
+				} else {
+					this.setState({
+						title: event.target.value
+					});
+				}
+
 				break;
 			case "wpExcerpt" :
 				this.state.wpFields.excerpt = event.target.value;
@@ -193,7 +203,7 @@ export default withRouter(class ContentEdit extends React.Component {
 					                 onChange={this.fieldChange.bind(this)} value={channel} options={channelOptions}
 					                 error={channelError}/>
 					<FacebookPanel facebook={facebook} onChange={this.fieldChange.bind(this)}/>
-					<TwitterPanel twitter={twitter}/>
+					<TwitterPanel twitter={twitter} onChange={this.fieldChange.bind(this)}/>
 					<WordpressPanel wordpress={wordpress}/>
 					<button id='saveButton' type="button" class="btn btn-primary" onClick={this.save.bind(this)}>Save
 					</button>

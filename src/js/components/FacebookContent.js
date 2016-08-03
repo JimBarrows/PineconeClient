@@ -15,7 +15,7 @@ export default class FacebookPanel extends React.Component {
 					<CheckboxFormGroup name="facebookUseBody" label="Use content  body" onChange={this.props.onChange}
 					                   value={useBody} error=""/>
 					<TextAreaFormGroup name="facebookPost" label="Post"
-					                   onChange={this.props.onChange} value={post} error={postError}/>
+					                   onChange={this.props.onChange} value={post} error={postError} disabled={useBody}/>
 				</Panel>
 		);
 	}
