@@ -65,6 +65,21 @@ export default withRouter(class ContentEdit extends React.Component {
 	fieldChange(event) {
 		let {facebook, twitter, wordpress} = this.state;
 		switch (event.target.id) {
+			case "facebookPost" :
+				facebook.post = event.target.body;
+				this.setState({
+					facebook
+				});
+				break;
+			case "facebookUseBody" :
+				facebook.useBody = !facebook.useBody;
+				if (facebook.useBody) {
+					facebook.post = this.state.body;
+				}
+				this.setState({
+					facebook
+				});
+				break;
 			case "body" :
 				let body = event.target.value;
 				if (facebook.useBody) {
