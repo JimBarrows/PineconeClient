@@ -129,21 +129,34 @@ export default withRouter(class ContentEdit extends React.Component {
 				});
 				break;
 			case "wpExcerpt" :
-				this.state.wpFields.excerpt = event.target.value;
+				wordpress.excerpt = event.target.value;
 				this.setState({
 					wpFields: this.state.wpFields
 				});
 				break;
 			case "wpStatus":
-				this.state.wpFields.status = event.target.value;
+				wordpress.status = event.target.value;
 				this.setState({
-					wpFields: this.state.wpFields
+					wordpress
 				});
 				break;
 			case"wpFormat" :
-				this.state.wpFields.format = event.target.value;
+				wordpress.format = event.target.value;
 				this.setState({
-					wpFields: this.state.wpFields
+					wordpress
+				});
+				break;
+			case "wordpressUseBody" :
+				wordpress.useBody = !wordpress.useBody;
+				if (wordpress.useBody) {
+					if (this.state.body.length < wordpress.count) {
+						wordpress.excerpt = this.state.body;
+					} else {
+						wordpress.excerpt = this.state.body.substring(0, wordpress.count);
+					}
+				}
+				this.setState({
+					wordpress
 				});
 				break;
 
