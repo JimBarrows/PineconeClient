@@ -7,6 +7,7 @@ export default class CheckboxFormGroup extends React.Component {
 
 	render() {
 		let {label, placeholder, name, onChange, error, value} = this.props;
+		console.log("CheckboxFormGroup.render props: ", this.props);
 		let validationStatus = "";
 		if (error) {
 			validationStatus = "has-error";

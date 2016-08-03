@@ -32,7 +32,10 @@ export default withRouter(class ContentEdit extends React.Component {
 			wordpress: {
 				excerpt: '',
 				status: '',
-				format: ''
+				format: '',
+				useBody: true,
+				count: 140,
+				typeToCount: 'characters'
 			},
 			twitter: {
 				status: '',
@@ -60,24 +63,26 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	fieldChange(event) {
-		console.log("ChannelEdit.fieldChange( ", event, ")");
 		switch (event.target.id) {
 			case "body" :
-				console.log("ChannelEdit.fieldChange body: ", event.target.value);
+				let body = event.target.value;
+				let {facebook, wordpress} = this.state;
 				if (this.state.facebook.useBody) {
-					console.log("ChannelEdit.fieldChange using body");
-					let {facebook} = this.state;
-					facebook.post = event.target.value;
-					this.setState({
-						body: event.target.value,
-						facebook: facebook
-					});
-				} else {
-					console.log("ChannelEdit.fieldChange nope body");
-					this.setState({
-						body: event.target.value
-					});
+					facebook.post = body;
 				}
+				if (wordpress.useBody) {
+					if (body.length < wordpress.count) {
+						wordpress.excerpt = body;
+					} else {
+						wordpress.excerpt = body.substring(0, wordpress.count);
+					}
+				}
+				this.setState({
+					body,
+					facebook,
+					wordpress
+				});
+
 				break;
 			case "channel" :
 				this.setState({
@@ -128,7 +133,7 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	save() {
-		let {_id, body, channel, createDate, owner, publishDate, title, wpFields} = this.state;
+		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, twitter, facebook} = this.state;
 		let valid = true;
 		if (!body) {
 			this.setState({
@@ -180,7 +185,6 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	render() {
-		console.log("ChannelEdit.render state: ", this.state);
 		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter} = this.state;
 		let {titleError, bodyError, publishDateError, excerptError, statusError, channelError, formatError} = this.state;
 		let channelOptions = ChannelStore.getAll().map((channel) => {
@@ -204,7 +208,7 @@ export default withRouter(class ContentEdit extends React.Component {
 					                 error={channelError}/>
 					<FacebookPanel facebook={facebook} onChange={this.fieldChange.bind(this)}/>
 					<TwitterPanel twitter={twitter} onChange={this.fieldChange.bind(this)}/>
-					<WordpressPanel wordpress={wordpress}/>
+					<WordpressPanel wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>
 					<button id='saveButton' type="button" class="btn btn-primary" onClick={this.save.bind(this)}>Save
 					</button>
 					<button type="button" class="btn btn-default" onClick={this.cancel.bind(this)}>Cancel</button>
