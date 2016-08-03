@@ -4,7 +4,7 @@ import TextFormGroup from "./bootstrap/TextFormGroup";
 import Panel from "./bootstrap/Panel";
 import CheckboxFormGroup from "./bootstrap/CheckboxFormGroup";
 
-export default class TwitterPanel extends React.Component {
+export default class TwitterContent extends React.Component {
 
 
 	render() {

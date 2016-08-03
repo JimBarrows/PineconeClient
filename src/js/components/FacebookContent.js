@@ -5,7 +5,7 @@ import Panel from "./bootstrap/Panel";
 import CheckboxFormGroup from "./bootstrap/CheckboxFormGroup";
 
 
-export default class FacebookPanel extends React.Component {
+export default class FacebookContent extends React.Component {
 
 	render() {
 		let {post, useBody, postError}  = this.props.facebook;

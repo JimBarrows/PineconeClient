@@ -11,9 +11,9 @@ import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import moment from "moment";
 import ChannelStore from "../stores/ChannelStore";
-import TwitterPanel from "../components/TwitterContent";
-import FacebookPanel from "../components/FacebookContent";
-import WordpressPanel from "../components/WordpressPanel";
+import TwitterContent from "../components/TwitterContent";
+import FacebookContent from "../components/FacebookContent";
+import WordpressContent from "../components/WordpressContent";
 
 export default withRouter(class ContentEdit extends React.Component {
 
@@ -206,9 +206,9 @@ export default withRouter(class ContentEdit extends React.Component {
 					<SelectFormGroup name="channel" label="Channel"
 					                 onChange={this.fieldChange.bind(this)} value={channel} options={channelOptions}
 					                 error={channelError}/>
-					<FacebookPanel facebook={facebook} onChange={this.fieldChange.bind(this)}/>
-					<TwitterPanel twitter={twitter} onChange={this.fieldChange.bind(this)}/>
-					<WordpressPanel wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>
+					<FacebookContent facebook={facebook} onChange={this.fieldChange.bind(this)}/>
+					<TwitterContent twitter={twitter} onChange={this.fieldChange.bind(this)}/>
+					<WordpressContent wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>
 					<button id='saveButton' type="button" class="btn btn-primary" onClick={this.save.bind(this)}>Save
 					</button>
 					<button type="button" class="btn btn-default" onClick={this.cancel.bind(this)}>Cancel</button>

@@ -5,7 +5,7 @@ import TextFormGroup from "./bootstrap/TextFormGroup";
 import CheckboxFormGroup from "./bootstrap/CheckboxFormGroup";
 import Panel from "./bootstrap/Panel";
 
-export default class WordpressPanel extends React.Component {
+export default class WordpressContent extends React.Component {
 
 
 	render() {
