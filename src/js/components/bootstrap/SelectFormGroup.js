@@ -3,7 +3,7 @@ import React from "react";
 import FormGroup from "./FormGroup2";
 
 
-export default class DatePickerForm extends React.Component {
+export default class SelectFormGroup extends React.Component {
 
 	render() {
 		let {label, name, onChange, error, value, options} = this.props;

@@ -5,7 +5,7 @@ import * as Actions from "../actions/ContentActions";
 import TextFormGroup from "../components/bootstrap/TextFormGroup";
 import TextAreaFormGroup from "../components/bootstrap/TextAreaFormGroup";
 import DatePickerFormGroup from "../components/bootstrap/DatePickerFormGroup";
-import SelectFormGroup from "../components/bootstrap/DatePickerFormGroup";
+import SelectFormGroup from "../components/bootstrap/SelectFormGroup";
 import {withRouter} from "react-router";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
@@ -31,7 +31,7 @@ export default withRouter(class ContentEdit extends React.Component {
 			title: '',
 			wordpress: {
 				excerpt: '',
-				status: '',
+				status: 'publish',
 				format: '',
 				useBody: true,
 				count: 140,
