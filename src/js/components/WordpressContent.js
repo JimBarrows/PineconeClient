@@ -19,12 +19,14 @@ export default class WordpressContent extends React.Component {
 					                   value={useBody}
 					                   error=""/>
 					Use the first <input id="wordpressCount" name="wordpressCount" type="number" defaultValue={count}
-					                     onChange={this.props.onChange}/> <select
-						value={typeToCount} onChange={this.props.onChange}>
+					                     onChange={this.props.onChange}/> <select id="wordpressTypeToCount"
+					                                                              name="wordpressTypeToCount"
+					                                                              value={typeToCount}
+					                                                              onChange={this.props.onChange}>
 					<option value="characters">Characters</option>
 					<option value="words">Words</option>
 					<option value="sentences">Sentences</option>
-				</select>
+				</select> of the body for the excerpt.
 					<TextAreaFormGroup name="wpExcerpt" label="Excerpt"
 					                   onChange={this.props.onChange} value={excerpt} error={excerptError} disabled={useBody}/>
 					<TextFormGroup name="wpStatus" label="Status" placeholder="publish"

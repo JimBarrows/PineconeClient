@@ -62,6 +62,22 @@ export default withRouter(class ContentEdit extends React.Component {
 		ContentStore.removeListener(ContentEventNames.CONTENT_CREATE_FAILURE, this.saveFailure);
 	}
 
+	excerpt(count, typeToCount, body) {
+		let excerpt = '';
+		switch (typeToCount) {
+			case 'characters':
+				excerpt = body.substring(0, count);
+				break;
+			case 'words':
+				excerpt = body.split(' ').splice(0, count).join(' ');
+				break;
+			case 'sentences':
+				excerpt = body.split('.').splice(0, count).join('.') + ".";
+				break;
+		}
+		return excerpt;
+	}
+
 	fieldChange(event) {
 		let {facebook, twitter, wordpress} = this.state;
 		switch (event.target.id) {
@@ -86,18 +102,13 @@ export default withRouter(class ContentEdit extends React.Component {
 					facebook.post = body;
 				}
 				if (wordpress.useBody) {
-					if (body.length < wordpress.count) {
-						wordpress.excerpt = body;
-					} else {
-						wordpress.excerpt = body.substring(0, wordpress.count);
-					}
+					wordpress.excerpt = this.excerpt(wordpress.count, wordpress.typeToCount, body);
 				}
 				this.setState({
 					body,
 					facebook,
 					wordpress
 				});
-
 				break;
 			case "channel" :
 				this.setState({
@@ -130,7 +141,15 @@ export default withRouter(class ContentEdit extends React.Component {
 				break;
 			case "wordpressCount" :
 				wordpress.count   = event.target.value;
-				wordpress.excerpt = this.state.body.substring(0, wordpress.count);
+				wordpress.excerpt = this.excerpt(wordpress.count, wordpress.typeToCount, this.state.body);
+				this.setState({
+					wordpress
+				});
+				break;
+			case "wordpressTypeToCount" :
+				console.log("ContentEdit.fieldChange ", event.target);
+				wordpress.typeToCount = event.target.value;
+				wordpress.excerpt     = this.excerpt(wordpress.count, wordpress.typeToCount, this.state.body);
 				this.setState({
 					wordpress
 				});
@@ -138,11 +157,7 @@ export default withRouter(class ContentEdit extends React.Component {
 			case "wordpressUseBody" :
 				wordpress.useBody = !wordpress.useBody;
 				if (wordpress.useBody) {
-					if (this.state.body.length < wordpress.count) {
-						wordpress.excerpt = this.state.body;
-					} else {
-						wordpress.excerpt = this.state.body.substring(0, wordpress.count);
-					}
+					wordpress.excerpt = this.excerpt(wordpress.count, wordpress.typeToCount, this.state.body);
 				}
 				this.setState({
 					wordpress
@@ -166,7 +181,6 @@ export default withRouter(class ContentEdit extends React.Component {
 					wordpress
 				});
 				break;
-
 		}
 	};
 
