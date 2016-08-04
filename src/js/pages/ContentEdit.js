@@ -128,6 +128,26 @@ export default withRouter(class ContentEdit extends React.Component {
 					twitter
 				});
 				break;
+			case "wordpressCount" :
+				wordpress.count   = event.target.value;
+				wordpress.excerpt = this.state.body.substring(0, wordpress.count);
+				this.setState({
+					wordpress
+				});
+				break;
+			case "wordpressUseBody" :
+				wordpress.useBody = !wordpress.useBody;
+				if (wordpress.useBody) {
+					if (this.state.body.length < wordpress.count) {
+						wordpress.excerpt = this.state.body;
+					} else {
+						wordpress.excerpt = this.state.body.substring(0, wordpress.count);
+					}
+				}
+				this.setState({
+					wordpress
+				});
+				break;
 			case "wpExcerpt" :
 				wordpress.excerpt = event.target.value;
 				this.setState({
@@ -142,19 +162,6 @@ export default withRouter(class ContentEdit extends React.Component {
 				break;
 			case"wpFormat" :
 				wordpress.format = event.target.value;
-				this.setState({
-					wordpress
-				});
-				break;
-			case "wordpressUseBody" :
-				wordpress.useBody = !wordpress.useBody;
-				if (wordpress.useBody) {
-					if (this.state.body.length < wordpress.count) {
-						wordpress.excerpt = this.state.body;
-					} else {
-						wordpress.excerpt = this.state.body.substring(0, wordpress.count);
-					}
-				}
 				this.setState({
 					wordpress
 				});
