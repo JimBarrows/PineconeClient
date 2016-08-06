@@ -33,10 +33,17 @@ export function login(username, password) {
 				})
 			})
 			.catch(function (error) {
+				console.log("Error logging in: ", error);
+				let errorMessage = "Unknown error";
+				if (error.data) {
+					errorMessage = error.data;
+				} else if (error.status > 299) {
+					errorMessage = error.status + " - " + error.statusText;
+				}
 				dispatcher.dispatch({
 					type: UserEventNames.USER_LOGIN_FAILURE
 					, username
-					, error: error.data ? error.data : error
+					, error: errorMessage
 				})
 			})
 }
