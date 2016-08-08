@@ -16,6 +16,18 @@ export function addFacebookUserId(facebookUserId, accessToken, expiresIn) {
 			}));
 
 }
+
+export function addTwitterAccount() {
+	axios.get("/api/user/twitterAccount")
+			.then(function (response) {
+				console.log("UserActions.addTwitterAccount response: ", response);
+			})
+			.catch(function (error) {
+				console.log("UserActions.addTwitterAccount", error);
+			})
+
+}
+
 export function login(username, password) {
 	dispatcher.dispatch({
 		type: UserEventNames.USER_LOGIN_BEGINS

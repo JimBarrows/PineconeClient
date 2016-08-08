@@ -9,6 +9,10 @@ export default class Settings extends React.Component {
 		UserActions.addFacebookUserId(userId, accessToken, expiresIn);
 	}
 
+	addTwitterAccount() {
+		UserActions.addTwitterAccount();
+	}
+
 	render() {
 		const scope = {scope: 'publish_pages, email'};
 		const appId = "1236802509686356";
@@ -16,6 +20,7 @@ export default class Settings extends React.Component {
 				<div>
 					<PageHeader title="Settings"/>
 					<FacebookLogin saveFacebook={this.addFacebookId.bind(this)} scope={scope} appId={appId}/>
+					<button class="btn btn-default" onClick={this.addTwitterAccount.bind(this)}>Add Twitter Acount</button>
 				</div>
 		);
 	}
