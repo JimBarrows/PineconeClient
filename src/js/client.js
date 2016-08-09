@@ -10,7 +10,7 @@ import Content from "./pages/Content";
 import ContentEdit from "./pages/ContentEdit";
 import Login from "./pages/Login";
 import UserStore from "./stores/UserStore";
-
+import * as Application from "./actions/Application";
 const app = document.getElementById('app');
 
 function requireAuth(nextState, replace) {
@@ -21,6 +21,8 @@ function requireAuth(nextState, replace) {
 		})
 	}
 }
+
+Application.initialize();
 
 ReactDOM.render(<Router history={hashHistory}>
 	<Route path="/" component={Layout}>

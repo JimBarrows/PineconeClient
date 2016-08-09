@@ -40,8 +40,7 @@ export function login(username, password) {
 			.then(function (response) {
 				dispatcher.dispatch({
 					type: UserEventNames.USER_LOGGED_IN
-					, username: response.data.username
-					, id: response.data.id
+					, content: response.data
 				})
 			})
 			.catch(function (error) {

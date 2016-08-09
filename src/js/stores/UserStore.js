@@ -6,7 +6,7 @@ class UserStore extends EventEmitter {
 	constructor() {
 		super();
 		this.username       = null;
-		this.id             = null;
+		this._id            = null;
 		this.facebookUserId = null;
 	}
 
@@ -18,8 +18,9 @@ class UserStore extends EventEmitter {
 				this.emit(UserEventNames.USER_FACEBOOK_ID_ADDED);
 				break;
 			case UserEventNames.USER_LOGGED_IN :
-				this.username = action.username;
-				this.id       = action.id;
+				this.username       = action.content.username;
+				this._id            = action.content._id;
+				this.facebookUserId = action.content.facebookUserId;
 				this.emit(UserEventNames.USER_LOGGED_IN);
 				break;
 			case UserEventNames.REGISTER_USER_BEGINS :
@@ -54,7 +55,7 @@ class UserStore extends EventEmitter {
 	}
 
 	currentId() {
-		return this.id;
+		return this._id;
 	}
 
 }
