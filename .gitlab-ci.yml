@@ -16,6 +16,7 @@ build-client:
       - src/client.min.js
 
 create_staging_docker:
+  image: docker:git
   stage: deploy
   services:
     - docker:dind
