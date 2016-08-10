@@ -1,0 +1,2 @@
+This project is the human web portion of the application.  This is also the primary place to note bugs that users see,
+or testers see.  These bugs may be copied, or moved to the project where the defect actaully exists.
