@@ -55,6 +55,7 @@
 	"react" : "^15.2.0",
 	"react-datetime" : "^2.3.2",
 	"react-dom" : "^15.2.0",
+	"react-facebook-login" : "^3.1.0",
 	"react-router" : "^2.5.2",
 	"style-loader" : "^0.13.1",
 	"webpack" : "^1.13.1",
