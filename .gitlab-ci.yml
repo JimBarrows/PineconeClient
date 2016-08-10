@@ -8,7 +8,7 @@ build-client:
   script:
 #    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     - npm install -g webpack
-    - npm install --production
+    - npm install --production --no-optional
     - npm run client:package
   artifacts:
       paths:
