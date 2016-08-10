@@ -3,7 +3,7 @@ stages:
   - deploy
 
 before_script:
-  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+#  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
   - npm install -g webpack
   - npm install
 
