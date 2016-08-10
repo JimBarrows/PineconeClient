@@ -1,7 +1,4 @@
-image: docker:git
-
 stages:
-  - test
   - build
   - deploy
 
@@ -14,13 +11,21 @@ build:
   stage: build
   script:
     - npm run client:package
+  artifacts:
+      paths:
+      - src/client.min.js
 
 create_staging_docker:
   stage: deploy
   services:
     - docker:dind
+  dependencies:
+    - build
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
-    - docker build -t registry.gitlab.com/reallybigtree/pinecone-server .
-    - docker push registry.gitlab.com/reallybigtree/pinecone-server
+    - ls
+    - docker build -t registry.gitlab.com/reallybigtree/pinecone-client .
+    - docker push registry.gitlab.com/reallybigtree/pinecone-client
+  only:
+    - master
 
