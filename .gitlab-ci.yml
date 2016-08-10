@@ -10,7 +10,7 @@ build-client:
     - npm -v
     - npm install -g webpack
     - npm install --production --no-optional
-    - npm run client:package
+    - npm run pinecone:client:package
   artifacts:
       paths:
       - src/client.min.js
