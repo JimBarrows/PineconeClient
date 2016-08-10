@@ -6,7 +6,7 @@ build-client:
   stage: build
   image: node:4.2.2
   script:
-    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+#    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
     - npm install -g webpack
     - npm install --production
     - npm run client:package
