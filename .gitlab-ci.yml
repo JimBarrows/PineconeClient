@@ -2,16 +2,13 @@ stages:
   - build
   - deploy
 
-image: node:4.2.2
-
-before_script:
-#  - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
-  - npm install -g webpack
-  - npm install
-
-build:
+build-client:
   stage: build
+  image: node:4.2.2
   script:
+    - curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+    - npm install -g webpack
+    - npm install --production
     - npm run client:package
   artifacts:
       paths:
@@ -22,7 +19,7 @@ create_staging_docker:
   services:
     - docker:dind
   dependencies:
-    - build
+    - build-client
   script:
     - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
     - ls
