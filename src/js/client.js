@@ -11,6 +11,8 @@ import ContentEdit from "./pages/ContentEdit";
 import Login from "./pages/Login";
 import UserStore from "./stores/UserStore";
 import * as Application from "./actions/Application";
+import "bootstrap/dist/css/bootstrap.css";
+import "font-awesome/css/font-awesome.min.css";
 const app = document.getElementById('app');
 
 function requireAuth(nextState, replace) {
