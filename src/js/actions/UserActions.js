@@ -82,7 +82,6 @@ export function registerUser(username, password) {
 						}
 					})
 				} else {
-					console.log("register: ", response.data);
 					dispatcher.dispatch({
 						type: UserEventNames.REGISTER_USER_SUCCESS
 						, content: response.data
