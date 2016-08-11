@@ -15,32 +15,22 @@ export default class Register extends React.Component {
 			, password: ""
 			, confirmPassword: ""
 			, passwordMatchError: null
-			, passowrdError: null
+			, passwordError: null
 			, usernameError: null
 			, registerUserSuccess: false
 			, error: null
 			, registrationBegins: false
 		};
 
-		this.registerBegins  = this.registerBegins.bind(this);
 		this.registerFailure = this.registerFailure.bind(this);
 	}
 
 	componentWillMount() {
-		UserStore.on(UserEventNames.REGISTER_USER_BEGINS, this.registerBegins);
 		UserStore.on(UserEventNames.REGISTER_USER_FAILURE, this.registerFailure);
 	}
 
 	componentWillUnmount() {
-		UserStore.removeListener(UserEventNames.REGISTER_USER_BEGINS, this.registerBegins);
 		UserStore.removeListener(UserEventNames.REGISTER_USER_FAILURE, this.registerFailure);
-	}
-
-	registerBegins() {
-		this.setState({
-			registrationBegins: true
-			, error: null
-		});
 	}
 
 	registerFailure(reason) {
@@ -67,8 +57,8 @@ export default class Register extends React.Component {
 
 	register() {
 		let {username, password, confirmPassword} = this.state;
-		let valid = true;
-		let re    = /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/;
+		let valid                                 = true;
+		let re                                    = /^([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)@([0-9a-zA-Z]([-_\\.]*[0-9a-zA-Z]+)*)[\\.]([a-zA-Z]{2,9})$/;
 		if (re.test(username)) {
 			this.setState({
 				usernameError: null
@@ -94,8 +84,8 @@ export default class Register extends React.Component {
 	}
 
 	render() {
-		let {passwordError, passwordMatchError, passwordConfirmError, usernameError, error, registrationBegins} = this.state;
-		let alertError = passwordMatchError || (error && error.data);
+		let {passwordError, passwordMatchError, passwordConfirmError, usernameError, error} = this.state;
+		let alertError                                                                      = passwordMatchError || (error && error.data);
 		return (
 				<div class="register">
 					<PageHeader title="Register"/>
@@ -107,10 +97,10 @@ export default class Register extends React.Component {
 					<FormGroup label="Confirm Password" type="password" name="confirmPassword"
 					           onChange={this.handleChange.bind(this)} error={passwordConfirmError}/>
 
-					<button id="registerButton" type="button" class="btn btn-default" onClick={this.register.bind(this)}
-					        disabled={registrationBegins}>Register
+					<button id="registerButton" type="button" class="btn btn-default" onClick={this.register.bind(this)}>
+						Register
 					</button>
-					<button type="button" class="btn btn-default" disabled={registrationBegins}>Cancel</button>
+					<button type="button" class="btn btn-default">Cancel</button>
 				</div>
 		);
 	}

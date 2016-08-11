@@ -8,21 +8,24 @@ import UserStore from "../stores/UserStore";
 export default withRouter(class Layout extends React.Component {
 	constructor() {
 		super();
-		this.state         = {
+		this.state          = {
 			title: "Pinecone"
 		};
-		this.userLoggedIn  = this.userLoggedIn.bind(this);
-		this.userLoggedOut = this.userLoggedOut.bind(this);
+		this.userLoggedIn   = this.userLoggedIn.bind(this);
+		this.userLoggedOut  = this.userLoggedOut.bind(this);
+		this.userRegistered = this.userRegistered.bind(this);
 	}
 
 	componentWillMount() {
 		UserStore.on(UserEventNames.USER_LOGGED_IN, this.userLoggedIn);
 		UserStore.on(UserEventNames.USER_LOGGED_OUT, this.userLoggedOut);
+		UserStore.on(UserEventNames.REGISTER_USER_SUCCESS, this.userRegistered);
 	}
 
 	componentWillUnmount() {
 		UserStore.removeListener(UserEventNames.USER_LOGGED_IN, this.userLoggedIn);
 		UserStore.removeListener(UserEventNames.USER_LOGGED_OUT, this.userLoggedOut);
+		UserStore.removeListener(UserEventNames.REGISTER_USER_SUCCESS, this.userRegistered);
 	}
 
 	userLoggedIn() {
@@ -37,6 +40,13 @@ export default withRouter(class Layout extends React.Component {
 			user: null
 		});
 		this.props.router.push('/login');
+	}
+
+	userRegistered() {
+		this.setState({
+			user: UserStore.user()
+		});
+		this.props.router.push('/settings');
 	}
 
 	render() {

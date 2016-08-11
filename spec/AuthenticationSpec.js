@@ -4,7 +4,7 @@
 'use strict';
 const webdriverio = require('webdriverio');
 
-import Account from "pinecone-models/src/Account";
+import Account from "@reallybigtree/pinecone-models/src/Account";
 
 describe("How a user authenticates to the application", function () {
 
@@ -23,9 +23,7 @@ describe("How a user authenticates to the application", function () {
 
 	beforeEach((done) => {
 		Account.remove({})
-				.then(() => Account.create({username, hash, salt}))
-				.then(()=>browser.url('http://localhost:8080'))
-				.then((client) => done())
+				.then(() => done())
 				.catch((error) => console.log("Error beforeEach: ", error));
 	});
 
@@ -34,11 +32,43 @@ describe("How a user authenticates to the application", function () {
 		browser
 				.endAll()
 				.then(()=> done())
-				.catch((error) => console.log("error closing browser: ", error));
+				.catch((error) => console.log("Error afterAll: ", error));
 
 	});
 
+	ddescribe("User registration", function () {
+
+		beforeEach((done) => {
+			browser.url('http://localhost:8080')
+					.then(() => browser.click("registerLink"))
+					.then(() => done())
+					.catch((error) => console.log("Error User registration beforeEach: ", error));
+		});
+
+		it("should allow registration when an email is provided for a username and the password & confirm password fields are the same", function (done) {
+			browser.getText(".page-header h1")
+					.then((text) => expect(text).toBe("Register"))
+					.then(() => browser.setValue("#username", username))
+					.then(() => browser.setValue("#password", password))
+					.then(() => browser.setValue("#confirmPassword", password))
+					.then(() => browser.click("#registerButton"))
+					.then(() => browser.waitForExist("#facebookAccountsPanel", 3000))
+					.then(() => browser.getText(".page-header h1"))
+					.then((text) => expect(text).toBe("Channels"))
+					.then(() => done())
+					.catch((err) => console.log("Error: User registration should allow login with valid username and password: ", err));
+		})
+	});
+
 	describe("Using username and password", function () {
+
+		beforeEach((done)=> {
+			Account.create({username, hash, salt})
+					.then(()=>browser.url('http://localhost:8080'))
+					.then((client) => done())
+					.catch((error) => console.log("Error beforeEach: ", error));
+		});
+
 		it("should allow login with valid username and password", function (done) {
 			browser.getText(".page-header h1")
 					.then((text) => expect(text).toBe("Login"))
@@ -49,8 +79,9 @@ describe("How a user authenticates to the application", function () {
 					.then(() => browser.getText(".page-header h1"))
 					.then((text) => expect(text).toBe("Channels"))
 					.then(() => done())
-					.catch((err) => console.log("err: ", err));
+					.catch((err) => console.log("Error: Using username and password should allow login with valid username and password: ", err));
 		}, 15000);
+
 		it("should error when an invalid username, and valid password is used", function (done) {
 			browser.getText(".page-header h1")
 					.then((text) => expect(text).toBe("Login"))

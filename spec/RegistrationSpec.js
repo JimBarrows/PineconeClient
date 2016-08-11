@@ -4,7 +4,7 @@
 'use strict';
 const webdriverio = require('webdriverio');
 
-import Account from "pinecone-models/src/Account";
+import Account from "@reallybigtree/pinecone-models/src/Account";
 
 describe("How a user registers for the  application", function () {
 

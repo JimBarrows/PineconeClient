@@ -16,31 +16,22 @@ export default class Login extends React.Component {
 			, error: null
 			, userLoginBegins: false
 		};
-		this.userLoginBegins  = this.userLoginBegins.bind(this);
 		this.userLoginFailure = this.userLoginFailure.bind(this);
 		this.handleChange     = this.handleChange.bind(this);
 	}
 
 	componentWillMount() {
 		UserStore.on(UserEventNames.USER_LOGIN_FAILURE, this.userLoginFailure);
-		UserStore.on(UserEventNames.USER_LOGIN_BEGINS, this.userLoginBegins);
 	}
 
 	componentWillUnmount() {
 		UserStore.removeListener(UserEventNames.USER_LOGIN_FAILURE, this.userLoginFailure);
-		UserStore.removeListener(UserEventNames.USER_LOGIN_BEGINS, this.userLoginBegins);
 	}
 
 	userLoginFailure(username, error) {
 		this.setState({
 			error: error
 			, userLoginBegins: false
-		})
-	}
-
-	userLoginBegins() {
-		this.setState({
-			userLoginBegins: true
 		})
 	}
 
@@ -61,7 +52,7 @@ export default class Login extends React.Component {
 	}
 
 	render() {
-		let {error, usernameError, passwordError, userLoginBegins} = this.state;
+		let {error, usernameError, passwordError} = this.state;
 		return (
 				<div class="login">
 					<PageHeader title="Login"/>
@@ -70,10 +61,8 @@ export default class Login extends React.Component {
 					           onChange={this.handleChange.bind(this)} error={usernameError}/>
 					<FormGroup label="Password" type="password" name="password" error={passwordError}
 					           onChange={this.handleChange.bind(this)}/>
-					<button type="button" class="btn btn-primary" id="loginButton" onClick={this.login.bind(this)}
-					        disabled={userLoginBegins}>Login
-					</button>
-					<button type="button" class="btn btn-default" id="cancelButton" disabled={userLoginBegins}>Cancel</button>
+					<button type="button" class="btn btn-primary" id="loginButton" onClick={this.login.bind(this)}>Login</button>
+					<button type="button" class="btn btn-default" id="cancelButton">Cancel</button>
 				</div>
 		);
 	}

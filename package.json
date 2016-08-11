@@ -50,7 +50,6 @@
 	"history" : "^3.0.0",
 	"jasmine" : "^2.4.1",
 	"moment" : "^2.14.1",
-	"mongoose" : "^4.5.4",
 	"passport-local-mongoose" : "^4.0.0",
 	"react" : "^15.2.0",
 	"react-datetime" : "^2.3.2",
@@ -62,6 +61,7 @@
 	"webpack-dev-server" : "^1.14.1"
   },
   "devDependencies" : {
+	"mongoose" : "^4.5.8",
 	"wdio-jasmine-framework" : "^0.2.3",
 	"webdriver-manager" : "^10.2.1",
 	"webdriverio" : "^4.2.1"

@@ -23,14 +23,14 @@ class UserStore extends EventEmitter {
 				this.facebookUserId = action.content.facebookUserId;
 				this.emit(UserEventNames.USER_LOGGED_IN);
 				break;
-			case UserEventNames.REGISTER_USER_BEGINS :
-				this.emit(UserEventNames.REGISTER_USER_BEGINS);
+			case UserEventNames.REGISTER_USER_SUCCESS :
+				this.username       = action.content.username;
+				this._id            = action.content._id;
+				this.facebookUserId = action.content.facebookUserId;
+				this.emit(UserEventNames.REGISTER_USER_SUCCESS);
 				break;
 			case UserEventNames.REGISTER_USER_FAILURE :
 				this.emit(UserEventNames.REGISTER_USER_FAILURE, action.error);
-				break;
-			case UserEventNames.USER_LOGIN_BEGINS :
-				this.emit(UserEventNames.USER_LOGIN_BEGINS);
 				break;
 			case UserEventNames.USER_LOGIN_FAILURE :
 				this.username = null;

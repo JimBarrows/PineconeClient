@@ -29,10 +29,6 @@ export function addTwitterAccount() {
 }
 
 export function login(username, password) {
-	dispatcher.dispatch({
-		type: UserEventNames.USER_LOGIN_BEGINS
-		, username
-	});
 	axios.post("/api/user/login", {
 				username
 				, password
@@ -75,16 +71,7 @@ export function logout() {
 }
 
 export function registerUser(username, password) {
-
-	dispatcher.dispatch({
-		type: UserEventNames.REGISTER_USER_BEGINS
-		, username
-	});
-
-	axios.post("/api/user/register", {
-				username
-				, password
-			})
+	axios.post("/api/user/register", {username, password})
 			.then(function (response) {
 				if (response.data.error) {
 					dispatcher.dispatch({
@@ -95,10 +82,10 @@ export function registerUser(username, password) {
 						}
 					})
 				} else {
+					console.log("register: ", response.data);
 					dispatcher.dispatch({
-						type: UserEventNames.USER_LOGGED_IN
-						, username: response.data.username
-						, id: response.data.id
+						type: UserEventNames.REGISTER_USER_SUCCESS
+						, content: response.data
 					})
 				}
 			})

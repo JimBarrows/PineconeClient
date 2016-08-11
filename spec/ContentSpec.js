@@ -4,9 +4,9 @@
 'use strict';
 const webdriverio = require('webdriverio');
 
-import Account from "pinecone-models/src/Account";
-import Content from "pinecone-models/src/Content";
-import Channel from "pinecone-models/src/Channel";
+import Account from "@reallybigtree/pinecone-models/src/Account";
+import Content from "@reallybigtree/pinecone-models/src/Content";
+import Channel from "@reallybigtree/pinecone-models/src/Channel";
 import moment from "moment";
 
 describe("How to manage content", function () {
