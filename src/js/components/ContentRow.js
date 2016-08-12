@@ -2,7 +2,6 @@
 import React from "react";
 import {Link} from "react-router";
 import * as Actions from "../actions/ContentActions";
-import ChannelStore from "../stores/ChannelStore";
 
 export default class ContentRow extends React.Component {
 

@@ -3,12 +3,12 @@ import axios from "axios";
 import dispatcher from "../Dispatcher";
 import {UserEventNames} from "../constants";
 
-export function addFacebookUserId(facebookUserId, accessToken, expiresIn) {
-	axios.put("/api/user/facebookId", {facebookUserId, accessToken, expiresIn})
+export function addFacebookUserId(accessToken, email, expiresIn, name, signedRequest, userId) {
+	axios.put("/api/user/facebookId", {accessToken, email, expiresIn, name, signedRequest, userId})
 			.then(() =>
 					dispatcher.dispatch({
 						type: UserEventNames.USER_FACEBOOK_ID_ADDED,
-						facebookUserId, accessToken, expiresIn
+						accessToken, email, expiresIn, name, signedRequest, userId
 					}))
 			.catch((error) => dispatcher.dispatch({
 				type: UserEventNames.USER_FACEBOOK_ID_ADD_ERROR,
@@ -24,8 +24,7 @@ export function addTwitterAccount() {
 			})
 			.catch(function (error) {
 				console.log("UserActions.addTwitterAccount", error);
-			})
-
+			});
 }
 
 export function login(username, password) {

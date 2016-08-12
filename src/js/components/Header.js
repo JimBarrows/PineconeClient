@@ -49,13 +49,13 @@ export default class Header extends React.Component {
 
 	render() {
 		let {collapsed, username} = this.state;
-		const navClass      = collapsed ? "collapse" : "";
+		const navClass            = collapsed ? "collapse" : "";
 		const {location} = this.props;
-		const channelClass  = location.pathname === "/" ? "active" : "";
-		const contentClass  = location.pathname.match(/^\/content/) ? "active" : "";
-		const registerClass = location.pathname.match(/^\/register/) ? "active" : "";
-		const loginClass    = location.pathname.match(/^\/login/) ? "active" : "";
-		let UserComponent   = null;
+		const campaignClass       = location.pathname === "/" ? "active" : "";
+		const contentClass        = location.pathname.match(/^\/content/) ? "active" : "";
+		const registerClass       = location.pathname.match(/^\/register/) ? "active" : "";
+		const loginClass          = location.pathname.match(/^\/login/) ? "active" : "";
+		let UserComponent         = null;
 		if (username) {
 			UserComponent = (
 					<ul class="nav navbar-nav navbar-right">
@@ -93,7 +93,7 @@ export default class Header extends React.Component {
 						</div>
 						<div id="navbar" class={"navbar-collapse " + navClass}>
 							<ul class="nav navbar-nav">
-								<li class={channelClass}><Link id='channelLink' to="/">Channels</Link></li>
+								<li class={campaignClass}><Link id='campaignLink' to="/">Campaigns</Link></li>
 								<li class={contentClass}><Link id='contentLink' to="content">Content</Link></li>
 							</ul>
 							{UserComponent}

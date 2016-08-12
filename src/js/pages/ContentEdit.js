@@ -10,7 +10,6 @@ import {withRouter} from "react-router";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import moment from "moment";
-import ChannelStore from "../stores/ChannelStore";
 import TwitterContent from "../components/TwitterContent";
 import FacebookContent from "../components/FacebookContent";
 import WordpressContent from "../components/WordpressContent";

@@ -55,7 +55,7 @@ export default withRouter(class Layout extends React.Component {
 		};
 		const {location} = this.props;
 		return (
-				<div class="container  theme-showcase" role="main" style={containerStyle}>
+				<div class="container" role="main" style={containerStyle}>
 					<Header location={location} title={this.state.title}/>
 					{this.props.children}
 					<Footer/>
