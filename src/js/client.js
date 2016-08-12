@@ -11,8 +11,6 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Settings from "./pages/Settings";
 import UserStore from "./stores/UserStore";
-import "bootstrap/dist/css/bootstrap.css";
-import "font-awesome/css/font-awesome.min.css";
 const app = document.getElementById('app');
 
 function requireAuth(nextState, replace) {
