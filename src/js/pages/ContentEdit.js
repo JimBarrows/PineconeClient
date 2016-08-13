@@ -20,7 +20,7 @@ export default withRouter(class ContentEdit extends React.Component {
 		super(props);
 		this.saveSucces                                                                                = this.saveSucces.bind(this);
 		this.saveFailure                                                                               = this.saveFailure.bind(this);
-		let {contentId} = props.location.query;
+		let {contentId}                                                                                = props.location.query;
 		let {_id, body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter} = contentId ? ContentStore.findById(contentId) : {
 			_id: '',
 			body: '',
@@ -242,13 +242,9 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	render() {
-		let {_id, body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter}      = this.state;
-		let {titleError, bodyError, publishDateError, excerptError, statusError, channelError, formatError} = this.state;
-		let channelOptions                                                                                  = ChannelStore.getAll().map((campaign) => {
-			return {
-				value: campaign._id, label: campaign.name
-			}
-		});
+		let {_id, body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter}       = this.state;
+		let {titleError, bodyError, publishDateError, excerptError, statusError, campaignError, formatError} = this.state;
+		let campaignOptions                                                                                  = [];
 		return (
 				<div class="contentEdit">
 					<PageHeader title="Edit Content"/>
