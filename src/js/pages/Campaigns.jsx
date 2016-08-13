@@ -38,6 +38,7 @@ export default withRouter(class Campaigns extends React.Component {
 								<td>Campaign 1</td>
 								<td>10/1/2016</td>
 								<td>10/31/2016</td>
+								<td>yes</td>
 								<td>
 									<RowControlButtons editing={false} edit={this.edit.bind(this)} remove={this.remove.bind(this)}/>
 								</td>
