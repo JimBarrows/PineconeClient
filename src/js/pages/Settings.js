@@ -4,7 +4,7 @@ import * as UserActions from "../actions/UserActions";
 import PageHeader from "bootstrap-react-components/src/PageHeader.jsx";
 import TablePanel from "bootstrap-react-components/src/TablePanel.jsx";
 import Panel from "bootstrap-react-components/src/Panel.jsx";
-import RowControlButtons from "../components/RowControlButtons";
+import RowControlButtons from "../components/controls/RowControlButtons";
 
 export default class Settings extends React.Component {
 

@@ -2,13 +2,14 @@
 import React from "react";
 import PageHeader from "../components/bootstrap/PageHeader";
 import ContentList from "../components/ContentList";
-import {Link} from "react-router";
+import {withRouter} from "react-router";
 import * as Actions from "../actions/ContentActions";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import Alert from "../components/bootstrap/Alert";
+import ListTablePanel from "../components/controls/ListTablePanel";
 
-export default class Content extends React.Component {
+export default withRouter(class Content extends React.Component {
 
 	constructor() {
 		super();
@@ -59,31 +60,22 @@ export default class Content extends React.Component {
 		Actions.load();
 	}
 
+	addButtonClicked() {
+		this.props.router.push('/contentEdit');
+	}
+
 	render() {
 		let {content, error} = this.state;
 		return (
 				<div>
 					<PageHeader title="Content"/>
 					<Alert error={error}/>
-					<div id="contentPanel" class="panel panel-default">
-						<div class="panel-heading clearfix">
-							<div class="panel-title pull-left">Content</div>
-							<div class="btn-group pull-right">
-								<button type="button" class="btn btn-devault btn-xs" onClick={this.reloadContent.bind(this)}>
-											<span
-													class="glyphicon glyphicon-refresh"/>
-								</button>
-								<Link id="contentEditButton" to="contentEdit" class="btn btn-success btn-xs">
-											<span
-													class="glyphicon glyphicon-plus"/>
-								</Link>
-							</div>
-						</div>
-						<div class="panel-body">
-							<ContentList content={content}/>
-						</div>
-					</div>
+					<ListTablePanel title="Content" onReloadClick={this.reloadContent.bind(this)}
+					                onAddClick={this.addButtonClicked.bind(this)}>
+						<ContentList content={content}/>
+					</ListTablePanel>
+
 				</div>
 		);
 	}
-}
+})

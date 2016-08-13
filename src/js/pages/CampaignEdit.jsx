@@ -4,7 +4,7 @@ import PageHeader from "bootstrap-react-components/src/PageHeader";
 import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
 import FormGroup from "bootstrap-react-components/src/FormGroup";
 import DatePickerFormGroup from "bootstrap-react-components/src/DatePickerFormGroup";
-import RowControlButtons from "../components/RowControlButtons";
+import RowControlButtons from "../components/controls/RowControlButtons";
 import TablePanel from "bootstrap-react-components/src/TablePanel";
 
 

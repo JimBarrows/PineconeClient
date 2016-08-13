@@ -12,19 +12,19 @@ import {ContentEventNames} from "../constants";
 import moment from "moment";
 import TwitterContent from "../components/TwitterContent";
 import FacebookContent from "../components/FacebookContent";
-import WordpressContent from "../components/WordpressContent";
+import WordpressContent from "../components/WordPressContent";
 
 export default withRouter(class ContentEdit extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.saveSucces  = this.saveSucces.bind(this);
-		this.saveFailure = this.saveFailure.bind(this);
+		this.saveSucces                                                                                = this.saveSucces.bind(this);
+		this.saveFailure                                                                               = this.saveFailure.bind(this);
 		let {contentId} = props.location.query;
-		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter} = contentId ? ContentStore.findById(contentId) : {
+		let {_id, body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter} = contentId ? ContentStore.findById(contentId) : {
 			_id: '',
 			body: '',
-			channel: '',
+			campaign: '',
 			createDate: moment(),
 			publishDate: moment(),
 			title: '',
@@ -45,8 +45,8 @@ export default withRouter(class ContentEdit extends React.Component {
 				useBody: true
 			}
 		};
-		this.state       = {
-			_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter
+		this.state                                                                                     = {
+			_id, body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter
 		}
 	}
 
@@ -109,9 +109,9 @@ export default withRouter(class ContentEdit extends React.Component {
 					wordpress
 				});
 				break;
-			case "channel" :
+			case "campaign" :
 				this.setState({
-					channel: event.target.value
+					campaign: event.target.value
 				});
 				break;
 			case "title" :
@@ -190,17 +190,17 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	save() {
-		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, twitter, facebook} = this.state;
-		let valid = true;
+		let {_id, body, campaign, createDate, owner, publishDate, title, wordpress, twitter, facebook} = this.state;
+		let valid                                                                                      = true;
 		if (!body) {
 			this.setState({
 				bodyError: "Content must have a body"
 			});
 			valid = false;
 		}
-		if (!channel) {
+		if (!campaign) {
 			this.setState({
-				channelError: "Content must have a channel"
+				channelError: "Content must have a campaign"
 			});
 			valid = false;
 		}
@@ -220,9 +220,9 @@ export default withRouter(class ContentEdit extends React.Component {
 
 		if (valid) {
 			if (this.state._id) {
-				Actions.update(_id, {body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter});
+				Actions.update(_id, {body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter});
 			} else {
-				Actions.create({body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter});
+				Actions.create({body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter});
 			}
 		}
 	}
@@ -242,11 +242,11 @@ export default withRouter(class ContentEdit extends React.Component {
 	}
 
 	render() {
-		let {_id, body, channel, createDate, owner, publishDate, title, wordpress, facebook, twitter} = this.state;
+		let {_id, body, campaign, createDate, owner, publishDate, title, wordpress, facebook, twitter}      = this.state;
 		let {titleError, bodyError, publishDateError, excerptError, statusError, channelError, formatError} = this.state;
-		let channelOptions = ChannelStore.getAll().map((channel) => {
+		let channelOptions                                                                                  = ChannelStore.getAll().map((campaign) => {
 			return {
-				value: channel._id, label: channel.name
+				value: campaign._id, label: campaign.name
 			}
 		});
 		return (
@@ -260,9 +260,9 @@ export default withRouter(class ContentEdit extends React.Component {
 					<DatePickerFormGroup name="publishDate" label="Publish Date" type="date"
 					                     onChange={this.publishDateChange.bind(this)} value={publishDate}
 					                     error={publishDateError}/>
-					<SelectFormGroup name="channel" label="Channel"
-					                 onChange={this.fieldChange.bind(this)} value={channel} options={channelOptions}
-					                 error={channelError}/>
+					<SelectFormGroup name="campaign" label="Campaign"
+					                 onChange={this.fieldChange.bind(this)} value={campaign} options={campaignOptions}
+					                 error={campaignError}/>
 					<FacebookContent facebook={facebook} onChange={this.fieldChange.bind(this)}/>
 					<TwitterContent twitter={twitter} onChange={this.fieldChange.bind(this)}/>
 					<WordpressContent wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>

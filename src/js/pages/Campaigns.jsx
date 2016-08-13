@@ -2,8 +2,8 @@
 import React from "react";
 import {withRouter} from "react-router";
 import PageHeader from "bootstrap-react-components/src/PageHeader";
-import TablePanel from "bootstrap-react-components/src/TablePanel";
-import RowControlButtons from "../components/RowControlButtons";
+import RowControlButtons from "../components/controls/RowControlButtons";
+import ListTablePanel from "../components/controls/ListTablePanel";
 
 export default withRouter(class Campaigns extends React.Component {
 
@@ -19,11 +19,16 @@ export default withRouter(class Campaigns extends React.Component {
 		this.props.router.push('/campaignEdit');
 	}
 
+	reload() {
+
+	}
+
 	render() {
 		return (
 				<div>
 					<PageHeader title="Campaigns"/>
-					<TablePanel title="Current Campaigns" addRow={this.add.bind(this)}>
+					<ListTablePanel title="Current Campaigns" onReloadClick={this.reload.bind(this)}
+					                onAddClick={this.add.bind(this)}>
 						<table class="table table-striped">
 							<thead>
 							<tr>
@@ -45,7 +50,7 @@ export default withRouter(class Campaigns extends React.Component {
 							</tr>
 							</tbody>
 						</table>
-					</TablePanel>
+					</ListTablePanel>
 				</div>
 		);
 	}
