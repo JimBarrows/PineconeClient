@@ -1,8 +1,8 @@
 'use strict';
 import React from "react";
-import TextFormGroup from "./bootstrap/TextFormGroup";
-import Panel from "./bootstrap/Panel";
-import CheckboxFormGroup from "./bootstrap/CheckboxFormGroup";
+import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
+import Panel from "bootstrap-react-components/src/Panel";
+import CheckboxFormGroup from "bootstrap-react-components/src/CheckboxFormGroup";
 
 export default class TwitterContent extends React.Component {
 

@@ -2,9 +2,10 @@ import React from "react";
 import * as UserActions from "../actions/UserActions";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
-import PageHeader from "../components/bootstrap/PageHeader";
-import FormGroup from "../components/bootstrap/FormGroup";
-import Alert from "../components/bootstrap/Alert";
+import PageHeader from "bootstrap-react-components/src/PageHeader";
+import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
+import PasswordFormGroup from "../components/bootstrap/PasswordFormGroup";
+import Alert from "bootstrap-react-components/src/DangerAlert";
 
 export default class Login extends React.Component {
 
@@ -57,10 +58,10 @@ export default class Login extends React.Component {
 				<div class="login">
 					<PageHeader title="Login"/>
 					<Alert error={error}/>
-					<FormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
-					           onChange={this.handleChange.bind(this)} error={usernameError}/>
-					<FormGroup label="Password" type="password" name="password" error={passwordError}
-					           onChange={this.handleChange.bind(this)}/>
+					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
+					               onChange={this.handleChange.bind(this)} error={usernameError}/>
+					<PasswordFormGroup label="Password" type="password" name="password" error={passwordError}
+					                   onChange={this.handleChange.bind(this)}/>
 					<button type="button" class="btn btn-primary" id="loginButton" onClick={this.login.bind(this)}>Login</button>
 					<button type="button" class="btn btn-default" id="cancelButton">Cancel</button>
 				</div>

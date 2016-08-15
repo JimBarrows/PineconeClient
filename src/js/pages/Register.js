@@ -1,7 +1,7 @@
 import React from "react";
-import PageHeader from "../components/bootstrap/PageHeader";
-import FormGroup from "../components/bootstrap/FormGroup";
-import Alert from "../components/bootstrap/Alert";
+import PageHeader from "bootstrap-react-components/src/PageHeader";
+import FormGroup from "bootstrap-react-components/src/FormGroup";
+import Alert from "bootstrap-react-components/src/DangerAlert";
 import * as UserActions from "../actions/UserActions";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";

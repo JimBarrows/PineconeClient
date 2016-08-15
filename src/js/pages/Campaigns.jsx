@@ -3,7 +3,7 @@ import React from "react";
 import {withRouter} from "react-router";
 import PageHeader from "bootstrap-react-components/src/PageHeader";
 import RowControlButtons from "../components/controls/RowControlButtons";
-import ListTablePanel from "../components/controls/ListTablePanel";
+import ListTablePanel from "../components/bootstrap/ListTablePanel";
 
 export default withRouter(class Campaigns extends React.Component {
 

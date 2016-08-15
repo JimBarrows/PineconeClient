@@ -3,8 +3,8 @@ import React from "react";
 import Panel from "./Panel";
 import PanelHeader from "./PanelHeader";
 import PanelBody from "./PanelBody";
-import AddButton from "./AddButton";
-import ReloadButton from "./ReloadButton";
+import AddButton from "../controls/AddButton";
+import ReloadButton from "../controls/ReloadButton";
 
 
 export default class ListTablePanel extends React.Component {

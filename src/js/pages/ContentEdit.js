@@ -1,11 +1,11 @@
 'use strict';
 import React from "react";
-import PageHeader from "../components/bootstrap/PageHeader";
+import PageHeader from "bootstrap-react-components/src/PageHeader";
 import * as Actions from "../actions/ContentActions";
-import TextFormGroup from "../components/bootstrap/TextFormGroup";
-import TextAreaFormGroup from "../components/bootstrap/TextAreaFormGroup";
-import DatePickerFormGroup from "../components/bootstrap/DatePickerFormGroup";
-import SelectFormGroup from "../components/bootstrap/SelectFormGroup";
+import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
+import TextAreaFormGroup from "bootstrap-react-components/src/TextAreaFormGroup";
+import DatePickerFormGroup from "bootstrap-react-components/src/DatePickerFormGroup";
+import SelectFormGroup from "bootstrap-react-components/src/SelectFormGroup";
 import {withRouter} from "react-router";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
@@ -250,7 +250,6 @@ export default withRouter(class ContentEdit extends React.Component {
 					<PageHeader title="Edit Content"/>
 					<TextFormGroup name="title" label="Title" placeholder="10 ways to do something cool"
 					               onChange={this.fieldChange.bind(this)} value={title} error={titleError}/>
-
 					<TextAreaFormGroup name="body" label="Body"
 					                   onChange={this.fieldChange.bind(this)} value={body} error={bodyError}/>
 					<DatePickerFormGroup name="publishDate" label="Publish Date" type="date"
