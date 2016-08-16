@@ -41,7 +41,8 @@ export default class CampaignForm extends React.Component {
 					<PageHeader title="Define Campaign"/>
 					<TextFormGroup label="Name" name="name" onChange={this.fieldChange.bind(this)} error="" value=""
 					               placeholder="Christmas Campaign" disabled={false}/>
-					<DateRangeFormGroup name="campaignDates" onChange={this.fieldChange.bind(this)} error="" value=""
+					<DateRangeFormGroup label="Effective" name="campaignDates" onChange={this.fieldChange.bind(this)} error=""
+					                    value=""
 					                    disabled={false}/>
 					<FormGroup label="Tags" name="tags">
 						<input type="text" class="form-control" placeholder="Tags"/>

@@ -18,11 +18,18 @@ export default class DateRangeFormGroup extends React.Component {
 			validationStatus = "has-error";
 		}
 		return (
+
 				<div class={"form-group " + validationStatus}>
-					<label class="control-label" for={fromName}>{label} From</label>
-					<DatePicker id={fromName} value={fromValue} onChange={onChange}/>
-					<label class="control-label" for={thruName}>Thru</label>
-					<DatePicker id={thruName} value={thruValue} onChange={onChange}/>
+					<div class="row">
+						<div class="col-md-6">
+							<label class="control-label" for={fromName}>{label} From</label>
+							<DatePicker id={fromName} name={fromName} value={fromValue} onChange={onChange}/>
+						</div>
+						<div class="col-md-6">
+							<label class="control-label" for={thruName}>Thru</label>
+							<DatePicker id={thruName} name={thruName} value={thruValue} onChange={onChange}/>
+						</div>
+					</div>
 					<Alert error={error}/>
 				</div>
 		);
