@@ -3,7 +3,7 @@ import React from "react";
 import {withRouter} from "react-router";
 import PageHeader from "bootstrap-react-components/src/PageHeader";
 import RowControlButtons from "../components/controls/RowControlButtons";
-import ListTablePanel from "../components/bootstrap/ListTablePanel";
+import ListTablePanel from "bootstrap-react-components/src/ListTablePanel";
 
 export default withRouter(class Campaigns extends React.Component {
 
@@ -27,9 +27,8 @@ export default withRouter(class Campaigns extends React.Component {
 		return (
 				<div>
 					<PageHeader title="Campaigns"/>
-					<ListTablePanel title="Current Campaigns" onReloadClick={this.reload.bind(this)}
+					<ListTablePanel name="currentCampains" title="Current Campaigns" onReloadClick={this.reload.bind(this)}
 					                onAddClick={this.add.bind(this)}>
-						<table class="table table-striped">
 							<thead>
 							<tr>
 								<th>Name</th>
@@ -49,7 +48,6 @@ export default withRouter(class Campaigns extends React.Component {
 								</td>
 							</tr>
 							</tbody>
-						</table>
 					</ListTablePanel>
 				</div>
 		);

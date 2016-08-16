@@ -4,7 +4,7 @@ import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
 import PageHeader from "bootstrap-react-components/src/PageHeader";
 import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
-import PasswordFormGroup from "../components/bootstrap/PasswordFormGroup";
+import PasswordFormGroup from "bootstrap-react-components/src/PasswordFormGroup";
 import Alert from "bootstrap-react-components/src/DangerAlert";
 
 export default class Login extends React.Component {

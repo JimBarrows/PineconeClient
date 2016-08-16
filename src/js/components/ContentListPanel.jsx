@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import ListTablePanel from "./bootstrap/ListTablePanel";
+import ListTablePanel from "bootstrap-react-components/src/ListTablePanel";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
 
@@ -27,8 +27,8 @@ export default class ContentListPanel extends React.Component {
 
 	render() {
 		return (
-				<ListTablePanel title="Content" onAddClick={this.add.bind(this)} onReloadClick={this.reload.bind(this)}>
-					<table class="table table-striped">
+				<ListTablePanel name="content" title="Content" onAddClick={this.add.bind(this)}
+				                onReloadClick={this.reload.bind(this)}>
 						<thead>
 						<tr>
 							<th>Title</th>
@@ -45,7 +45,6 @@ export default class ContentListPanel extends React.Component {
 							                       remove={this.remove.bind(this)}/></td>
 						</tr>
 						</tbody>
-					</table>
 				</ListTablePanel>
 		);
 	}

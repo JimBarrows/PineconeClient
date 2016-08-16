@@ -1,17 +1,18 @@
 'use strict';
 import React from "react";
 import TwitterDestinationRow from "./TwitterDestinationRow";
-
+import StripedTable from "bootstrap-react-components/src/StripedTable";
+";
 export default class TwitterDestinationList extends React.Component {
 
 	render() {
 		let {list} = this.props;
-		let rows = list.map((item, index) =>
+		let rows   = list.map((item, index) =>
 				<TwitterDestinationRow key={index}
 				                       index={index}
 				                       twitterDestination={item}/>);
 		return (
-				<table class="table table-striped">
+				<StripedTable>
 					<thead>
 					<tr>
 						<th>Name</th>
@@ -24,7 +25,7 @@ export default class TwitterDestinationList extends React.Component {
 					<tbody>
 					{rows}
 					</tbody>
-				</table>
+				</StripedTable>
 		);
 	}
 }

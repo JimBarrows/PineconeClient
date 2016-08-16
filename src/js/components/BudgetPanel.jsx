@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import ListTablePanel from "./bootstrap/ListTablePanel";
+import ListTablePanel from "bootstrap-react-components/src/ListTablePanel";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
 
@@ -27,8 +27,8 @@ export default class BudgetPanel extends React.Component {
 
 	render() {
 		return (
-				<ListTablePanel title="Budget" onAddClick={this.add.bind(this)} onReloadClick={this.reload.bind(this)}>
-					<table class="table table-striped">
+				<ListTablePanel name="budget" title="Budget" onAddClick={this.add.bind(this)}
+				                onReloadClick={this.reload.bind(this)}>
 						<thead>
 						<tr>
 							<th>Item</th>
@@ -57,7 +57,6 @@ export default class BudgetPanel extends React.Component {
 							</td>
 						</tr>
 						</tbody>
-					</table>
 				</ListTablePanel>
 		);
 	}

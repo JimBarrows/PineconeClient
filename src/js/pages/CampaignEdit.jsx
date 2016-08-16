@@ -3,7 +3,7 @@ import React from "react";
 import PageHeader from "bootstrap-react-components/src/PageHeader";
 import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
 import FormGroup from "bootstrap-react-components/src/FormGroup";
-import DateRangeFormGroup from "../components/bootstrap/DateRangeFormGroup";
+import DateRangeFormGroup from "bootstrap-react-components/src/DateRangeFormGroup";
 import ObjectivesListPanel from "../components/ObjectiveListPanel";
 import MessagesListPanel from "../components/MessageListPanel";
 import ChannelsListPanel from "../components/ChannelListPanel";

@@ -7,7 +7,7 @@ import * as Actions from "../actions/ContentActions";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
 import Alert from "bootstrap-react-components/src/DangerAlert";
-import ListTablePanel from "../components/bootstrap/ListTablePanel";
+import ListTablePanel from "bootstrap-react-components/src/ListTablePanel";
 
 export default withRouter(class Content extends React.Component {
 

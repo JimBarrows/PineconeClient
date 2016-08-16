@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import ListTablePanel from "./bootstrap/ListTablePanel";
+import ListPanel from "bootstrap-react-components/src/ListPanel";
 
 
 export default class DestinationsListPanel extends React.Component {
@@ -27,7 +27,8 @@ export default class DestinationsListPanel extends React.Component {
 
 	render() {
 		return (
-				<ListTablePanel title="Destinations" onAddClick={this.add.bind(this)} onReloadClick={this.reload.bind(this)}>
+				<ListPanel name="destinations" title="Destinations" onAddClick={this.add.bind(this)}
+				           onReloadClick={this.reload.bind(this)}>
 					<div class="row">
 						<div class="col-md-4">
 							<ul>
@@ -45,7 +46,7 @@ export default class DestinationsListPanel extends React.Component {
 							</ul>
 						</div>
 					</div>
-				</ListTablePanel>
+				</ListPanel>
 		);
 	}
 }
