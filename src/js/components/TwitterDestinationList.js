@@ -2,7 +2,7 @@
 import React from "react";
 import TwitterDestinationRow from "./TwitterDestinationRow";
 import StripedTable from "bootstrap-react-components/src/StripedTable";
-";
+
 export default class TwitterDestinationList extends React.Component {
 
 	render() {
