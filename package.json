@@ -13,7 +13,7 @@
     "pinecone:client:docker:run" : "docker run --detach --name pinecone-client -p 80:80 --link pinecone-server:server registry.gitlab.com/reallybigtree/pinecone-client",
     "pinecone:client:package" : "webpack",
     "pinecone:client:start" : "webpack-dev-server --hot --inline",
-    "pinecone:client:test" : "babel-node run.js",
+    "pinecone:client:test" : "mocha -t 100000 --compilers js:babel-core/register",
     "pinecone:client:test:webdriver:start" : "webdriver-manager start",
     "pinecone:client:update-webdriver" : "webdriver-manager update",
     "prepinecone:client:docker:build" : "npm run pinecone:client:package",
@@ -51,11 +51,8 @@
     "file-loader" : "^0.9.0",
     "flux" : "^2.1.1",
     "font-awesome" : "^4.6.3",
-    "fontawesome" : "^4.5.0",
     "history" : "^3.0.0",
-    "jasmine" : "^2.4.1",
     "moment" : "^2.14.1",
-    "passport-local-mongoose" : "^4.0.0",
     "react" : "^15.2.0",
     "react-datetime" : "^2.3.2",
     "react-dom" : "^15.2.0",
@@ -67,9 +64,9 @@
     "webpack-dev-server" : "^1.14.1"
   },
   "devDependencies" : {
-    "mongoose" : "^4.5.8",
-    "wdio-jasmine-framework" : "^0.2.3",
-    "webdriver-manager" : "^10.2.1",
-    "webdriverio" : "^4.2.1"
+    "@reallybigtree/pinecone-models" : "^1.1.5",
+    "chai" : "^3.5.0",
+    "mocha" : "^3.0.2",
+    "wdio-mocha-framework" : "^0.4.0"
   }
 }
