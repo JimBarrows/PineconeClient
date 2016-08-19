@@ -1,13 +1,11 @@
 'use strict';
-import React from "react";
-import PageHeader from "bootstrap-react-components";
-import Alert from "bootstrap-react-components";
-import ListTablePanel from "bootstrap-react-components";
-import ContentList from "../components/ContentList";
-import {withRouter} from "react-router";
 import * as Actions from "../actions/ContentActions";
-import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
+import ContentList from "../components/ContentList";
+import {DangerAlert, ListTablePanel, PageHeader} from "bootstrap-react-components";
+import ContentStore from "../stores/ContentStore";
+import React from "react";
+import {withRouter} from "react-router";
 
 export default withRouter(class Content extends React.Component {
 
@@ -71,7 +69,7 @@ export default withRouter(class Content extends React.Component {
 					<PageHeader >
 						<h1>Content</h1>
 					</PageHeader>
-					<Alert error={error}/>
+					<DangerAlert error={error}/>
 					<ListTablePanel title="Content" onReloadClick={this.reloadContent.bind(this)}
 					                onAddClick={this.addButtonClicked.bind(this)}>
 						<ContentList content={content}/>

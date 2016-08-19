@@ -1,7 +1,7 @@
 'use strict';
 import React from "react";
 import ContentRow from "./ContentRow";
-import TableStriped from "bootstrap-react-components";
+import {StripedTable} from "bootstrap-react-components";
 
 export default class ContentList extends React.Component {
 
@@ -9,7 +9,7 @@ export default class ContentList extends React.Component {
 		let {content}   = this.props;
 		let contentRows = content.map((piece, index) => <ContentRow key={piece._id || index} content={piece}/>);
 		return (
-				<TableStriped>
+				<StripedTable>
 					<thead>
 					<tr>
 						<th>Name</th>
@@ -20,7 +20,7 @@ export default class ContentList extends React.Component {
 					<tbody>
 					{contentRows}
 					</tbody>
-				</TableStriped>
+				</StripedTable>
 		);
 	}
 }

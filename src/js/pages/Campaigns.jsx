@@ -1,8 +1,7 @@
 'use strict';
 import React from "react";
 import {withRouter} from "react-router";
-import PageHeader from "bootstrap-react-components";
-import ListTablePanel from "bootstrap-react-components";
+import {ListTablePanel, PageHeader} from "bootstrap-react-components";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
 export default withRouter(class Campaigns extends React.Component {
