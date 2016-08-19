@@ -1,7 +1,5 @@
 import React from "react";
-import PageHeader from "bootstrap-react-components/src/PageHeader";
-import FormGroup from "bootstrap-react-components/src/FormGroup";
-import Alert from "bootstrap-react-components/src/DangerAlert";
+import {DangerAlert, PasswordFormGroup, TextFormGroup, PageHeader} from "bootstrap-react-components";
 import * as UserActions from "../actions/UserActions";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
@@ -88,14 +86,16 @@ export default class Register extends React.Component {
 		let alertError                                                                      = passwordMatchError || (error && error.data);
 		return (
 				<div class="register">
-					<PageHeader title="Register"/>
-					<Alert error={alertError}/>
-					<FormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
-					           onChange={this.handleChange.bind(this)} error={usernameError}/>
-					<FormGroup label="Password" type="password" name="password" error={passwordError}
-					           onChange={this.handleChange.bind(this)}/>
-					<FormGroup label="Confirm Password" type="password" name="confirmPassword"
-					           onChange={this.handleChange.bind(this)} error={passwordConfirmError}/>
+					<PageHeader >
+						<h1>Register</h1>
+					</PageHeader>
+					<DangerAlert error={alertError}/>
+					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
+					               onChange={this.handleChange.bind(this)} error={usernameError}/>
+					<PasswordFormGroup label="Password" type="password" name="password" error={passwordError}
+					                   onChange={this.handleChange.bind(this)}/>
+					<PasswordFormGroup label="Confirm Password" type="password" name="confirmPassword"
+					                   onChange={this.handleChange.bind(this)} error={passwordConfirmError}/>
 
 					<button id="registerButton" type="button" class="btn btn-default" onClick={this.register.bind(this)}>
 						Register

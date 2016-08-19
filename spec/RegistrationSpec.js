@@ -38,7 +38,7 @@ describe("How a user registers for the  application", function () {
 
 	});
 
-	fdescribe("Using username and password", function () {
+	describe("Using username and password", function () {
 		it("should allow registration with valid username and password", function (done) {
 			browser.getText(".page-header h1")
 					.then((text) => expect(text).toBe("Register"))

@@ -1,11 +1,11 @@
 'use strict';
 import React from "react";
-import PageHeader from "bootstrap-react-components/src/PageHeader";
+import PageHeader from "bootstrap-react-components";
+import TextFormGroup from "bootstrap-react-components";
+import TextAreaFormGroup from "bootstrap-react-components";
+import DatePickerFormGroup from "bootstrap-react-components";
+import SelectFormGroup from "bootstrap-react-components";
 import * as Actions from "../actions/ContentActions";
-import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
-import TextAreaFormGroup from "bootstrap-react-components/src/TextAreaFormGroup";
-import DatePickerFormGroup from "bootstrap-react-components/src/DatePickerFormGroup";
-import SelectFormGroup from "bootstrap-react-components/src/SelectFormGroup";
 import {withRouter} from "react-router";
 import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";

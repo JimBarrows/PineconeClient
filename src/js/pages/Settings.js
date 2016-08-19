@@ -1,7 +1,6 @@
 import React from "react";
 import * as UserActions from "../actions/UserActions";
-import PageHeader from "bootstrap-react-components/src/PageHeader.jsx";
-import ChannelListPanel from "../components/ChannelListPanel";
+import PageHeader from "bootstrap-react-components";
 import MessageListPanel from "../components/MessageListPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import DestinationListPanel from "../components/DestinationListPanel";
@@ -36,7 +35,7 @@ export default class Settings extends React.Component {
 		return (
 				<div>
 					<PageHeader title="Settings"/>
-					<ChannelListPanel/>
+					<TacticListPanel/>
 					<MessageListPanel/>
 					<KeywordsListPanel/>
 					<DestinationListPanel/>

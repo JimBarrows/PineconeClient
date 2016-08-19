@@ -1,9 +1,6 @@
 'use strict';
 import React from "react";
-import TextAreaFormGroup from "bootstrap-react-components/src/TextAreaFormGroup";
-import Panel from "bootstrap-react-components/src/Panel";
-import CheckboxFormGroup from "bootstrap-react-components/src/CheckboxFormGroup";
-import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
+import {CheckboxFormGroup, TextAreaFormGroup, TextFormGroup, Panel} from "bootstrap-react-components";
 
 
 export default class WordpressContent extends React.Component {

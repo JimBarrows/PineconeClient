@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import ButtonGroup from "bootstrap-react-components/src/ButtonGroup.jsx";
+import ButtonGroup from "bootstrap-react-components";
 
 export default class RowControlButtons extends React.Component {
 

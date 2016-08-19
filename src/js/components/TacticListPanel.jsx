@@ -1,10 +1,10 @@
 'use strict';
 import React from "react";
-import ListPanel from "bootstrap-react-components/src/ListPanel";
+import ListPanel from "bootstrap-react-components";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
 
-export default class ChannelsListPanel extends React.Component {
+export default class TacticListPanel extends React.Component {
 
 	add() {
 

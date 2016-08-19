@@ -1,8 +1,8 @@
 'use strict';
 import React from "react";
-import TextAreaFormGroup from "bootstrap-react-components/src/TextAreaFormGroup";
-import Panel from "bootstrap-react-components/src/Panel";
-import CheckboxFormGroup from "bootstrap-react-components/src/CheckboxFormGroup";
+import TextAreaFormGroup from "bootstrap-react-components";
+import Panel from "bootstrap-react-components";
+import CheckboxFormGroup from "bootstrap-react-components";
 
 
 export default class FacebookContent extends React.Component {

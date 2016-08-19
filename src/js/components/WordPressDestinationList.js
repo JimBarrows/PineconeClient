@@ -1,7 +1,7 @@
 'use strict';
 import React from "react";
 import WordPressDestinationRow from "./WordPressDestinationRow";
-import StripedTable from "bootstrap-react-components/src/StripedTable";
+import StripedTable from "bootstrap-react-components";
 
 
 export default class WordPressDestinationList extends React.Component {

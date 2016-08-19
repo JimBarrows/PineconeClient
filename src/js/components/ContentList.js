@@ -1,7 +1,7 @@
 'use strict';
 import React from "react";
 import ContentRow from "./ContentRow";
-import TableStriped from "bootstrap-react-components/src/StripedTable";
+import TableStriped from "bootstrap-react-components";
 
 export default class ContentList extends React.Component {
 

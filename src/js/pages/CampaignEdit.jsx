@@ -1,12 +1,12 @@
 'use strict';
 import React from "react";
-import PageHeader from "bootstrap-react-components/src/PageHeader";
-import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
-import FormGroup from "bootstrap-react-components/src/FormGroup";
-import DateRangeFormGroup from "bootstrap-react-components/src/DateRangeFormGroup";
+import PageHeader from "bootstrap-react-components";
+import TextFormGroup from "bootstrap-react-components";
+import FormGroup from "bootstrap-react-components";
+import DateRangeFormGroup from "bootstrap-react-components";
 import ObjectivesListPanel from "../components/ObjectiveListPanel";
 import MessagesListPanel from "../components/MessageListPanel";
-import ChannelsListPanel from "../components/ChannelListPanel";
+import TacticListPanel from "../components/TacticListPanel";
 import BudgetPanel from "../components/BudgetPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import DestinationListPanel from "../components/DestinationListPanel";
@@ -49,7 +49,7 @@ export default class CampaignForm extends React.Component {
 					</FormGroup>
 					<ObjectivesListPanel/>
 					<MessagesListPanel/>
-					<ChannelsListPanel/>
+					<TacticListPanel/>
 					<BudgetPanel/>
 					<KeywordsListPanel/>
 					<DestinationListPanel/>

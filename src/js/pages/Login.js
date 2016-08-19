@@ -2,10 +2,7 @@ import React from "react";
 import * as UserActions from "../actions/UserActions";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
-import PageHeader from "bootstrap-react-components/src/PageHeader";
-import TextFormGroup from "bootstrap-react-components/src/TextFormGroup";
-import PasswordFormGroup from "bootstrap-react-components/src/PasswordFormGroup";
-import Alert from "bootstrap-react-components/src/DangerAlert";
+import {DangerAlert, PageHeader, PasswordFormGroup, TextFormGroup} from "bootstrap-react-components";
 
 export default class Login extends React.Component {
 
@@ -57,7 +54,7 @@ export default class Login extends React.Component {
 		return (
 				<div class="login">
 					<PageHeader title="Login"/>
-					<Alert error={error}/>
+					<DangerAlert error={error}/>
 					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
 					               onChange={this.handleChange.bind(this)} error={usernameError}/>
 					<PasswordFormGroup label="Password" type="password" name="password" error={passwordError}

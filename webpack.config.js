@@ -4,7 +4,7 @@ var path    = require('path');
 
 module.exports = {
 	context: __dirname + "/src"
-	, devtool: debug ? "inline-sorucemap" : null
+	, devtool: debug ? "inline-sourcemap" : null
 	, entry: ['./js/client.js']
 	, module: {
 		debug: true,

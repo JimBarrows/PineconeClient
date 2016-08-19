@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import ListTablePanel from "bootstrap-react-components/src/ListTablePanel";
+import ListTablePanel from "bootstrap-react-components";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
 
