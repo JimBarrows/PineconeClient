@@ -1,17 +1,19 @@
 'use strict';
-import React from "react";
-import PageHeader from "bootstrap-react-components";
-import TextFormGroup from "bootstrap-react-components";
-import TextAreaFormGroup from "bootstrap-react-components";
-import DatePickerFormGroup from "bootstrap-react-components";
-import SelectFormGroup from "bootstrap-react-components";
 import * as Actions from "../actions/ContentActions";
-import {withRouter} from "react-router";
-import ContentStore from "../stores/ContentStore";
 import {ContentEventNames} from "../constants";
-import moment from "moment";
-import TwitterContent from "../components/TwitterContent";
+import ContentStore from "../stores/ContentStore";
 import FacebookContent from "../components/FacebookContent";
+import moment from "moment";
+import React from "react";
+import {
+		DatePickerFormGroup,
+		PageHeader,
+		SelectFormGroup,
+		TextAreaFormGroup,
+		TextFormGroup
+} from "bootstrap-react-components";
+import TwitterContent from "../components/TwitterContent";
+import {withRouter} from "react-router";
 import WordpressContent from "../components/WordPressContent";
 
 export default withRouter(class ContentEdit extends React.Component {

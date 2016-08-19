@@ -59,6 +59,7 @@ export default withRouter(class Content extends React.Component {
 	}
 
 	addButtonClicked() {
+		console.log("add button clicked");
 		this.props.router.push('/contentEdit');
 	}
 
@@ -72,6 +73,13 @@ export default withRouter(class Content extends React.Component {
 					<DangerAlert error={error}/>
 					<ListTablePanel title="Content" onReloadClick={this.reloadContent.bind(this)}
 					                onAddClick={this.addButtonClicked.bind(this)}>
+						<thead>
+						<tr>
+							<th>Name</th>
+							<th>Publish Date</th>
+							<th>Channel</th>
+						</tr>
+						</thead>
 						<ContentList content={content}/>
 					</ListTablePanel>
 

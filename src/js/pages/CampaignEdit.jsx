@@ -1,17 +1,14 @@
 'use strict';
-import React from "react";
-import PageHeader from "bootstrap-react-components";
-import TextFormGroup from "bootstrap-react-components";
-import FormGroup from "bootstrap-react-components";
-import DateRangeFormGroup from "bootstrap-react-components";
-import ObjectivesListPanel from "../components/ObjectiveListPanel";
-import MessagesListPanel from "../components/MessageListPanel";
-import TacticListPanel from "../components/TacticListPanel";
-import BudgetPanel from "../components/BudgetPanel";
-import KeywordsListPanel from "../components/KeywordListPanel";
-import DestinationListPanel from "../components/DestinationListPanel";
 import AssetListPanel from "../components/AssetListPanel";
+import BudgetPanel from "../components/BudgetPanel";
 import ContentListPanel from "../components/ContentListPanel";
+import {DateRangFormGroup, PageHeader, TextFormGroup} from "bootstrap-react-components";
+import DestinationListPanel from "../components/DestinationListPanel";
+import KeywordsListPanel from "../components/KeywordListPanel";
+import MessagesListPanel from "../components/MessageListPanel";
+import ObjectivesListPanel from "../components/ObjectiveListPanel";
+import React from "react";
+import TacticListPanel from "../components/TacticListPanel";
 
 export default class CampaignForm extends React.Component {
 
@@ -43,12 +40,12 @@ export default class CampaignForm extends React.Component {
 					</PageHeader>
 					<TextFormGroup label="Name" name="name" onChange={this.fieldChange.bind(this)} error="" value=""
 					               placeholder="Christmas Campaign" disabled={false}/>
-					<DateRangeFormGroup label="Effective" name="campaignDates" onChange={this.fieldChange.bind(this)} error=""
-					                    value=""
-					                    disabled={false}/>
-					<FormGroup label="Tags" name="tags">
+					<DateRangFormGroup label="Effective" name="campaignDates" onChange={this.fieldChange.bind(this)} error=""
+					                   value=""
+					                   disabled={false}/>
+					<TextFormGroup label="Tags" name="tags">
 						<input type="text" class="form-control" placeholder="Tags"/>
-					</FormGroup>
+					</TextFormGroup>
 					<ObjectivesListPanel/>
 					<MessagesListPanel/>
 					<TacticListPanel/>
