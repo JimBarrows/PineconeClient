@@ -38,7 +38,9 @@ export default class CampaignForm extends React.Component {
 	render() {
 		return (
 				<form >
-					<PageHeader title="Define Campaign"/>
+					<PageHeader>
+						<h1>Define Campaign</h1>
+					</PageHeader>
 					<TextFormGroup label="Name" name="name" onChange={this.fieldChange.bind(this)} error="" value=""
 					               placeholder="Christmas Campaign" disabled={false}/>
 					<DateRangeFormGroup label="Effective" name="campaignDates" onChange={this.fieldChange.bind(this)} error=""

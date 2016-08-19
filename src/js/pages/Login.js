@@ -53,7 +53,9 @@ export default class Login extends React.Component {
 		let {error, usernameError, passwordError} = this.state;
 		return (
 				<div class="login">
-					<PageHeader title="Login"/>
+					<PageHeader>
+						<h1>Login</h1>
+					</PageHeader>
 					<DangerAlert error={error}/>
 					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
 					               onChange={this.handleChange.bind(this)} error={usernameError}/>

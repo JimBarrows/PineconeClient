@@ -34,7 +34,9 @@ export default class Settings extends React.Component {
 		const appId = "1236802509686356";
 		return (
 				<div>
-					<PageHeader title="Settings"/>
+					<PageHeader>
+						<h1>Settings</h1>
+					</PageHeader>
 					<TacticListPanel/>
 					<MessageListPanel/>
 					<KeywordsListPanel/>

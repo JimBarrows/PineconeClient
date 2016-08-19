@@ -26,7 +26,9 @@ export default withRouter(class Campaigns extends React.Component {
 	render() {
 		return (
 				<div>
-					<PageHeader title="Campaigns"/>
+					<PageHeader>
+						<h1>Campaigns</h1>
+					</PageHeader>
 					<ListTablePanel name="currentCampaigns" title="Current Campaigns" onReloadClick={this.reload.bind(this)}
 					                onAddClick={this.add.bind(this)}>
 							<thead>

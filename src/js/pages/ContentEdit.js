@@ -247,7 +247,9 @@ export default withRouter(class ContentEdit extends React.Component {
 		let campaignOptions                                                                                  = [];
 		return (
 				<div class="contentEdit">
-					<PageHeader title="Edit Content"/>
+					<PageHeader >
+						<h1>Edit Content</h1>
+					</PageHeader>
 					<TextFormGroup name="title" label="Title" placeholder="10 ways to do something cool"
 					               onChange={this.fieldChange.bind(this)} value={title} error={titleError}/>
 					<TextAreaFormGroup name="body" label="Body"

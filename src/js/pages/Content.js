@@ -68,7 +68,9 @@ export default withRouter(class Content extends React.Component {
 		let {content, error} = this.state;
 		return (
 				<div>
-					<PageHeader title="Content"/>
+					<PageHeader >
+						<h1>Content</h1>
+					</PageHeader>
 					<Alert error={error}/>
 					<ListTablePanel title="Content" onReloadClick={this.reloadContent.bind(this)}
 					                onAddClick={this.addButtonClicked.bind(this)}>
