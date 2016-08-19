@@ -1,6 +1,6 @@
 'use strict';
 import React from "react";
-import ListPanel from "bootstrap-react-components";
+import {ListPanel} from "bootstrap-react-components";
 
 
 export default class DestinationsListPanel extends React.Component {

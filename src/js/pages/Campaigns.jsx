@@ -15,6 +15,7 @@ export default withRouter(class Campaigns extends React.Component {
 	}
 
 	add() {
+		console.log("add campaign");
 		this.props.router.push('/campaignEdit');
 	}
 

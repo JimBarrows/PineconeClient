@@ -1,10 +1,11 @@
-import React from "react";
-import * as UserActions from "../actions/UserActions";
-import PageHeader from "bootstrap-react-components";
-import MessageListPanel from "../components/MessageListPanel";
-import KeywordsListPanel from "../components/KeywordListPanel";
-import DestinationListPanel from "../components/DestinationListPanel";
 import AssetListPanel from "../components/AssetListPanel";
+import DestinationListPanel from "../components/DestinationListPanel";
+import KeywordsListPanel from "../components/KeywordListPanel";
+import MessageListPanel from "../components/MessageListPanel";
+import {PageHeader} from "bootstrap-react-components";
+import React from "react";
+import TacticListPanel from "../components/TacticListPanel";
+import * as UserActions from "../actions/UserActions";
 
 
 export default class Settings extends React.Component {
