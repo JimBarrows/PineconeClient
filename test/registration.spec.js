@@ -32,36 +32,24 @@ describe("How a user registers for the  application", function () {
 			register.register();
 			expect(register.usernameDangerAlert().getText()).to.be.equal("Username is invalid");
 		});
-		//
-		// it("should error when an valid username, and 6 character long password is used", function (done) {
-		// 	browser.getText(".page-header h1")
-		// 			.then((text) => expect(text).toBe("Register"))
-		// 			.then(() => browser.setValue("#username", username))
-		// 			.then(() => browser.setValue("#password", password.substr(0, 5)))
-		// 			.then(() => browser.setValue("#confirmPassword", password.substr(0, 5)))
-		// 			.then(() => browser.click("#registerButton"))
-		// 			.then(() => browser.waitForExist(".alert.alert-danger", 3000))
-		// 			.then(() => browser.getText(".page-header h1", 3000))
-		// 			.then((text) => expect(text).toBe("Register"))
-		// 			.then(()=> browser.getText('.alert.alert-danger'))
-		// 			.then((text) => expect(text).toBe('Password must be at least 8 characters.'))
-		// 			.then(() => done())
-		// 			.catch((err) => console.log("Valid username, invalid password test failed ", err));
-		// }, 15000);
-		//
-		// it("should error when an valid username, and passwords don't match", function (done) {
-		// 	browser.getText(".page-header h1")
-		// 			.then((text) => expect(text).toBe("Register"))
-		// 			.then(() => browser.setValue("#username", username))
-		// 			.then(() => browser.setValue("#password", password))
-		// 			.then(() => browser.setValue("#confirmPassword", password + "this should fail"))
-		// 			.then(() => browser.click("#registerButton"))
-		// 			.then(() => browser.getText(".page-header h1", 3000))
-		// 			.then((text) => expect(text).toBe("Register"))
-		// 			.then(()=> browser.getText('.alert.alert-danger'))
-		// 			.then((text) => expect(text).toBe('Passwords do not match.'))
-		// 			.then(() => done())
-		// 			.catch((err) => console.log("Invalid username, invalid password test failed: ", err));
-		// }, 15000);
+
+		it("should error when an valid username, and 6 character long password is used", function (done) {
+			register.open();
+			register.username().setValue(user.username);
+			let shortPassword = user.password.substr(0, 5);
+			register.password().setValue(shortPassword);
+			register.confirmPassword().setValue(shortPassword);
+			register.register();
+			expect(register.passwordDangerAlert().getText()).to.be.equal('Password must be at least 8 characters.');
+		});
+
+		it("should error when an valid username, and passwords don't match", function (done) {
+			register.open();
+			register.username().setValue(user.username);
+			register.password().setValue(user.password);
+			register.confirmPassword().setValue(user.password + " different for difference sake");
+			register.register();
+			expect(register.registerDangerAlert().getText()).to.be.equal('Passwords do not match.');
+		});
 	});
 });

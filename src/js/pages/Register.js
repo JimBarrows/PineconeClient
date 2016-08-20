@@ -89,7 +89,7 @@ export default class Register extends React.Component {
 					<PageHeader >
 						<h1>Register</h1>
 					</PageHeader>
-					<DangerAlert id="registerDangeAlert" error={alertError}/>
+					<DangerAlert id="registerDangerAlert" error={alertError}/>
 					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" id="username"
 					               onChange={this.handleChange.bind(this)} error={usernameError}/>
 					<PasswordFormGroup label="Password" type="password" id="password" error={passwordError}

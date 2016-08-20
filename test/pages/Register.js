@@ -31,11 +31,19 @@ export default class Register extends Page {
 		return browser.element("#password");
 	}
 
+	passwordDangerAlert() {
+		return browser.element('#passwordDangerAlert');
+	}
+
 	confirmPassword() {
 		return browser.element("#confirmPassword");
 	}
 
 	register() {
 		browser.click("#registerButton");
+	}
+
+	registerDangerAlert() {
+		return browser.element('#registerDangerAlert');
 	}
 }
