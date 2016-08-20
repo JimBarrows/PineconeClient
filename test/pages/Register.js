@@ -11,16 +11,20 @@ export default class Register extends Page {
 		super();
 	}
 
+	isCurrent() {
+		return browser.getText('.page-header h1') === 'Register'
+	}
+
 	open() {
 		super.open('#/register');
-		console.log("Waiting");
-		browser.waitUntil(function () {
-			return browser.getText('.page-header h1') === 'Register'
-		}, 15000, 'Didn\'t change to register page', 1000);
 	}
 
 	username() {
 		return browser.element('#username');
+	}
+
+	usernameDangerAlert() {
+		return browser.element("#usernameDangerAlert");
 	}
 
 	password() {

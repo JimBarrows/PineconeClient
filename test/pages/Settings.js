@@ -7,7 +7,12 @@ import Page from "./page";
 
 export default class Settings extends Page {
 
-	constructor() {
-		super();
+	isCurrent() {
+
+		return browser.getText('.page-header h1') === 'Settings'
+	}
+
+	open() {
+		super.open('#/settings');
 	}
 }

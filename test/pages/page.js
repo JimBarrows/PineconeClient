@@ -4,11 +4,13 @@
 'use strict';
 
 export default class Page {
-	constructor() {
-
-	}
 
 	open(path) {
 		browser.url('/' + path);
+		browser.waitUntil(this.isCurrent, 15000, 'Didn\'t change to register page', 1000);
+	}
+
+	isCurrent() {
+		return false;
 	}
 };
