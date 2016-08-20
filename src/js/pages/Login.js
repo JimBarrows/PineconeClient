@@ -52,14 +52,14 @@ export default class Login extends React.Component {
 	render() {
 		let {error, usernameError, passwordError} = this.state;
 		return (
-				<div class="login">
+				<div id="loginPage" class="login">
 					<PageHeader>
 						<h1>Login</h1>
 					</PageHeader>
-					<DangerAlert error={error}/>
-					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" name="username"
+					<DangerAlert id="loginDangerAlert" error={error}/>
+					<TextFormGroup label="Username" type="text" placeholder="bob@email.com" id="username"
 					               onChange={this.handleChange.bind(this)} error={usernameError}/>
-					<PasswordFormGroup label="Password" type="password" name="password" error={passwordError}
+					<PasswordFormGroup label="Password" type="password" id="password" error={passwordError}
 					                   onChange={this.handleChange.bind(this)}/>
 					<button type="button" class="btn btn-primary" id="loginButton" onClick={this.login.bind(this)}>Login</button>
 					<button type="button" class="btn btn-default" id="cancelButton">Cancel</button>
