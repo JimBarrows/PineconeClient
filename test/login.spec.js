@@ -14,8 +14,6 @@ const campaigns = new Campaigns();
 
 describe("The login page", function () {
 
-	let client = {};
-
 	beforeEach(() => {
 		browser.createAccount();
 		login.open();
