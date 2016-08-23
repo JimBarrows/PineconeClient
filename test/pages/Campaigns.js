@@ -5,7 +5,7 @@
 
 import Page from "./page";
 
-export default class Campaigns extends Page {
+class Campaigns extends Page {
 
 	isCurrent() {
 
@@ -17,3 +17,5 @@ export default class Campaigns extends Page {
 	}
 
 }
+
+export default new Campaigns();

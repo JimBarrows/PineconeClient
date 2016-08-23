@@ -10,7 +10,7 @@ mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost/pinecone');
 
 export const user = {
-	username: 'chesty@chester.com'
+	username: 'chester@tester.com'
 	, password: 'thisisthepassword'
 };
 
