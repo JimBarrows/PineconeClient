@@ -30,7 +30,7 @@ browser.addCommand("loginToApplication", function () {
 	}, 2000, "Didnt change to campaign page");
 });
 
-browser.addCommand("addAccountTestData", function (numberOfAssets, numberOfDestinations, numberOfKeywords, numberOfMessages) {
+browser.addCommand("addAssetTestData", function (numberOfAssets) {
 	let assets = [];
 	for (let index = 0; index < numberOfAssets; index++) {
 		assets.push({
@@ -49,4 +49,8 @@ browser.addCommand("addAccountTestData", function (numberOfAssets, numberOfDesti
 				$set: {assets}
 			}, {new: true});
 
+});
+
+browser.addCommand("accountInfo", function async() {
+	return Account.findOne({username: user.username});
 });

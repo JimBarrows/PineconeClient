@@ -26,7 +26,7 @@ describe("How a user managers account settings", function () {
 	describe("How a user manages their assets", function () {
 
 		it("must allow the account assets to displayed", function () {
-			let expectedData = browser.addAccountTestData(6);
+			let expectedData = browser.addAssetTestData(6);
 			browser.refresh();
 			Settings.open();
 			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(expectedData.assets.length);
@@ -36,6 +36,15 @@ describe("How a user managers account settings", function () {
 			Settings.open();
 			Settings.assetsListPanel.addButton().click();
 			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(1);
+			Settings.assetsListPanel.newName().setValue("New Asset Name");
+			Settings.assetsListPanel.newType().setValue("New Asset Type");
+			Settings.assetsListPanel.newSize().setValue("100");
+			Settings.assetsListPanel.newUrl().setValue("http://localhost:8080/");
+			Settings.assetsListPanel.saveNewRow();
+			const account = browser.accountInfo();
+			expect(account.assets).to.exist;
+			expect(account.assets.length).to.be.equal(1);
+			expect(account.assets[0].name).to.be.equal("New Asset Name");
 		})
 	});
 });

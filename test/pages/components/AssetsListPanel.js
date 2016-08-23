@@ -16,11 +16,11 @@ export default class AssetsListPanel extends ListPanel {
 	}
 
 	tbody() {
-		return this.table().element("tbody");
+		return browser.element("#assetsTable > tbody");
 	}
 
 	rows() {
-		return this.tbody().elements("tr");
+		return browser.elements("#assetsTable > tbody > tr");
 	}
 
 	numberOfRows() {
@@ -28,7 +28,7 @@ export default class AssetsListPanel extends ListPanel {
 	}
 
 	row(index) {
-		return this.tbody().element("tr:nth-child(" + index + ")");
+		return browser.element("#assetsTable > tbody > tr:nth-child(" + index + ")");
 	}
 
 	addButton() {
@@ -36,26 +36,26 @@ export default class AssetsListPanel extends ListPanel {
 	}
 
 	newName() {
-		return browser.element("#assetsTable > tbody > tr:nth-child(1) > td:nth-child(1)");
+		return browser.element("#name");
 	}
 
 	newType() {
-		return browser.element("#assetsTable > tbody > tr:nth-child(1) > td:nth-child(2)");
+		return browser.element("#type");
 	}
 
 	newSize() {
-		return browser.element("#assetsTable > tbody > tr:nth-child(1) > td:nth-child(3)");
-	}
-
-	newSize() {
-		return browser.element("#assetsTable > tbody > tr:nth-child(1) > td:nth-child(4)");
+		return browser.element("#size");
 	}
 
 	newUrl() {
-		return browser.element("#assetsTable > tbody > tr:nth-child(1) > td:nth-child(5)");
+		return browser.element("#url");
 	}
 
 	saveNewRow() {
-		browser.element('#assetsTable > tbody > tr:nth-child(1) > td:nth-child(5) > div > button').click();
+		browser.element("#assetsTable > tbody > tr:nth-child(1) > td:nth-child(5) > div > button").click();
+		var panel = this;
+		browser.waitUntil(function () {
+			return panel.rows().value.length > 0
+		}, 2000);
 	}
 }
