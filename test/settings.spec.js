@@ -32,10 +32,10 @@ describe("How a user managers account settings", function () {
 			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(expectedData.assets.length);
 		});
 
-		// it("must allow an asset to be added", function() {
-		// 	Settings.open();
-		// 	Settings.assetsListPanel.addButton().click();
-		// 	expect(Settings.assetsListPanel.numberOfRows()).to.be.equal( 1);
-		// })
+		it("must allow an asset to be added", function () {
+			Settings.open();
+			Settings.assetsListPanel.addButton().click();
+			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(1);
+		})
 	});
 });
