@@ -44,13 +44,13 @@ export default class AssetTableRow extends React.Component {
 
 	edit() {
 		this.setState({
-			edit: true
+			editing: true
 		})
 	}
 
 	save() {
 		saveAsset({
-			_id: this._id,
+			_id: this.state._id,
 			name: this.state.name,
 			type: this.state.type,
 			size: this.state.size,

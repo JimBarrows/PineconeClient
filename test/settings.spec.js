@@ -45,6 +45,23 @@ describe("How a user managers account settings", function () {
 			expect(account.assets).to.exist;
 			expect(account.assets.length).to.be.equal(1);
 			expect(account.assets[0].name).to.be.equal("New Asset Name");
+		});
+
+		it("must allow an asset to be modified", function () {
+			let expectedData = browser.addAssetTestData(1);
+			browser.refresh();
+			Settings.open();
+			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(1);
+			Settings.assetsListPanel.editButton().click();
+			Settings.assetsListPanel.newName().setValue("New Asset Name");
+			Settings.assetsListPanel.newType().setValue("New Asset Type");
+			Settings.assetsListPanel.newSize().setValue("100");
+			Settings.assetsListPanel.newUrl().setValue("http://localhost:8080/");
+			Settings.assetsListPanel.saveNewRow();
+			const account = browser.accountInfo();
+			expect(account.assets).to.exist;
+			expect(account.assets.length).to.be.equal(1);
+			expect(account.assets[0].name).to.be.equal("New Asset Name");
 		})
 	});
 });

@@ -77,15 +77,30 @@ export function registerUser(username, password) {
 }
 
 export function saveAsset(asset) {
-	axios.post("/api/user/assets", asset)
-			.then(axios.get("/api/user"))
-			.then((account) => dispatcher.dispatch({
-				type: UserEventNames.UPDATE_ACCOUNT,
-				account: account
-			}))
-			.catch((error) => dispatcher.dispatch({
-				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
-				error: error,
-				asset: asset
-			}));
+	if (asset._id) {
+		axios.put("/api/user/asset/" + asset._id, asset)
+				.then(() => axios.get("/api/user"))
+				.then((account) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: account
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					asset: asset
+				}));
+	} else {
+		axios.post("/api/user/assets", asset)
+				.then(() => axios.get("/api/user"))
+				.then((account) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: account
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					asset: asset
+				}));
+	}
+
 }
