@@ -13,7 +13,6 @@ export default class Settings extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log("constructor");
 		this.updateUser = this.updateUser.bind(this);
 
 		this.state = {
@@ -23,7 +22,6 @@ export default class Settings extends React.Component {
 	}
 
 	componentWillMount() {
-		console.log("componentWillMount");
 		UserStore.on(UserEventNames.REGISTER_USER_FAILURE, this.updateUser);
 		UserStore.on(UserEventNames.REGISTER_USER_SUCCESS, this.updateUser);
 		UserStore.on(UserEventNames.USER_LOGGED_IN, this.updateUser);
@@ -37,7 +35,6 @@ export default class Settings extends React.Component {
 	}
 
 	componentWillUnmount() {
-		console.log("componentWillUnmount");
 		UserStore.removeListener(UserEventNames.REGISTER_USER_FAILURE, this.updateUser);
 		UserStore.removeListener(UserEventNames.REGISTER_USER_SUCCESS, this.updateUser);
 		UserStore.removeListener(UserEventNames.USER_LOGGED_IN, this.updateUser);
@@ -47,7 +44,6 @@ export default class Settings extends React.Component {
 	}
 
 	updateUser() {
-		console.log("updateUser");
 		this.setState({
 			username: UserStore.user(),
 			assets: UserStore.assets()
@@ -55,7 +51,6 @@ export default class Settings extends React.Component {
 	}
 
 	render() {
-		console.log("render");
 		return (
 				<div>
 					<PageHeader id="settings">
