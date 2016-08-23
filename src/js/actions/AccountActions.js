@@ -4,7 +4,17 @@ import dispatcher from "../Dispatcher";
 import {UserEventNames} from "../constants";
 
 export function deleteAsset(asset) {
-	console.log("Deletoing asset", asset);
+	axios.delete("/api/user/asset/" + asset._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error,
+				asset: asset
+			}));
 }
 
 export function login(username, password) {
@@ -80,9 +90,9 @@ export function saveAsset(asset) {
 	if (asset._id) {
 		axios.put("/api/user/asset/" + asset._id, asset)
 				.then(() => axios.get("/api/user"))
-				.then((account) => dispatcher.dispatch({
+				.then((response) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT,
-					account: account
+					account: response.data
 				}))
 				.catch((error) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
@@ -92,9 +102,9 @@ export function saveAsset(asset) {
 	} else {
 		axios.post("/api/user/assets", asset)
 				.then(() => axios.get("/api/user"))
-				.then((account) => dispatcher.dispatch({
+				.then((response) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT,
-					account: account
+					account: response.data
 				}))
 				.catch((error) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,

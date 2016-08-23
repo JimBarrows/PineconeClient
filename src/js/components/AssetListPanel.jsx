@@ -2,17 +2,35 @@
 import AssetTableRow from "./AssetTableRow";
 import React from "react";
 import {ListTablePanel} from "bootstrap-react-components";
+import {UserEventNames} from "../constants";
+import UserStore from "../stores/UserStore";
+
 
 export default class AssetListPanel extends React.Component {
 
 	constructor(props) {
 		super(props);
-		console.log("assets: ", this.props.assets);
-		this.state = {
+		this.updateAccounts = this.updateAccounts.bind(this);
+		this.state          = {
 			assets: this.props.assets
 		}
 	}
 
+	componentWillMount() {
+		UserStore.on(UserEventNames.UPDATE_ACCOUNT, this.updateAccounts);
+		UserStore.on(UserEventNames.UPDATE_ACCOUNT_FAILURE, this.updateAccounts);
+	}
+
+	componentWillUnmount() {
+		UserStore.removeListener(UserEventNames.UPDATE_ACCOUNT, this.updateAccounts);
+		UserStore.removeListener(UserEventNames.UPDATE_ACCOUNT_FAILURE, this.updateAccounts);
+	}
+
+	updateAccounts() {
+		this.setState({
+			assets: UserStore.assets()
+		});
+	}
 	add() {
 		this.state.assets.push({
 			name: "",

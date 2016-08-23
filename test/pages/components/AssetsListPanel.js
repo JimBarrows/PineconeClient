@@ -16,7 +16,11 @@ export default class AssetsListPanel extends ListPanel {
 	}
 
 	editButton() {
-		return browser.element("#assetsTable > tbody > tr > td:nth-child(5) > div > button.btn.btn-default.btn-xs")
+		return browser.element("#assetsTable > tbody > tr > td:nth-child(5) > div > button.btn.btn-default.btn-xs");
+	}
+
+	deleteButton() {
+		return browser.element("#assetsTable > tbody > tr > td:nth-child(5) > div > button.btn.btn-danger.btn-xs");
 	}
 
 	newName() {

@@ -48,7 +48,6 @@ export default class Settings extends React.Component {
 	}
 
 	updateUser() {
-		console.log("Update user");
 		this.setState({
 			username: UserStore.user(),
 			assets: UserStore.assets()

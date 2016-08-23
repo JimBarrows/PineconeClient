@@ -62,6 +62,21 @@ describe("How a user managers account settings", function () {
 			expect(account.assets).to.exist;
 			expect(account.assets.length).to.be.equal(1);
 			expect(account.assets[0].name).to.be.equal("New Asset Name");
+		});
+
+		it("must allow an asset to be deleted", function () {
+			let expectedData = browser.addAssetTestData(1);
+			browser.refresh();
+			Settings.open();
+			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(1);
+			Settings.assetsListPanel.deleteButton().click();
+			browser.waitUntil(function () {
+				return Settings.assetsListPanel.numberOfRows() === 0
+			}, 2000, "Row was never deleted.");
+			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(0);
+			const account = browser.accountInfo();
+			expect(account.assets).to.exist;
+			expect(account.assets.length).to.be.equal(0);
 		})
 	});
 });
