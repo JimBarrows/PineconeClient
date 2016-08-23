@@ -27,6 +27,7 @@ describe("How a user managers account settings", function () {
 
 		it("must allow the account assets to displayed", function () {
 			let expectedData = browser.addAccountTestData(6);
+			browser.refresh();
 			Settings.open();
 			expect(Settings.assetsListPanel.numberOfRows()).to.be.equal(expectedData.assets.length);
 		});

@@ -2,7 +2,6 @@
 import AssetTableRow from "./AssetTableRow";
 import React from "react";
 import {ListTablePanel} from "bootstrap-react-components";
-import RowControlButtons from "../components/controls/RowControlButtons";
 
 
 export default class AssetListPanel extends React.Component {
@@ -41,7 +40,7 @@ export default class AssetListPanel extends React.Component {
 	render() {
 		let {assets} = this.props;
 		let rows     = assets.map((asset) => (
-				<AssetTableRow asset={asset} edit={this.edit.bind(this)} save={this.save.bind(this)}
+				<AssetTableRow key={asset._id} asset={asset} edit={this.edit.bind(this)} save={this.save.bind(this)}
 				               remove={this.remove.bind(this)}/>  ));
 
 		let addRow = this.state.add ? <tr key={0}>

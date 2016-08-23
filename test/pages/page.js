@@ -7,7 +7,7 @@ export default class Page {
 
 	open(path) {
 		browser.url('/' + path);
-		browser.waitUntil(this.isCurrent, 15000, 'Didn\'t change to register page', 1000);
+		browser.waitUntil(this.isCurrent, 15000, 'Didn\'t change to ' + path, 1000);
 	}
 
 	isCurrent() {
