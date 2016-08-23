@@ -5,11 +5,10 @@
 import chai from "chai";
 import {user} from "./support/fixtures";
 import Register from "./pages/Register";
-import Settings from "./pages/Settings";
+import settings from "./pages/Settings";
 
 const expect   = chai.expect;
 const register = new Register();
-const settings = new Settings();
 
 describe("How a user registers for the  application", function () {
 

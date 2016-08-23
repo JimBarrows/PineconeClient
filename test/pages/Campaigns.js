@@ -15,5 +15,5 @@ export default class Campaigns extends Page {
 	open() {
 		super.open('#/campaigns');
 	}
-	
+
 }

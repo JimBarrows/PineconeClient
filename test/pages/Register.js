@@ -7,10 +7,6 @@ import Page from "./page";
 
 export default class Register extends Page {
 
-	constructor() {
-		super();
-	}
-
 	isCurrent() {
 		return browser.getText('.page-header h1') === 'Register'
 	}

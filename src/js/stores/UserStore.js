@@ -7,6 +7,7 @@ class UserStore extends EventEmitter {
 		super();
 		this._assets            = [];
 		this._destinations      = [];
+		this.error              = "";
 		this._facebookAccounts  = [];
 		this._id                = null;
 		this._keywords          = [];
@@ -42,6 +43,14 @@ class UserStore extends EventEmitter {
 			case UserEventNames.REGISTER_USER_FAILURE :
 				this.invalidate();
 				this.emit(UserEventNames.REGISTER_USER_FAILURE, action.error);
+				break;
+			case UserEventNames.UPDATE_ACCOUNT :
+				this.addActionContent(action.account);
+				this.emit(UserEventNames.UPDATE_ACCOUNT);
+				break;
+			case UserEventNames.UPDATE_ACCOUNT_FAILURE :
+				this.error = action.error;
+				this.emit(UserEventNames.UPDATE_ACCOUNT_FAILURE);
 				break;
 			case UserEventNames.USER_LOGIN_FAILURE :
 				this.invalidate();

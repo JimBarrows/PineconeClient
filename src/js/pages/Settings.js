@@ -24,6 +24,8 @@ export default class Settings extends React.Component {
 	componentWillMount() {
 		UserStore.on(UserEventNames.REGISTER_USER_FAILURE, this.updateUser);
 		UserStore.on(UserEventNames.REGISTER_USER_SUCCESS, this.updateUser);
+		UserStore.on(UserEventNames.UPDATE_ACCOUNT, this.updateUser);
+		UserStore.on(UserEventNames.UPDATE_ACCOUNT_FAILURE, this.updateUser);
 		UserStore.on(UserEventNames.USER_LOGGED_IN, this.updateUser);
 		UserStore.on(UserEventNames.USER_LOGGED_OUT, this.updateUser);
 		UserStore.on(UserEventNames.USER_LOGIN_FAILURE, this.updateUser);
@@ -37,6 +39,8 @@ export default class Settings extends React.Component {
 	componentWillUnmount() {
 		UserStore.removeListener(UserEventNames.REGISTER_USER_FAILURE, this.updateUser);
 		UserStore.removeListener(UserEventNames.REGISTER_USER_SUCCESS, this.updateUser);
+		UserStore.removeListener(UserEventNames.UPDATE_ACCOUNT, this.updateUser);
+		UserStore.removeListener(UserEventNames.UPDATE_ACCOUNT_FAILURE, this.updateUser);
 		UserStore.removeListener(UserEventNames.USER_LOGGED_IN, this.updateUser);
 		UserStore.removeListener(UserEventNames.USER_LOGGED_OUT, this.updateUser);
 		UserStore.removeListener(UserEventNames.USER_LOGIN_FAILURE, this.updateUser);
@@ -44,6 +48,7 @@ export default class Settings extends React.Component {
 	}
 
 	updateUser() {
+		console.log("Update user");
 		this.setState({
 			username: UserStore.user(),
 			assets: UserStore.assets()
