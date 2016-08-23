@@ -27,12 +27,13 @@ export default class MessagesListPanel extends React.Component {
 	}
 
 	render() {
+		let {id} = this.props;
 		return (
-				<ListPanel name="messages" title="Messages" onAddClick={this.add.bind(this)}
+				<ListPanel id={id } name="messages" title="Messages" onAddClick={this.add.bind(this)}
 				           onReloadClick={this.reload.bind(this)}>
 					<div class="row">
-						<div class="col-md-4">
-							<ul>
+						<div id={id + "Col1"} class="col-md-4">
+							<ul id={id + "Col1List"}>
 								<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.<RowControlButtons editing={false}
 								                                                                               edit={this.edit.bind(this)}
 								                                                                               save={this.save.bind(this)}
@@ -57,8 +58,8 @@ export default class MessagesListPanel extends React.Component {
 									                             remove={this.remove.bind(this)}/></li>
 							</ul>
 						</div>
-						<div class="col-md-4">
-							<ul>
+						<div id={id + "Col2"} class="col-md-4">
+							<ul id={id + "Col2List"}>
 								<li>Nam hendrerit risus porttitor elit condimentum mollis.<RowControlButtons editing={false}
 								                                                                             edit={this.edit.bind(this)}
 								                                                                             save={this.save.bind(this)}
@@ -91,8 +92,8 @@ export default class MessagesListPanel extends React.Component {
 								</li>
 							</ul>
 						</div>
-						<div class="col-md-4">
-							<ul>
+						<div id={id + "Col3"} class="col-md-4">
+							<ul id={id + "Col3List"}>
 								<li>Etiam tempor sapien a sollicitudin efficitur.<RowControlButtons editing={false}
 								                                                                    edit={this.edit.bind(this)}
 								                                                                    save={this.save.bind(this)}

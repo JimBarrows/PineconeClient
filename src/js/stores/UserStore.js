@@ -5,57 +5,68 @@ import {UserEventNames} from "../constants";
 class UserStore extends EventEmitter {
 	constructor() {
 		super();
-		this.username       = null;
-		this._id            = null;
-		this.facebookUserId = null;
+		this._assets            = [];
+		this._destinations      = [];
+		this._facebookAccounts  = [];
+		this._id                = null;
+		this._keywords          = [];
+		this._messages          = [];
+		this._twitterAccounts   = [];
+		this._username          = null;
+		this._wordPressAccounts = [];
 	}
 
 
+	addActionContent(content) {
+		this._assets   = content.assets;
+		this._id       = content._id;
+		this._username = content.username;
+	}
+
+	invalidate() {
+		this._assets   = [];
+		this._id       = 0;
+		this._username = "";
+	}
+
 	handleActions(action) {
 		switch (action.type) {
-			case UserEventNames.USER_FACEBOOK_ID_ADDED:
-				this.facebookUserId = action.facebookUserId;
-				this.emit(UserEventNames.USER_FACEBOOK_ID_ADDED);
-				break;
 			case UserEventNames.USER_LOGGED_IN :
-				this.username       = action.content.username;
-				this._id            = action.content._id;
-				this.facebookUserId = action.content.facebookUserId;
+				this.addActionContent(action.content);
 				this.emit(UserEventNames.USER_LOGGED_IN);
 				break;
 			case UserEventNames.REGISTER_USER_SUCCESS :
-				this.username       = action.content.username;
-				this._id            = action.content._id;
-				this.facebookUserId = action.content.facebookUserId;
+				this.addActionContent(action.content);
 				this.emit(UserEventNames.REGISTER_USER_SUCCESS);
 				break;
 			case UserEventNames.REGISTER_USER_FAILURE :
+				this.invalidate();
 				this.emit(UserEventNames.REGISTER_USER_FAILURE, action.error);
 				break;
 			case UserEventNames.USER_LOGIN_FAILURE :
-				this.username = null;
-				this.id       = null;
+				this.invalidate();
 				this.emit(UserEventNames.USER_LOGIN_FAILURE, action.username, action.error);
 				break;
 			case UserEventNames.USER_LOGOUT_FAILURE :
-				this.username = null;
-				this.id       = null;
 				this.emit(UserEventNames.USER_LOGOUT_FAILURE);
 				break;
 			case UserEventNames.USER_LOGGED_OUT :
-				this.username = null;
-				this.id       = null;
+				this.invalidate();
 				this.emit(UserEventNames.USER_LOGGED_OUT);
 				break;
 		}
 	}
 
 	user() {
-		return this.username;
+		return this._username;
 	}
 
-	currentId() {
+	id() {
 		return this._id;
+	}
+
+	assets() {
+		return this._assets
 	}
 
 }

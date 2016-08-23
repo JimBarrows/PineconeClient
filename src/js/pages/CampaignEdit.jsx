@@ -46,14 +46,14 @@ export default class CampaignForm extends React.Component {
 					<TextFormGroup label="Tags" name="tags">
 						<input type="text" class="form-control" placeholder="Tags"/>
 					</TextFormGroup>
-					<ObjectivesListPanel/>
-					<MessagesListPanel/>
-					<TacticListPanel/>
-					<BudgetPanel/>
-					<KeywordsListPanel/>
-					<DestinationListPanel/>
 					<AssetListPanel/>
+					<BudgetPanel/>
 					<ContentListPanel/>
+					<DestinationListPanel/>
+					<KeywordsListPanel/>
+					<MessagesListPanel/>
+					<ObjectivesListPanel/>
+					<TacticListPanel/>
 				</form>
 		);
 	}

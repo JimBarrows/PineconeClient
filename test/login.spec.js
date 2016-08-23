@@ -6,7 +6,6 @@ import chai from "chai";
 import {user} from "./support/fixtures";
 import Login from "./pages/Login";
 import Campaigns from "./pages/Campaigns";
-import "./support/customCommands";
 
 const expect    = chai.expect;
 const login     = new Login();

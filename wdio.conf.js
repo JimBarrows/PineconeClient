@@ -3,8 +3,9 @@
  */
 'use strict';
 require('babel-register');
-var cleanDatabase = require("./test/support/fixtures").cleanDatabase;
-
+var fixtures      = require("./test/support/fixtures");
+var cleanDatabase = fixtures.cleanDatabase;
+var chai          = require("chai");
 
 exports.config = {
 
@@ -18,7 +19,9 @@ exports.config = {
 	// directory is where your package.json resides, so `wdio` will be called from there.
 	//
 	specs: [
-		'./test/*.spec.js'
+		// './test/login.spec.js',
+		// './test/registration.spec.js',
+		'./test/settings.spec.js'
 	],
 
 	maxInstances: 1,
@@ -108,7 +111,8 @@ exports.config = {
 	// See the full list at http://mochajs.org/
 	mochaOpts: {
 		ui: 'bdd',
-		compilers: ['js:babel-register']
+		compilers: ['js:babel-register'],
+		timeout: 120000
 	},
 	//
 	// =====
@@ -125,12 +129,16 @@ exports.config = {
 	//
 	// Gets executed before test execution begins. At this point you can access to all global
 	// variables like `browser`. It is the perfect place to define custom commands.
-	// before: function (capabilities, specs) {
-	// },
+	before: function (capabilities, specs) {
+		require("./test/support/customCommands");
+		global.expect = chai.expect;
+	},
 	//
 	// Hook that gets executed before the suite starts
-	// beforeSuite: function (suite) {
-	// },
+	beforeSuite: function (suite) {
+
+
+	},
 	//
 	// Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
 	// beforeEach in Mocha)

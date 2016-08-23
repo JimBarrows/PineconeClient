@@ -59,7 +59,6 @@ export default withRouter(class Content extends React.Component {
 	}
 
 	addButtonClicked() {
-		console.log("add button clicked");
 		this.props.router.push('/contentEdit');
 	}
 

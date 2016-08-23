@@ -3,12 +3,18 @@
  */
 'use strict';
 
+import AssetsListPanel from "./components/AssetsListPanel";
 import Page from "./page";
 
-export default class Settings extends Page {
+class Settings extends Page {
+
+	constructor() {
+		super();
+		this.assetsListPanel = new AssetsListPanel();
+	}
+
 
 	isCurrent() {
-
 		return browser.getText('.page-header h1') === 'Settings'
 	}
 
@@ -16,3 +22,5 @@ export default class Settings extends Page {
 		super.open('#/settings');
 	}
 }
+
+export default new Settings();

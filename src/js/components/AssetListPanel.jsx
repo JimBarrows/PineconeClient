@@ -1,12 +1,23 @@
 'use strict';
+import AssetTableRow from "./AssetTableRow";
 import React from "react";
 import {ListTablePanel} from "bootstrap-react-components";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
 
 export default class AssetListPanel extends React.Component {
-	add() {
 
+	constructor(props) {
+		super(props);
+		this.state = {
+			add: false
+		}
+	}
+
+	add() {
+		this.setState({
+			add: true
+		})
 	}
 
 	reload() {
@@ -18,7 +29,9 @@ export default class AssetListPanel extends React.Component {
 	}
 
 	save() {
-
+		this.setState({
+			add: false
+		})
 	}
 
 	remove() {
@@ -26,39 +39,36 @@ export default class AssetListPanel extends React.Component {
 	}
 
 	render() {
+		let {assets} = this.props;
+		let rows     = assets.map((asset) => (
+				<AssetTableRow asset={asset} edit={this.edit.bind(this)} save={this.save.bind(this)}
+				               remove={this.remove.bind(this)}/>  ));
+
+		let addRow = this.state.add ? <tr key={0}>
+			<td>Name</td>
+			<td>Type</td>
+			<td>Size</td>
+			<td>URL</td>
+			<td>
+				<RowControlButtons editing={this.state.add} edit={this.edit.bind(this)} save={this.save.bind(this)}
+				                   remove={this.remove.bind(this)}/>
+			</td>
+		</tr> : null;
 		return (
-				<ListTablePanel name="assets" title="Assets" onAddClick={this.add.bind(this)}
+				<ListTablePanel id="assets" title="Assets" onAddClick={this.add.bind(this)}
 				                onReloadClick={this.reload.bind(this)}>
-						<thead>
-						<tr>
-							<th>Name</th>
-							<th>Type</th>
-							<th>Size</th>
-							<th>Location</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<td>Campaign Logo</td>
-							<td>PNG</td>
-							<td>1,200k</td>
-							<td><a href="https://dropbox.com">Dropbox/campaignName/images/campaignLog.png</a></td>
-							<td>
-								<RowControlButtons editing={false} edit={this.edit.bind(this)} save={this.save.bind(this)}
-								                   remove={this.remove.bind(this)}/>
-							</td>
-						</tr>
-						<tr>
-							<td>Audio Spot 1</td>
-							<td>mp3</td>
-							<td>1,200k</td>
-							<td><a href="https://dropbox.com">Dropbox/campaignName/audio/spot1.mp3</a></td>
-							<td>
-								<RowControlButtons editing={false} edit={this.edit.bind(this)} save={this.save.bind(this)}
-								                   remove={this.remove.bind(this)}/>
-							</td>
-						</tr>
-						</tbody>
+					<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>Size</th>
+						<th>Location</th>
+					</tr>
+					</thead>
+					<tbody>
+					{addRow}
+					{rows}
+					</tbody>
 				</ListTablePanel>
 		);
 	}

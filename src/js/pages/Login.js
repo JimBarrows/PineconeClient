@@ -53,7 +53,7 @@ export default class Login extends React.Component {
 		let {error, usernameError, passwordError} = this.state;
 		return (
 				<div id="loginPage" class="login">
-					<PageHeader>
+					<PageHeader id="login">
 						<h1>Login</h1>
 					</PageHeader>
 					<DangerAlert id="loginDangerAlert" error={error}/>
