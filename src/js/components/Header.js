@@ -2,7 +2,7 @@ import React from "react";
 import {Link} from "react-router";
 import UserStore from "../stores/UserStore";
 import {UserEventNames} from "../constants";
-import * as UserActions from "../actions/UserActions";
+import * as UserActions from "../actions/AccountActions";
 
 export default class Header extends React.Component {
 

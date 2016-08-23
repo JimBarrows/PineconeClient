@@ -15,7 +15,6 @@ export default class TwitterDestinationRow extends React.Component {
 	}
 
 	onChange(event) {
-		console.log("onChange( ", event, ")");
 		switch (event.target.name) {
 			case "name":
 				this.setState({

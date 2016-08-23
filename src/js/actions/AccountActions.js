@@ -3,28 +3,8 @@ import axios from "axios";
 import dispatcher from "../Dispatcher";
 import {UserEventNames} from "../constants";
 
-export function addFacebookUserId(accessToken, email, expiresIn, name, signedRequest, userId) {
-	axios.put("/api/user/facebookId", {accessToken, email, expiresIn, name, signedRequest, userId})
-			.then(() =>
-					dispatcher.dispatch({
-						type: UserEventNames.USER_FACEBOOK_ID_ADDED,
-						accessToken, email, expiresIn, name, signedRequest, userId
-					}))
-			.catch((error) => dispatcher.dispatch({
-				type: UserEventNames.USER_FACEBOOK_ID_ADD_ERROR,
-				error: error.data ? error.data : error
-			}));
-
-}
-
-export function addTwitterAccount() {
-	axios.get("/api/user/twitterAccount")
-			.then(function (response) {
-				console.log("UserActions.addTwitterAccount response: ", response);
-			})
-			.catch(function (error) {
-				console.log("UserActions.addTwitterAccount", error);
-			});
+export function deleteAsset(asset) {
+	console.log("Deletoing asset", asset);
 }
 
 export function login(username, password) {
@@ -96,3 +76,16 @@ export function registerUser(username, password) {
 			})
 }
 
+export function saveAsset(asset) {
+	axios.post("/api/user/assets", asset)
+			.then(axios.get("/api/user"))
+			.then((account) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: account
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error,
+				asset: asset
+			}));
+}

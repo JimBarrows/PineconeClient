@@ -1,5 +1,5 @@
 import React from "react";
-import * as UserActions from "../actions/UserActions";
+import * as UserActions from "../actions/AccountActions";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
 import {DangerAlert, PageHeader, PasswordFormGroup, TextFormGroup} from "bootstrap-react-components";
