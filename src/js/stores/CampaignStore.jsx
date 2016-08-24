@@ -16,21 +16,7 @@ class CampaignStore extends EventEmitter {
 
 	constructor() {
 		super();
-		this._assets            = [];
-		this._budgetLineItems   = [];
-		this._destinations      = [];
-		this._effectiveFrom     = moment();
-		this._effectiveThru     = null;
-		this._facebookAccounts  = [];
-		this._id                = null;
-		this._keywords          = [];
-		this._messages          = [];
-		this._name              = null;
-		this._objectives        = [];
-		this._owner             = null;
-		this._tags              = [];
-		this._twitterAccounts   = [];
-		this._wordPressAccounts = []
+		this.initialize();
 	}
 
 	get campaign() {
@@ -41,7 +27,7 @@ class CampaignStore extends EventEmitter {
 			effectiveFrom: this.effectiveFrom,
 			effectiveThru: this.effectiveThru,
 			facebookAccounts: this.facebookAccounts,
-			id: this.id,
+			_id: this._id,
 			keywords: this.keywords,
 			messages: this.messages,
 			name: this.name,
@@ -67,6 +53,28 @@ class CampaignStore extends EventEmitter {
 
 	get facebookAccounts() {
 		return this._facebookAccounts
+	}
+
+	get _id() {
+		return this.__id
+	}
+
+	initialize() {
+		this._assets            = [];
+		this._budgetLineItems   = [];
+		this._destinations      = [];
+		this._effectiveFrom     = moment();
+		this._effectiveThru     = null;
+		this._facebookAccounts  = [];
+		this.__id               = null;
+		this._keywords          = [];
+		this._messages          = [];
+		this._name              = "";
+		this._objectives        = [];
+		this._owner             = null;
+		this._tags              = [];
+		this._twitterAccounts   = [];
+		this._wordPressAccounts = []
 	}
 
 	get keywords() {
@@ -104,24 +112,36 @@ class CampaignStore extends EventEmitter {
 	handleActions(action) {
 		switch (action.type) {
 			case CampaignEvent.LOAD_CAMPAIGN_SUCCESS:
-				this._assets            = action.campaign.assets;
-				this._budgetLineItems   = action.campaign.budgetLineItems;
-				this._destinations      = action.campaign.destinations;
-				this._effectiveFrom     = action.campaign.effectiveFrom;
-				this._effectiveThru     = action.campaign.effectiveThru;
-				this._facebookAccounts  = action.campaign.facebookAccounts;
-				this._id                = action.campaign.id;
-				this._keywords          = action.campaign.keywords;
-				this._messages          = action.campaign.messages;
-				this._name              = action.campaign.name;
-				this._objectives        = action.campaign.objectives;
-				this._owner             = action.campaign.owner;
-				this._tags              = action.campaign.tags;
-				this._twitterAccounts   = action.campaign.twitterAccounts;
-				this._wordPressAccounts = action.campaign.wordPressAccounts;
+				this.copyFrom(action);
+				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
+				break;
+			case CampaignEvent.UPDATE_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.UPDATE_SUCCESS);
+				break;
+			case CampaignEvent.CLEAR:
+				this.initialize();
 				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
 				break;
 		}
+	}
+
+	copyFrom(action) {
+		this._assets            = action.campaign.assets;
+		this._budgetLineItems   = action.campaign.budgetLineItems;
+		this._destinations      = action.campaign.destinations;
+		this._effectiveFrom     = action.campaign.effectiveFrom;
+		this._effectiveThru     = action.campaign.effectiveThru;
+		this._facebookAccounts  = action.campaign.facebookAccounts;
+		this.__id               = action.campaign._id;
+		this._keywords          = action.campaign.keywords;
+		this._messages          = action.campaign.messages;
+		this._name              = action.campaign.name;
+		this._objectives        = action.campaign.objectives;
+		this._owner             = action.campaign.owner;
+		this._tags              = action.campaign.tags;
+		this._twitterAccounts   = action.campaign.twitterAccounts;
+		this._wordPressAccounts = action.campaign.wordPressAccounts;
 	}
 }
 

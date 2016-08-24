@@ -18,8 +18,11 @@ class CampaignListStore extends EventEmitter {
 		return this._error
 	}
 
+	findById(id) {
+		return this.campaigns.filter((campaign) => campaign._id === id)[0];
+	}
+
 	handleActions(action) {
-		console.log("CampaignListStore.handleActions: ", action);
 		switch (action.type) {
 			case CampaignEvent.CREATE_SUCCESS:
 				this._campaigns.push(action.campaign);
@@ -30,7 +33,6 @@ class CampaignListStore extends EventEmitter {
 				this.emit(CampaignEvent.CREATE_FAILURE);
 				break;
 			case CampaignEvent.LOAD_LIST_SUCCESS:
-				console.log("CampaignListStore.handleActions LOAD_LIST_SUCCESS");
 				this._campaigns = action.campaigns;
 				this.emit(CampaignEvent.LOAD_LIST_SUCCESS);
 				break;

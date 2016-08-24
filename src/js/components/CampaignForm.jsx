@@ -16,40 +16,36 @@ export default class CampaignForm extends React.Component {
 	fieldChange(event) {
 		switch (event.target.id) {
 			case "effectiveFrom":
-				this.setState({
-					effectiveFrom: event.target.value
-				});
+				this.props.campaign.effectiveFrom = event.target.value;
 				break;
 			case 'effectiveThru':
-				this.setState({
-					effectiveThru: event.target.value
-				});
+				this.props.campaign.effectiveThru = event.target.value;
 				break;
 			case'name':
-				this.setState({
-					name: event.target.value
-				});
+				this.props.campaign.name = event.target.value;
 				break;
 		}
+		this.setState({});
 	}
 
 	handleSubmit(e) {
 		e.preventDefault();
 		this.props.onSubmit({
-			assets: this.state.assets,
-			budgetLineItems: this.state.budgetLineItems,
-			destinations: this.state.destinations,
-			effectiveFrom: this.state.effectiveFrom,
-			effectiveThru: this.state.effectiveThru,
-			facebookAccounts: this.state.facebookAccounts,
-			keywords: this.state.keywords,
-			messages: this.state.messages,
-			name: this.state.name,
-			objectives: this.state.objectives,
-			owner: this.state.owner,
-			tags: this.state.tags,
-			twitterAccounts: this.state.twitterAccounts,
-			wordPressAccounts: this.state.wordPressAccounts
+			assets: this.props.campaign.assets,
+			budgetLineItems: this.props.campaign.budgetLineItems,
+			destinations: this.props.campaign.destinations,
+			effectiveFrom: this.props.campaign.effectiveFrom,
+			effectiveThru: this.props.campaign.effectiveThru,
+			facebookAccounts: this.props.campaign.facebookAccounts,
+			_id: this.props.campaign._id,
+			keywords: this.props.campaign.keywords,
+			messages: this.props.campaign.messages,
+			name: this.props.campaign.name,
+			objectives: this.props.campaign.objectives,
+			owner: this.props.campaign.owner,
+			tags: this.props.campaign.tags,
+			twitterAccounts: this.props.campaign.twitterAccounts,
+			wordPressAccounts: this.props.campaign.wordPressAccounts
 		});
 	}
 

@@ -28,16 +28,17 @@ export default withRouter(class Campaigns extends React.Component {
 	componentWillMount() {
 		CampaignStore.on(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList);
 		CampaignStore.on(CampaignEvent.LOAD_LIST_SUCCESS, this.updateCampaignList);
+		CampaignStore.on(CampaignEvent.UPDATE_SUCCESS, this.updateCampaignList);
 	}
 
 	componentWillUnmount() {
 		CampaignStore.removeListener(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList);
 		CampaignStore.removeListener(CampaignEvent.LOAD_LIST_SUCCESS, this.updateCampaignList);
+		CampaignStore.removeListener(CampaignEvent.UPDATE_SUCCESS, this.updateCampaignList);
 	}
 
 
 	render() {
-		console.log("Campaigns.render: ", this.state.campaigns);
 		let campaignRows = this.state.campaigns.map((campaign, index) =>
 				<CampaignTableRow key={index} campaign={campaign}/>);
 		return (
@@ -63,7 +64,6 @@ export default withRouter(class Campaigns extends React.Component {
 	}
 
 	updateCampaignList() {
-		console.log("Campaigns.updateCampaignList: ", CampaignStore.campaigns);
 		this.setState({
 			campaigns: CampaignStore.campaigns
 		});
