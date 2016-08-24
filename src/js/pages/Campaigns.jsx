@@ -1,19 +1,16 @@
 'use strict';
+import * as CampaignActions from "../actions/CampaignActions";
 import {CampaignEvent} from "../constants";
-import CampaignStore from "../stores/CampaignStore";
+import CampaignStore from "../stores/CampaignListStore";
+import CampaignTableRow from "../components/CampaignTableRow";
 import {withRouter} from "react-router";
 import {ListTablePanel, PageHeader} from "bootstrap-react-components";
 import React from "react";
-import RowControlButtons from "../components/controls/RowControlButtons";
 
 export default withRouter(class Campaigns extends React.Component {
 
 	add() {
-		this.props.router.push('/campaignEdit');
-	}
-
-	edit() {
-		console.log("edit clicked");
+		this.props.router.push('/campaign');
 	}
 
 	constructor(props) {
@@ -24,28 +21,25 @@ export default withRouter(class Campaigns extends React.Component {
 		}
 	}
 
+	componentDidMount() {
+		CampaignActions.load();
+	}
+
 	componentWillMount() {
 		CampaignStore.on(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList);
+		CampaignStore.on(CampaignEvent.LOAD_LIST_SUCCESS, this.updateCampaignList);
 	}
 
-	componentWillMount() {
+	componentWillUnmount() {
 		CampaignStore.removeListener(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList);
+		CampaignStore.removeListener(CampaignEvent.LOAD_LIST_SUCCESS, this.updateCampaignList);
 	}
 
-	remove() {
-		console.log("remove clicked");
-	}
+
 	render() {
-		let campaignRows = this.state.campaigns.map((campaign, index) => {
-			<tr key={campaign._id || index}>
-				<td>campaign.name</td>
-				<td>campaign.effectiveFrom</td>
-				<td>effective.effectiveThru</td>
-				<td>
-					<RowControlButtons editing={false} edit={this.edit.bind(this)} remove={this.remove.bind(this)}/>
-				</td>
-			</tr>
-		});
+		console.log("Campaigns.render: ", this.state.campaigns);
+		let campaignRows = this.state.campaigns.map((campaign, index) =>
+				<CampaignTableRow key={index} campaign={campaign}/>);
 		return (
 				<div>
 					<PageHeader id="campaigns">
@@ -69,8 +63,9 @@ export default withRouter(class Campaigns extends React.Component {
 	}
 
 	updateCampaignList() {
+		console.log("Campaigns.updateCampaignList: ", CampaignStore.campaigns);
 		this.setState({
-			campaigns: CampaignStore.campaigns()
+			campaigns: CampaignStore.campaigns
 		});
 	}
 });

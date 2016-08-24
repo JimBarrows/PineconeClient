@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import {Router, Route, IndexRoute, hashHistory} from "react-router";
 import * as Application from "./actions/Application";
 import Campaigns from "./pages/Campaigns";
+import CampaignAdd from "./pages/CampaignAdd";
 import CampaignEdit from "./pages/CampaignEdit";
 import Content from "./pages/Content";
 import ContentEdit from "./pages/ContentEdit";
@@ -27,7 +28,8 @@ Application.initialize();
 ReactDOM.render(<Router history={hashHistory}>
 	<Route path="/" component={Layout}>
 		<IndexRoute component={Campaigns} onEnter={requireAuth}></IndexRoute>
-		<Route path="campaignEdit" name="campaignEdit" component={CampaignEdit} onEnter={requireAuth}></Route>
+		<Route path="campaign" name="campaignAdd" component={CampaignAdd} onEnter={requireAuth}></Route>
+		<Route path="campaign/:campaignId" name="campaignEdit" component={CampaignEdit} onEnter={requireAuth}></Route>
 		<Route path="content" name="content" component={Content} onEnter={requireAuth}></Route>
 		<Route path="contentEdit" name="contentEdit" component={ContentEdit} onEnter={requireAuth}></Route>
 		<Route path="settings" name="settings" component={Settings} onEnter={requireAuth}></Route>
