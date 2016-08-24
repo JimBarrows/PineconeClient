@@ -1,4 +1,5 @@
 'use strict';
+import * as CampaignActions from "../actions/CampaignActions";
 import React from "react";
 import RowControlButtons from "./controls/RowControlButtons";
 import {withRouter} from "react-router";
@@ -18,7 +19,7 @@ export default withRouter(class CampaignTableRow extends React.Component {
 	}
 
 	remove() {
-		console.log("remove");
+		CampaignActions.remove(this.props.campaign);
 	}
 
 	render() {

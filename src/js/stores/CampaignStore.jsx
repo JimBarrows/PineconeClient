@@ -111,6 +111,10 @@ class CampaignStore extends EventEmitter {
 
 	handleActions(action) {
 		switch (action.type) {
+			case CampaignEvent.CLEAR:
+				this.initialize();
+				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
+				break;
 			case CampaignEvent.LOAD_CAMPAIGN_SUCCESS:
 				this.copyFrom(action);
 				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
@@ -118,10 +122,6 @@ class CampaignStore extends EventEmitter {
 			case CampaignEvent.UPDATE_SUCCESS:
 				this.copyFrom(action);
 				this.emit(CampaignEvent.UPDATE_SUCCESS);
-				break;
-			case CampaignEvent.CLEAR:
-				this.initialize();
-				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
 				break;
 		}
 	}

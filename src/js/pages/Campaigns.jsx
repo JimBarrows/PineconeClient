@@ -29,12 +29,15 @@ export default withRouter(class Campaigns extends React.Component {
 		CampaignStore.on(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList);
 		CampaignStore.on(CampaignEvent.LOAD_LIST_SUCCESS, this.updateCampaignList);
 		CampaignStore.on(CampaignEvent.UPDATE_SUCCESS, this.updateCampaignList);
+		CampaignStore.on(CampaignEvent.REMOVE_CAMPAIGN_SUCCESS, this.updateCampaignList);
 	}
 
 	componentWillUnmount() {
 		CampaignStore.removeListener(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList);
 		CampaignStore.removeListener(CampaignEvent.LOAD_LIST_SUCCESS, this.updateCampaignList);
 		CampaignStore.removeListener(CampaignEvent.UPDATE_SUCCESS, this.updateCampaignList);
+		CampaignStore.removeListener(CampaignEvent.REMOVE_CAMPAIGN_SUCCESS, this.updateCampaignList);
+
 	}
 
 
