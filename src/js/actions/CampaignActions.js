@@ -15,7 +15,6 @@ export function clear() {
 }
 
 export function create(campaign) {
-	console.log("create campaign: ", campaign);
 	axios.post("/api/campaigns", campaign)
 			.then((response)=> dispatcher.dispatch({
 				type: CampaignEvent.CREATE_SUCCESS,
@@ -76,7 +75,7 @@ export function update(campaign) {
 	axios.put("/api/campaign/" + campaign._id, campaign)
 			.then((response)=> dispatcher.dispatch({
 				type: CampaignEvent.UPDATE_SUCCESS,
-				campaign
+				campaign: jsonToCampaign(response.data)
 			}))
 			.catch((error) => dispatcher.dispatch({
 				type: CampaignEvent.UDPATE_FAILURE,

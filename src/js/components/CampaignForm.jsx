@@ -84,7 +84,8 @@ export default class CampaignForm extends React.Component {
 					                    disabled={false}/>
 					<TextFormGroup label="Tags" id="tags"/>
 					<button id="saveCampaignButton" type="submit" class="btn btn-success">Save</button>
-					<AssetListPanel assets={assets}/>
+					<AssetListPanel assets={assets} deleteAsset={this.deleteAsset.bind(this)}
+					                saveAsset={this.saveAsset.bind(this)}/>
 					<BudgetPanel/>
 					<ContentListPanel/>
 					<DestinationListPanel/>
@@ -94,5 +95,14 @@ export default class CampaignForm extends React.Component {
 					<TacticListPanel/>
 				</form>
 		);
+	}
+
+	saveAsset(asset) {
+		this.setState({});
+	}
+
+	deleteAsset(asset) {
+		this.props.campaign.assets = this.props.campaign.assets.filter((cur) => cur._id !== asset._id);
+		this.setState({});
 	}
 }

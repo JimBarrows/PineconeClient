@@ -1,5 +1,5 @@
 'use strict';
-import {saveAsset, deleteAsset} from "../actions/AccountActions";
+
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -38,14 +38,14 @@ export default class AssetTableRow extends React.Component {
 	}
 
 	save() {
-		saveAsset(this.props.asset);
+		this.props.saveAsset(this.props.asset);
 		this.setState({
 			editing: false
 		});
 	}
 
 	remove() {
-		deleteAsset({_id: this.props.asset._id})
+		this.props.deleteAsset(this.props.asset)
 	}
 
 	render() {

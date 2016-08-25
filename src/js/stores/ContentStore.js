@@ -3,7 +3,7 @@ import {EventEmitter} from "events";
 import {ContentEventNames} from "../constants";
 import dispatcher from "../Dispatcher";
 
-class ContentStoreClass extends EventEmitter {
+class ContentStore extends EventEmitter {
 	constructor() {
 		super();
 		this.content = [];
@@ -55,6 +55,6 @@ class ContentStoreClass extends EventEmitter {
 }
 
 
-const ContentStore = new ContentStoreClass;
-export const token = dispatcher.register(ContentStore.handleActions.bind(ContentStore));
-export default ContentStore;
+const store        = new ContentStore();
+export const token = dispatcher.register(store.handleActions.bind(ContentStore));
+export default store;

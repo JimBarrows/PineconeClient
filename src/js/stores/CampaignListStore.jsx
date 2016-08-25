@@ -45,6 +45,10 @@ class CampaignListStore extends EventEmitter {
 				console.log("removing campaigns: ", this._campaigns);
 				this.emit(CampaignEvent.REMOVE_CAMPAIGN_SUCCESS);
 				break;
+			case CampaignEvent.UPDATE_SUCCESS:
+				this._campaigns = this.campaigns.filter((campaign => campaign._id !== action.campaign));
+				this.campaigns.push(action.campaign);
+				break;
 		}
 	}
 }

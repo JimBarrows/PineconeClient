@@ -1,4 +1,5 @@
 import AssetListPanel from "../components/AssetListPanel";
+import {deleteAsset, saveAsset} from "../actions/AccountActions";
 import DestinationListPanel from "../components/DestinationListPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import MessageListPanel from "../components/MessageListPanel";
@@ -60,7 +61,7 @@ export default class Settings extends React.Component {
 					<PageHeader id="settings">
 						<h1>Settings</h1>
 					</PageHeader>
-					<AssetListPanel assets={this.state.assets}/>
+					<AssetListPanel assets={this.state.assets} deleteAsset={deleteAsset} saveAsset={saveAsset}/>
 					<DestinationListPanel/>
 					<KeywordsListPanel/>
 					<MessageListPanel id="settingsMessages"/>
