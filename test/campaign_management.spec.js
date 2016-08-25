@@ -77,7 +77,6 @@ describe("How a user can manage the basic data for a campaign.", function () {
 			browser.waitUntil(function () {
 				return CampaignEdit.isCurrent()
 			}, 2000);
-			console.log("name: ", CampaignEdit.name().getValue());
 			expect(CampaignEdit.name().getValue()).to.be.equal(original.name);
 			expect(CampaignEdit.effectiveFrom().getValue()).to.be.equal(moment(original.effectiveFrom).format(entryFormat));
 			expect(CampaignEdit.effectiveThru().getValue()).to.be.equal(moment(original.effectiveThru).format(entryFormat));
@@ -99,5 +98,21 @@ describe("How a user can manage the basic data for a campaign.", function () {
 		})
 	});
 	describe("How to delete a campaign", function () {
-	})
+		it("must delete a campaign", function () {
+			let now        = moment();
+			let thirtyDays = now.clone().add(30, 'days');
+			let original   = browser.createCampaign({
+				name: "Test Campaign",
+				effectiveFrom: now,
+				effectiveThru: thirtyDays,
+				owner: account._id
+			});
+			browser.refresh();
+			browser.waitUntil(function () {
+				return Campaigns.isCurrent()
+			}, 2000);
+			Campaigns.deleteButton(1).click();
+			expect(Campaigns.numberOfRows()).to.be.equal(0);
+		});
+	});
 });

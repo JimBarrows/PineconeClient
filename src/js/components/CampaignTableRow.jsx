@@ -31,7 +31,8 @@ export default withRouter(class CampaignTableRow extends React.Component {
 					<td>{campaign.effectiveFrom.format("MMMM Do YYYY")}</td>
 					<td>{campaign.effectiveThru.format("MMMM Do YYYY")}</td>
 					<td>
-						<RowControlButtons editing={editing} edit={this.edit.bind(this)} remove={this.remove.bind(this)}/>
+						<RowControlButtons id={campaign._id} editing={editing} edit={this.edit.bind(this)}
+						                   remove={this.remove.bind(this)}/>
 					</td>
 				</tr>
 		);
