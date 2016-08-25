@@ -3,38 +3,20 @@
  */
 'use strict';
 
-import Page from "./page";
+import CampaignForm from "./CampaignForm";
 
-class CampaignAdd extends Page {
+class CampaignAdd extends CampaignForm {
 
-	effectiveFrom() {
-		return browser.element("#effectiveFormGroup > div > div:nth-child(1) > div > input");
-	}
-
-	effectiveThru() {
-		return browser.element("#effectiveFormGroup > div > div:nth-child(2) > div > input");
-	}
 
 	isCurrent() {
 
 		return browser.getText('.page-header h1') === 'Define Campaign'
 	}
 
-	name() {
-		return browser.element("#name");
-	}
-
 	open() {
 		super.open('#/campaign');
 	}
 
-	saveButton() {
-		return browser.element("#saveCampaignButton");
-	}
-
-	submitForm() {
-		return browser.submit("#campaignForm");
-	}
 }
 
 export default new CampaignAdd();

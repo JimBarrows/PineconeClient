@@ -3,19 +3,19 @@
  */
 'use strict';
 
-import Page from "./page";
+import CampaignForm from "./CampaignForm";
 
-class CampaignAdd extends Page {
+class CampaignEdit extends CampaignForm {
 
 	isCurrent() {
 
-		return browser.getText('.page-header h1') === 'Modify Campaign'
+		return browser.getText('.page-header h1') === 'Edit Campaign'
 	}
 
-	open() {
-		super.open('#/campaign');
+	open(id) {
+		super.open('#/campaign/' + id);
 	}
 
 }
 
-export default new CampaignAdd();
+export default new CampaignEdit();

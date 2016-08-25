@@ -3,7 +3,7 @@
  */
 'use strict';
 
-import {Account} from "@reallybigtree/pinecone-models";
+import {Account, Campaign} from "@reallybigtree/pinecone-models";
 import Campaigns from "../pages/Campaigns";
 import {createAccount, user} from "./fixtures";
 import Login from "../pages/Login";
@@ -53,4 +53,8 @@ browser.addCommand("addAssetTestData", function (numberOfAssets) {
 
 browser.addCommand("accountInfo", function async() {
 	return Account.findOne({username: user.username});
+});
+
+browser.addCommand("createCampaign", function async(campaign) {
+	return Campaign.create(campaign);
 });

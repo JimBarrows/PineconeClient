@@ -17,7 +17,7 @@ class Campaigns extends Page {
 	}
 
 	open() {
-		super.open('#/campaigns');
+		super.open('#/');
 	}
 
 	row(index) {
@@ -27,6 +27,10 @@ class Campaigns extends Page {
 	cell(row, column) {
 		let selector = "#currentCampaignsTable > tbody > tr:nth-child(" + row + ") > td:nth-child(" + column + ")";
 		return browser.element(selector);
+	}
+
+	editButton(row) {
+		return browser.element("#currentCampaignsTable > tbody > tr:nth-child(" + row + ") > td:nth-child(4) > div > button.btn.btn-default.btn-xs");
 	}
 }
 
