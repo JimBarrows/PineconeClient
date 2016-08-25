@@ -15,6 +15,7 @@ export function clear() {
 }
 
 export function create(campaign) {
+	console.log("create campaign: ", campaign);
 	axios.post("/api/campaigns", campaign)
 			.then((response)=> dispatcher.dispatch({
 				type: CampaignEvent.CREATE_SUCCESS,

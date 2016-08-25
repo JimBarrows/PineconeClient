@@ -5,7 +5,7 @@
 
 import Page from "./page";
 
-export default class Login extends Page {
+class Login extends Page {
 
 	isCurrent() {
 
@@ -40,3 +40,6 @@ export default class Login extends Page {
 		return browser.element('#loginDangerAlert');
 	}
 }
+
+const login = new Login();
+export default login;

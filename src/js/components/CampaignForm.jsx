@@ -67,7 +67,7 @@ export default class CampaignForm extends React.Component {
 				    wordPressAccounts
 		    } = this.props.campaign;
 		return (
-				<form onSubmit={this.handleSubmit.bind(this)}>
+				<form id="campaignForm" onSubmit={this.handleSubmit.bind(this)}>
 					<TextFormGroup label="Name"
 					               id="name"
 					               onChange={this.fieldChange.bind(this)}
@@ -80,9 +80,10 @@ export default class CampaignForm extends React.Component {
 					                    error=""
 					                    fromValue={effectiveFrom}
 					                    thruValue={effectiveThru}
+					                    dateFormat="MM/DD/YYYY"
 					                    disabled={false}/>
 					<TextFormGroup label="Tags" id="tags"/>
-					<button type="submit" class="btn btn-success">Save</button>
+					<button id="saveCampaignButton" type="submit" class="btn btn-success">Save</button>
 					<AssetListPanel assets={assets}/>
 					<BudgetPanel/>
 					<ContentListPanel/>
