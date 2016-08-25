@@ -3,6 +3,18 @@ import dispatcher from "../Dispatcher";
 import {UserEventNames} from "../constants";
 
 class UserStore extends EventEmitter {
+
+	assets() {
+		return this._assets
+	}
+
+	addActionContent(content) {
+		this._assets       = content.assets;
+		this._destinations = content.destinations;
+		this._id           = content._id;
+		this._username     = content.username;
+	}
+
 	constructor() {
 		super();
 		this._assets            = [];
@@ -17,17 +29,8 @@ class UserStore extends EventEmitter {
 		this._wordPressAccounts = [];
 	}
 
-
-	addActionContent(content) {
-		this._assets   = content.assets;
-		this._id       = content._id;
-		this._username = content.username;
-	}
-
-	invalidate() {
-		this._assets   = [];
-		this._id       = 0;
-		this._username = "";
+	get destinations() {
+		return this._destinations
 	}
 
 	handleActions(action) {
@@ -66,16 +69,18 @@ class UserStore extends EventEmitter {
 		}
 	}
 
-	user() {
-		return this._username;
-	}
-
 	id() {
 		return this._id;
 	}
 
-	assets() {
-		return this._assets
+	invalidate() {
+		this._assets   = [];
+		this._id       = 0;
+		this._username = "";
+	}
+
+	user() {
+		return this._username;
 	}
 
 }

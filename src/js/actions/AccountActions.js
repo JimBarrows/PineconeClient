@@ -17,6 +17,19 @@ export function deleteAsset(asset) {
 			}));
 }
 
+export function deleteDestination(destination) {
+	axios.delete("/api/user/destination/" + destination._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error
+			}));
+}
+
 export function login(username, password) {
 	axios.post("/api/user/login", {
 				username
@@ -110,6 +123,35 @@ export function saveAsset(asset) {
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
 					error: error,
 					asset: asset
+				}));
+	}
+
+}
+
+export function saveDestination(destination) {
+	if (destination._id) {
+		axios.put("/api/user/destination/" + destination._id, destination)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					destination: destination
+				}));
+	} else {
+		axios.post("/api/user/destinations", destination)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					destination: destination
 				}));
 	}
 

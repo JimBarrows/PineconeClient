@@ -1,52 +1,41 @@
 'use strict';
+import DestinationTableRow from "./DestinationTableRow";
 import React from "react";
-import {ListPanel} from "bootstrap-react-components";
+import {ListTablePanel} from "bootstrap-react-components";
 
 
 export default class DestinationsListPanel extends React.Component {
 
 	add() {
-
-	}
-
-	reload() {
-
-	}
-
-	edit() {
-
-	}
-
-	save() {
-
-	}
-
-	remove() {
-
+		this.props.destinations.push({
+			name: "",
+			type: "",
+			url: ""
+		});
+		this.setState({});
 	}
 
 	render() {
+		let {destinations} = this.props;
+		let rows           = destinations.map((destination, index) => <DestinationTableRow destination={destination}
+		                                                                                   deleteDestination={this.props.deleteDestination}
+		                                                                                   index={index}
+		                                                                                   key={index}
+		                                                                                   saveDestination={this.props.saveDestination}/>);
+
 		return (
-				<ListPanel name="destinations" title="Destinations" onAddClick={this.add.bind(this)}
-				           onReloadClick={this.reload.bind(this)}>
-					<div class="row">
-						<div class="col-md-4">
-							<ul>
-								<li><a href="http://google.com">Page 1</a></li>
-								<li><a href="http://google.com">Page 1</a></li>
-								<li><a href="http://google.com">Page 1</a></li>
-							</ul>
-						</div>
-						<div class="col-md-4">
-							<ul>
-							</ul>
-						</div>
-						<div class="col-md-4">
-							<ul>
-							</ul>
-						</div>
-					</div>
-				</ListPanel>
+				<ListTablePanel name="destinations" title="Destinations" onAddClick={this.add.bind(this)}>
+					<thead>
+					<tr>
+						<th>Name</th>
+						<th>Type</th>
+						<th>URL</th>
+					</tr>
+					</thead>
+					<tbody>
+					{rows}
+					</tbody>
+				</ListTablePanel>
 		);
 	}
 }
