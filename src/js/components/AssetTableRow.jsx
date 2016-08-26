@@ -14,6 +14,12 @@ export default class AssetTableRow extends React.Component {
 		};
 	}
 
+	edit() {
+		this.setState({
+			editing: true
+		})
+	}
+
 	onChange(event) {
 		switch (event.target.id) {
 			case "name":
@@ -29,23 +35,6 @@ export default class AssetTableRow extends React.Component {
 				this.props.asset.url = event.target.value;
 				break;
 		}
-	}
-
-	edit() {
-		this.setState({
-			editing: true
-		})
-	}
-
-	save() {
-		this.props.saveAsset(this.props.asset);
-		this.setState({
-			editing: false
-		});
-	}
-
-	remove() {
-		this.props.deleteAsset(this.props.asset)
 	}
 
 	render() {
@@ -76,5 +65,16 @@ export default class AssetTableRow extends React.Component {
 					</td>
 				</tr>
 		);
+	}
+
+	remove() {
+		this.props.deleteAsset(this.props.asset)
+	}
+
+	save() {
+		this.props.saveAsset(this.props.asset);
+		this.setState({
+			editing: false
+		});
 	}
 }

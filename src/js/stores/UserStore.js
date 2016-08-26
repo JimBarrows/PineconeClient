@@ -12,21 +12,13 @@ class UserStore extends EventEmitter {
 		this._assets       = content.assets;
 		this._destinations = content.destinations;
 		this._id           = content._id;
+		this._keywords     = content.keywords;
 		this._username     = content.username;
 	}
 
 	constructor() {
 		super();
-		this._assets            = [];
-		this._destinations      = [];
-		this.error              = "";
-		this._facebookAccounts  = [];
-		this._id                = null;
-		this._keywords          = [];
-		this._messages          = [];
-		this._twitterAccounts   = [];
-		this._username          = null;
-		this._wordPressAccounts = [];
+		this.invalidate();
 	}
 
 	get destinations() {
@@ -74,9 +66,20 @@ class UserStore extends EventEmitter {
 	}
 
 	invalidate() {
-		this._assets   = [];
-		this._id       = 0;
-		this._username = "";
+		this._assets            = [];
+		this._destinations      = [];
+		this.error              = "";
+		this._facebookAccounts  = [];
+		this._id                = null;
+		this._keywords          = [];
+		this._messages          = [];
+		this._twitterAccounts   = [];
+		this._username          = null;
+		this._wordPressAccounts = [];
+	}
+
+	get keywords() {
+		return this._keywords
 	}
 
 	user() {

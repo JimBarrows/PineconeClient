@@ -12,6 +12,12 @@ export default class DestinationTableRow extends React.Component {
 		};
 	}
 
+	edit() {
+		this.setState({
+			editing: true
+		})
+	}
+
 	onChange(event) {
 		switch (event.target.id) {
 			case "name":
@@ -24,23 +30,6 @@ export default class DestinationTableRow extends React.Component {
 				this.props.destination.url = event.target.value;
 				break;
 		}
-	}
-
-	edit() {
-		this.setState({
-			editing: true
-		})
-	}
-
-	save() {
-		this.props.saveDestination(this.props.destination);
-		this.setState({
-			editing: false
-		});
-	}
-
-	remove() {
-		this.props.deleteDestination(this.props.destination)
 	}
 
 	render() {
@@ -67,5 +56,16 @@ export default class DestinationTableRow extends React.Component {
 					</td>
 				</tr>
 		);
+	}
+
+	remove() {
+		this.props.deleteDestination(this.props.destination)
+	}
+
+	save() {
+		this.props.saveDestination(this.props.destination);
+		this.setState({
+			editing: false
+		});
 	}
 }

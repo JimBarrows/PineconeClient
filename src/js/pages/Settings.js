@@ -1,5 +1,12 @@
 import AssetListPanel from "../components/AssetListPanel";
-import {deleteAsset, deleteDestination, saveAsset, saveDestination} from "../actions/AccountActions";
+import {
+		deleteAsset,
+		deleteDestination,
+		deleteKeyword,
+		saveAsset,
+		saveDestination,
+		saveKeyword
+} from "../actions/AccountActions";
 import DestinationListPanel from "../components/DestinationListPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import MessageListPanel from "../components/MessageListPanel";
@@ -19,7 +26,8 @@ export default class Settings extends React.Component {
 		this.state = {
 			username: "",
 			assets: [],
-			destinations: []
+			destinations: [],
+			keywords: []
 		}
 	}
 
@@ -35,7 +43,8 @@ export default class Settings extends React.Component {
 		this.setState({
 			username: UserStore.user(),
 			assets: UserStore.assets(),
-			destinations: UserStore.destinations
+			destinations: UserStore.destinations,
+			keywords: UserStore.keywords
 		});
 	}
 
@@ -54,7 +63,8 @@ export default class Settings extends React.Component {
 		this.setState({
 			username: UserStore.user(),
 			assets: UserStore.assets(),
-			destinations: UserStore.destinations
+			destinations: UserStore.destinations,
+			keywords: UserStore.keywords
 		});
 	}
 
@@ -67,7 +77,7 @@ export default class Settings extends React.Component {
 					<AssetListPanel assets={this.state.assets} deleteAsset={deleteAsset} saveAsset={saveAsset}/>
 					<DestinationListPanel destinations={this.state.destinations} deleteDestination={deleteDestination}
 					                      saveDestination={saveDestination}/>
-					<KeywordsListPanel/>
+					<KeywordsListPanel keywords={this.state.keywords} deleteKeyword={deleteKeyword} saveKeyword={saveKeyword}/>
 					<MessageListPanel id="settingsMessages"/>
 					<TacticListPanel/>
 				</div>

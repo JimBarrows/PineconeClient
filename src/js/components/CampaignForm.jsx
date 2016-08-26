@@ -23,6 +23,11 @@ export default class CampaignForm extends React.Component {
 		this.setState({});
 	}
 
+	deleteKeyword(keyword) {
+		this.props.campaign.keywords = this.props.campaign.keywords.filter((cur) => cur._id !== keyword._id);
+		this.setState({});
+	}
+
 	fieldChange(event) {
 		switch (event.target.id) {
 			case "effectiveFrom":
@@ -100,7 +105,8 @@ export default class CampaignForm extends React.Component {
 					<ContentListPanel/>
 					<DestinationListPanel destinations={destinations} deleteDestination={this.deleteDestination.bind(this)}
 					                      saveDestination={this.saveDestination.bind(this)}/>
-					<KeywordsListPanel/>
+					<KeywordsListPanel keywords={keywords} deleteKeywords={this.deleteKeyword.bind(this)}
+					                   saveKeyword={this.saveKeyword.bind(this)}/>
 					<MessagesListPanel/>
 					<ObjectivesListPanel/>
 					<TacticListPanel/>
@@ -114,6 +120,10 @@ export default class CampaignForm extends React.Component {
 
 
 	saveDestination(destination) {
+		this.setState({});
+	}
+
+	saveKeyword(keyword) {
 		this.setState({});
 	}
 

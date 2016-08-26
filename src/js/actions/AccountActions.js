@@ -30,6 +30,19 @@ export function deleteDestination(destination) {
 			}));
 }
 
+export function deleteKeyword(keyword) {
+	axios.delete("/api/user/keyword/" + keyword._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error
+			}));
+}
+
 export function login(username, password) {
 	axios.post("/api/user/login", {
 				username
@@ -152,6 +165,36 @@ export function saveDestination(destination) {
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
 					error: error,
 					destination: destination
+				}));
+	}
+
+}
+
+export function saveKeyword(keyword) {
+	console.log("saveKeyword: ", keyword);
+	if (keyword._id) {
+		axios.put("/api/user/keyword/" + keyword._id, keyword)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					keyword: keyword
+				}));
+	} else {
+		axios.post("/api/user/keywords", keyword)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					keyword: keyword
 				}));
 	}
 

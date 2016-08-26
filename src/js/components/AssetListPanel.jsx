@@ -5,11 +5,6 @@ import {ListTablePanel} from "bootstrap-react-components";
 
 export default class AssetListPanel extends React.Component {
 
-	constructor(props) {
-		super(props);
-	}
-
-
 	add() {
 		this.props.assets.push({
 			name: "",
@@ -22,13 +17,11 @@ export default class AssetListPanel extends React.Component {
 
 	render() {
 		let {assets} = this.props;
-		let rows     = assets.map((asset, index) =>
-				<AssetTableRow
-						asset={asset}
-						deleteAsset={this.props.deleteAsset}
-						index={index}
-						key={index}
-						saveAsset={this.props.saveAsset}/>);
+		let rows     = assets.map((asset, index) => <AssetTableRow asset={asset}
+		                                                           deleteAsset={this.props.deleteAsset}
+		                                                           index={index}
+		                                                           key={index}
+		                                                           saveAsset={this.props.saveAsset}/>);
 
 		return (
 				<ListTablePanel id="assets" title="Assets" onAddClick={this.add.bind(this)}>
