@@ -43,6 +43,19 @@ export function deleteKeyword(keyword) {
 			}));
 }
 
+export function deleteMessage(message) {
+	axios.delete("/api/user/message/" + message._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error
+			}));
+}
+
 export function login(username, password) {
 	axios.post("/api/user/login", {
 				username
@@ -171,7 +184,6 @@ export function saveDestination(destination) {
 }
 
 export function saveKeyword(keyword) {
-	console.log("saveKeyword: ", keyword);
 	if (keyword._id) {
 		axios.put("/api/user/keyword/" + keyword._id, keyword)
 				.then(() => axios.get("/api/user"))
@@ -189,7 +201,7 @@ export function saveKeyword(keyword) {
 				.then(() => axios.get("/api/user"))
 				.then((response) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT,
-					account: response.data
+					message: response.data
 				}))
 				.catch((error) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
@@ -197,5 +209,32 @@ export function saveKeyword(keyword) {
 					keyword: keyword
 				}));
 	}
+}
 
+export function saveMessage(message) {
+	if (message._id) {
+		axios.put("/api/user/message/" + message._id, message)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					message: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					message: message
+				}));
+	} else {
+		axios.post("/api/user/messages", message)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					message: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					message: message
+				}));
+	}
 }

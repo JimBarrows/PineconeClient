@@ -3,9 +3,11 @@ import {
 		deleteAsset,
 		deleteDestination,
 		deleteKeyword,
+		deleteMessage,
 		saveAsset,
 		saveDestination,
-		saveKeyword
+		saveKeyword,
+		saveMessage
 } from "../actions/AccountActions";
 import DestinationListPanel from "../components/DestinationListPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
@@ -27,7 +29,8 @@ export default class Settings extends React.Component {
 			username: "",
 			assets: [],
 			destinations: [],
-			keywords: []
+			keywords: [],
+			messages: []
 		}
 	}
 
@@ -40,12 +43,7 @@ export default class Settings extends React.Component {
 		UserStore.on(UserEventNames.USER_LOGGED_OUT, this.updateUser);
 		UserStore.on(UserEventNames.USER_LOGIN_FAILURE, this.updateUser);
 		UserStore.on(UserEventNames.USER_LOGOUT_FAILURE, this.updateUser);
-		this.setState({
-			username: UserStore.user(),
-			assets: UserStore.assets(),
-			destinations: UserStore.destinations,
-			keywords: UserStore.keywords
-		});
+		this.updateUser();
 	}
 
 	componentWillUnmount() {
@@ -64,7 +62,8 @@ export default class Settings extends React.Component {
 			username: UserStore.user(),
 			assets: UserStore.assets(),
 			destinations: UserStore.destinations,
-			keywords: UserStore.keywords
+			keywords: UserStore.keywords,
+			messages: UserStore.messages
 		});
 	}
 
@@ -78,7 +77,7 @@ export default class Settings extends React.Component {
 					<DestinationListPanel destinations={this.state.destinations} deleteDestination={deleteDestination}
 					                      saveDestination={saveDestination}/>
 					<KeywordsListPanel keywords={this.state.keywords} deleteKeyword={deleteKeyword} saveKeyword={saveKeyword}/>
-					<MessageListPanel id="settingsMessages"/>
+					<MessageListPanel messages={this.state.messages} deleteMessage={deleteMessage} saveMessage={saveMessage}/>
 					<TacticListPanel/>
 				</div>
 		);

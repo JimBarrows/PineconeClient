@@ -13,6 +13,7 @@ class UserStore extends EventEmitter {
 		this._destinations = content.destinations;
 		this._id           = content._id;
 		this._keywords     = content.keywords;
+		this._messages     = content.messages;
 		this._username     = content.username;
 	}
 
@@ -80,6 +81,10 @@ class UserStore extends EventEmitter {
 
 	get keywords() {
 		return this._keywords
+	}
+
+	get messages() {
+		return this._messages
 	}
 
 	user() {

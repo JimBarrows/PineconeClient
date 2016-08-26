@@ -4,6 +4,7 @@ import dispatcher from "../Dispatcher";
 import {CampaignEvent} from "../constants";
 
 class CampaignListStore extends EventEmitter {
+
 	constructor() {
 		super();
 		this._campaigns = [];
@@ -42,7 +43,6 @@ class CampaignListStore extends EventEmitter {
 				break;
 			case CampaignEvent.REMOVE_CAMPAIGN_SUCCESS:
 				this._campaigns = this.campaigns.filter((campaign) => campaign._id !== action.campaign._id);
-				console.log("removing campaigns: ", this._campaigns);
 				this.emit(CampaignEvent.REMOVE_CAMPAIGN_SUCCESS);
 				break;
 			case CampaignEvent.UPDATE_SUCCESS:
