@@ -13,6 +13,16 @@ import TacticListPanel from "../components/TacticListPanel";
 
 export default class CampaignForm extends React.Component {
 
+	deleteAsset(asset) {
+		this.props.campaign.assets = this.props.campaign.assets.filter((cur) => cur._id !== asset._id);
+		this.setState({});
+	}
+
+	deleteDestination(destination) {
+		this.props.campaign.destinations = this.props.campaign.destinations.filter((cur) => cur._id !== destination._id);
+		this.setState({});
+	}
+
 	fieldChange(event) {
 		switch (event.target.id) {
 			case "effectiveFrom":
@@ -88,7 +98,8 @@ export default class CampaignForm extends React.Component {
 					                saveAsset={this.saveAsset.bind(this)}/>
 					<BudgetPanel/>
 					<ContentListPanel/>
-					<DestinationListPanel/>
+					<DestinationListPanel destinations={destinations} deleteDestination={this.deleteDestination.bind(this)}
+					                      saveDestination={this.saveDestination.bind(this)}/>
 					<KeywordsListPanel/>
 					<MessagesListPanel/>
 					<ObjectivesListPanel/>
@@ -101,8 +112,10 @@ export default class CampaignForm extends React.Component {
 		this.setState({});
 	}
 
-	deleteAsset(asset) {
-		this.props.campaign.assets = this.props.campaign.assets.filter((cur) => cur._id !== asset._id);
+
+	saveDestination(destination) {
 		this.setState({});
 	}
+
+
 }
