@@ -18,6 +18,11 @@ export default class CampaignForm extends React.Component {
 		this.setState({});
 	}
 
+	deleteBudget(budget) {
+		this.props.campaign.budgets = this.props.campaign.budgets.filter((cur) => cur._id !== budget._id);
+		this.setState({});
+	}
+
 	deleteDestination(destination) {
 		this.props.campaign.destinations = this.props.campaign.destinations.filter((cur) => cur._id !== destination._id);
 		this.setState({});
@@ -106,7 +111,8 @@ export default class CampaignForm extends React.Component {
 					<button id="saveCampaignButton" type="submit" class="btn btn-success">Save</button>
 					<AssetListPanel assets={assets} deleteAsset={this.deleteAsset.bind(this)}
 					                saveAsset={this.saveAsset.bind(this)}/>
-					<BudgetPanel/>
+					<BudgetPanel id="budgetPanel" budgetLineItems={budgetLineItems} deleteBudget={this.deleteBudget.bind(this)}
+					             saveBudget={this.saveBudget.bind(this)}/>
 					<ContentListPanel/>
 					<DestinationListPanel destinations={destinations} deleteDestination={this.deleteDestination.bind(this)}
 					                      saveDestination={this.saveDestination.bind(this)}/>
@@ -124,6 +130,9 @@ export default class CampaignForm extends React.Component {
 		this.setState({});
 	}
 
+	saveBudget(budget) {
+		this.setState({});
+	}
 
 	saveDestination(destination) {
 		this.setState({});

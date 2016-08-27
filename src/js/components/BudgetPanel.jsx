@@ -1,62 +1,61 @@
 'use strict';
+import BudgetTableRow from "./BudgetTableRow";
 import React from "react";
 import {ListTablePanel} from "bootstrap-react-components";
-import RowControlButtons from "../components/controls/RowControlButtons";
 
 
 export default class BudgetPanel extends React.Component {
 	add() {
-
-	}
-
-	reload() {
-
-	}
-
-	edit() {
-
-	}
-
-	save() {
-
-	}
-
-	remove() {
-
+		this.props.budgetLineItems.push({
+			actualQuantity: 1,
+			actualUnitCost: 0.0,
+			estimatedQuantity: 1,
+			estimatedUnitCost: 0.0,
+			name: ""
+		});
+		this.setState({});
 	}
 
 	render() {
+		let {budgetLineItems} = this.props;
+		let estimatedTotal    = 0.0;
+		let actualTotal       = 0.0;
+		let rows              = budgetLineItems.map((budget, index) => {
+			estimatedTotal += (budget.estimatedQuantity * budget.estimatedUnitCost);
+			actualTotal += (budget.actualQuantity * budget.actualUnitCost);
+			return <BudgetTableRow budget={budget}
+			                       deleteBudget={this.props.deleteBudget}
+			                       index={index}
+			                       key={index}
+			                       saveBudget={this.props.saveBudget}/>
+		});
 		return (
-				<ListTablePanel name="budget" title="Budget" onAddClick={this.add.bind(this)}
-				                onReloadClick={this.reload.bind(this)}>
-						<thead>
-						<tr>
-							<th>Item</th>
-							<th>Unit Cost</th>
-							<th>Quantity</th>
-							<th>Amount</th>
-						</tr>
-						</thead>
-						<tbody>
-						<tr>
-							<td>
-								<input type="text" class="form-control" placeholder="Facebook Adds"/>
-							</td>
-							<td>
-								<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"/>
-							</td>
-							<td>
-								<input type="number" class="form-control"/>
-							</td>
-							<td>
-								<input type="number" class="form-control" aria-label="Amount (to the nearest dollar)"/>
-							</td>
-							<td>
-								<RowControlButtons editing={false} edit={this.edit.bind(this)} save={this.save.bind(this)}
-								                   remove={this.remove.bind(this)}/>
-							</td>
-						</tr>
-						</tbody>
+				<ListTablePanel id="budgetPanel" title="Budget" onAddClick={this.add.bind(this)}>
+					<thead>
+					<tr>
+						<th/>
+						<th colSpan="3">Estimated</th>
+						<th colSpan="3">Actual</th>
+					</tr>
+					<tr>
+						<th>Item</th>
+						<th>Unit Cost</th>
+						<th>Quantity</th>
+						<th>Total</th>
+						<th>Unit Cost</th>
+						<th>Quantity</th>
+						<th>Total</th>
+					</tr>
+					</thead>
+					<tbody>
+					{rows}
+					<tr>
+						<th colSpan="3">Estimated Total</th>
+						<th>{estimatedTotal}</th>
+						<th colSpan="2"> Total</th>
+						<th>{actualTotal}</th>
+					</tr>
+					</tbody>
 				</ListTablePanel>
 		);
 	}
