@@ -43,7 +43,6 @@ export default class BudgetTableRow extends React.Component {
 	render() {
 		let {editing}                                                                    = this.state;
 		let {actualQuantity, actualUnitCost, estimatedQuantity, estimatedUnitCost, name} = this.props.budget;
-		console.log("this.props.budget: ", this.props.budget);
 		let actualQuantityTd    = editing ?
 				<td><input id="actualQuantity" type="number" defaultValue={actualQuantity} onChange={this.onChange.bind(this)}/>
 				</td> :

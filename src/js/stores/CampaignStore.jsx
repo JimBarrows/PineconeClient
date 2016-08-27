@@ -14,11 +14,6 @@ class CampaignStore extends EventEmitter {
 		return this._budgetLineItems
 	}
 
-	constructor() {
-		super();
-		this.initialize();
-	}
-
 	get campaign() {
 		return {
 			assets: this.assets,
@@ -37,6 +32,11 @@ class CampaignStore extends EventEmitter {
 			twitterAccounts: this.twitterAccounts,
 			wordPressAccounts: this.wordPressAccounts
 		}
+	}
+
+	constructor() {
+		super();
+		this.initialize();
 	}
 
 	get destinations() {
