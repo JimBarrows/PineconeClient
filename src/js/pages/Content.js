@@ -76,7 +76,7 @@ export default withRouter(class Content extends React.Component {
 						<tr>
 							<th>Name</th>
 							<th>Publish Date</th>
-							<th>Channel</th>
+							<th>Campaign</th>
 						</tr>
 						</thead>
 						<ContentList content={content}/>

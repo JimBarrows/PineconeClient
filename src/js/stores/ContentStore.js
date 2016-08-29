@@ -56,5 +56,5 @@ class ContentStore extends EventEmitter {
 
 
 const store        = new ContentStore();
-export const token = dispatcher.register(store.handleActions.bind(ContentStore));
+export const token = dispatcher.register(store.handleActions.bind(store));
 export default store;
