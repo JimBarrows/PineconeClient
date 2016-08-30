@@ -61,6 +61,7 @@ class Content extends React.Component {
 	}
 
 	addButtonClicked() {
+		console.log("addButtonClicked");
 		this.props.router.push('/contentEdit');
 	}
 

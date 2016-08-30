@@ -15,12 +15,22 @@ import moment from "moment";
 import React from "react";
 import TwitterContent from "../components/TwitterContent";
 import {withRouter} from "react-router";
+import WordpressContent from "../components/WordPressContent";
+
 
 class ContentEdit extends React.Component {
 
 	bodyChange(event) {
+		let body = event.target.value;
+		if (this.state.facebook.useBody) {
+			this.state.facebook.post = body
+		}
+		if (this.state.wordpress.useBody) {
+			let {count, typeToCount}     = this.state.wordpress;
+			this.state.wordpress.excerpt = this.excerpt(count, typeToCount, body);
+		}
 		this.setState({
-			body: event.target.value
+			body
 		});
 	}
 
@@ -72,8 +82,6 @@ class ContentEdit extends React.Component {
 			_id, body, campaign, campaignOptions, createDate, owner,
 			publishDate, title, wordpress, facebook, twitter
 		}
-
-
 	}
 
 	componentWillMount() {
@@ -174,7 +182,7 @@ class ContentEdit extends React.Component {
 						                 value={campaign}/>
 						<FacebookContent facebook={facebook} onChange={this.facebookChange.bind(this)}/>
 						<TwitterContent twitter={twitter} onChange={this.twitterChange.bind(this)}/>
-						{/*<WordpressContent wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>*/}
+						<WordpressContent wordpress={wordpress} onChange={this.wordpressChange.bind(this)}/>
 						<button id='saveButton' class="btn btn-primary">Save
 						</button>
 					</form>
@@ -194,12 +202,20 @@ class ContentEdit extends React.Component {
 				bodyError: "Content must have a body"
 			});
 			valid = false;
+		} else {
+			this.setState({
+				bodyError: ""
+			});
 		}
 		if (!campaign) {
 			this.setState({
 				channelError: "Content must have a campaign"
 			});
 			valid = false;
+		} else {
+			this.setState({
+				channelError: ""
+			});
 		}
 
 		if (!publishDate) {
@@ -207,12 +223,21 @@ class ContentEdit extends React.Component {
 				publishDateError: "Content must have a publish date"
 			});
 			valid = false;
+		} else {
+			this.setState({
+				publishDateError: ""
+			});
 		}
+
 		if (!title) {
 			this.setState({
 				titleError: "Content must have a title"
 			});
 			valid = false;
+		} else {
+			this.setState({
+				titleError: ""
+			});
 		}
 
 		if (valid) {
@@ -235,8 +260,12 @@ class ContentEdit extends React.Component {
 	}
 
 	titleChange(event) {
+		let title = event.target.value;
+		if (this.state.twitter.useTitle) {
+			this.state.twitter.status = title;
+		}
 		this.setState({
-			title: event.target.value,
+			title
 		});
 	}
 
@@ -256,6 +285,54 @@ class ContentEdit extends React.Component {
 				twitter.status = event.target.value;
 				this.setState({
 					twitter
+				});
+				break;
+		}
+	}
+
+	wordpressChange(event) {
+		let {wordpress} = this.state;
+		switch (event.target.id) {
+			case "wordpressCount" :
+				wordpress.count   = event.target.value;
+				wordpress.excerpt = this.excerpt(wordpress.count, wordpress.typeToCount, this.state.body);
+				this.setState({
+					wordpress
+				});
+				break;
+			case "wordpressTypeToCount" :
+				console.log("ContentEdit.fieldChange ", event.target);
+				wordpress.typeToCount = event.target.value;
+				wordpress.excerpt     = this.excerpt(wordpress.count, wordpress.typeToCount, this.state.body);
+				this.setState({
+					wordpress
+				});
+				break;
+			case "wordpressUseBody" :
+				wordpress.useBody = !wordpress.useBody;
+				if (wordpress.useBody) {
+					wordpress.excerpt = this.excerpt(wordpress.count, wordpress.typeToCount, this.state.body);
+				}
+				this.setState({
+					wordpress
+				});
+				break;
+			case "wordpressExcerpt" :
+				wordpress.excerpt = event.target.value;
+				this.setState({
+					wpFields: this.state.wpFields
+				});
+				break;
+			case "wordpressStatus":
+				wordpress.status = event.target.value;
+				this.setState({
+					wordpress
+				});
+				break;
+			case"wordpressFormat" :
+				wordpress.format = event.target.value;
+				this.setState({
+					wordpress
 				});
 				break;
 		}

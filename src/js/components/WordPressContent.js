@@ -10,26 +10,26 @@ export default class WordpressContent extends React.Component {
 		let {excerpt, status, format, useBody, count, typeToCount, excerptError, statusError, formatError} = this.props.wordpress;
 
 		return (
-				<Panel title="Word Press">
-					<CheckboxFormGroup name="wordpressUseBody"
+				<Panel id="wordpress" title="Word Press">
+					<CheckboxFormGroup id="wordpressUseBody"
 					                   label="Use content  body"
 					                   onChange={this.props.onChange}
 					                   value={useBody}
 					                   error=""/>
-					Use the first <input id="wordpressCount" name="wordpressCount" type="number" defaultValue={count}
+					Use the first <input id="wordpressCount" type="number" defaultValue={count}
 					                     onChange={this.props.onChange}/> <select id="wordpressTypeToCount"
-					                                                              name="wordpressTypeToCount"
+
 					                                                              value={typeToCount}
 					                                                              onChange={this.props.onChange}>
 					<option value="characters">Characters</option>
 					<option value="words">Words</option>
 					<option value="sentences">Sentences</option>
 				</select> of the body for the excerpt.
-					<TextAreaFormGroup name="wpExcerpt" label="Excerpt"
+					<TextAreaFormGroup id="wordpressExcerpt" label="Excerpt"
 					                   onChange={this.props.onChange} value={excerpt} error={excerptError} disabled={useBody}/>
-					<TextFormGroup name="wpStatus" label="Status" placeholder="publish"
+					<TextFormGroup id="wordpressStatus" label="Status" placeholder="publish"
 					               onChange={this.props.onChange} value={status} error={statusError}/>
-					<TextFormGroup name="wpFormat" label="Format"
+					<TextFormGroup id="wordpressFormat" label="Format"
 					               onChange={this.props.onChange} value={format} error={formatError}/>
 				</Panel>
 		);
