@@ -28,8 +28,7 @@ export default class TacticListPanel extends React.Component {
 
 	render() {
 		return (
-				<ListPanel name="channels" title="Channels" onAddClick={this.add.bind(this)}
-				           onReloadClick={this.reload.bind(this)}>
+				<ListPanel name="channels" title="Channels" onAddClick={this.add.bind(this)}>
 					<div class="row">
 						<div class="col-md-4">
 							<ul>

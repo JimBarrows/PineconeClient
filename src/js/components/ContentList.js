@@ -8,9 +8,9 @@ export default class ContentList extends React.Component {
 		let {content}   = this.props;
 		let contentRows = content.map((piece, index) => <ContentRow key={piece._id || index} content={piece}/>);
 		return (
-					<tbody>
-					{contentRows}
-					</tbody>
+				<tbody>
+				{contentRows}
+				</tbody>
 		);
 	}
 }

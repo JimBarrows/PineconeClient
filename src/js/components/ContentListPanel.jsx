@@ -27,8 +27,7 @@ export default class ContentListPanel extends React.Component {
 
 	render() {
 		return (
-				<ListTablePanel name="content" title="Content" onAddClick={this.add.bind(this)}
-				                onReloadClick={this.reload.bind(this)}>
+				<ListTablePanel name="content" title="Content" onAddClick={this.add.bind(this)}>
 						<thead>
 						<tr>
 							<th>Title</th>

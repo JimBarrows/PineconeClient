@@ -43,15 +43,17 @@ export function update(id, content) {
 	axios.put('/api/content/' + id, content)
 			.then((response) => {
 				dispatcher.dispatch({
-					type: ContentEventNames.CONTENT_CREATE_SUCCESS,
-					content: response.data
+					type: ContentEventNames.CONTENT_UPDATE_SUCCESS,
+					content
 				})
 			})
-			.catch((error) =>
-					dispatcher.dispatch({
-						type: ContentEventNames.CONTENT_CREATE_FAILURE,
-						message: error
-					})
+			.catch((error) => {
+						console.log("ContentActions.update error: ", error);
+						dispatcher.dispatch({
+							type: ContentEventNames.CONTENT_UPDATE_FAILURE,
+							message: error
+						});
+					}
 			)
 }
 

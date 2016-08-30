@@ -27,6 +27,7 @@ class ContentStore extends EventEmitter {
 		switch (action.type) {
 			case ContentEventNames.CONTENT_FETCH_SUCCESS:
 				this.content = action.content;
+				this._error  = "";
 				this.emit(ContentEventNames.CONTENT_FETCH_SUCCESS);
 				break;
 			case ContentEventNames.CONTENT_FETCH_FAILURE:
@@ -36,19 +37,31 @@ class ContentStore extends EventEmitter {
 				break;
 			case ContentEventNames.CONTENT_CREATE_SUCCESS:
 				this.content.push(action.content);
+				this._error = "";
 				this.emit(ContentEventNames.CONTENT_CREATE_SUCCESS);
 				break;
 			case ContentEventNames.CONTENT_CREATE_FAILURE:
-				this.error = action.message;
+				this._error = action.message;
 				this.emit(ContentEventNames.CONTENT_CREATE_FAILURE);
 				break;
 			case ContentEventNames.CONTENT_DELETE_SUCCESS:
 				this.content = this.content.filter((piece)=>piece._id !== action.content._id);
+				this._error  = "";
 				this.emit(ContentEventNames.CONTENT_DELETE_SUCCESS);
 				break;
 			case ContentEventNames.CONTENT_DELETE_FAILURE:
-				this.error = action.message;
+				this._error = action.message;
 				this.emit(ContentEventNames.CONTENT_DELETE_FAILURE);
+				break;
+			case ContentEventNames.CONTENT_UPDATE_SUCCESS:
+				let contentIndex           = this.content.findIndex((piece)=>piece._id !== action.content._id);
+				this.content[contentIndex] = action.content;
+				this._error                = "";
+				this.emit(ContentEventNames.CONTENT_UPDATE_SUCCESS);
+				break;
+			case ContentEventNames.CONTENT_UPDATE_FAILURE:
+				this._error = action.message;
+				this.emit(ContentEventNames.CONTENT_UPDATE_FAILURE);
 				break;
 		}
 	}

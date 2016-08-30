@@ -7,18 +7,7 @@ import ContentStore from "../stores/ContentStore";
 import React from "react";
 import {withRouter} from "react-router";
 
-export default withRouter(class Content extends React.Component {
-
-	constructor() {
-		super();
-		this.contentFetched = this.contentFetched.bind(this);
-		this.contentFailure = this.contentFailure.bind(this);
-		this.contentDeleted = this.contentDeleted.bind(this);
-		this.state          = {
-			content: ContentStore.all(),
-			error: ""
-		}
-	}
+class Content extends React.Component {
 
 	componentWillMount() {
 		ContentStore.on(ContentEventNames.CONTENT_FETCH_SUCCESS, this.contentFetched);
@@ -35,22 +24,35 @@ export default withRouter(class Content extends React.Component {
 		ContentStore.removeListener(ContentEventNames.CONTENT_DELETE_FAILURE, this.contentFailure);
 	}
 
+	constructor() {
+		super();
+		this.contentFetched = this.contentFetched.bind(this);
+		this.contentFailure = this.contentFailure.bind(this);
+		this.contentDeleted = this.contentDeleted.bind(this);
+		this.state          = {
+			content: ContentStore.all(),
+			error: ""
+		}
+	}
+
 	contentFailure() {
 		this.setState({
-			error: ContentStore.error(),
-			content: ContentStore.all()
+			content: ContentStore.all(),
+			error: ContentStore.error()
 		})
 	}
 
 	contentDeleted() {
 		this.setState({
-			content: ContentStore.all()
+			content: ContentStore.all(),
+			error: ""
 		})
 	}
 
 	contentFetched() {
 		this.setState({
-			content: ContentStore.all()
+			content: ContentStore.all(),
+			error: ""
 		})
 	}
 
@@ -70,8 +72,7 @@ export default withRouter(class Content extends React.Component {
 						<h1>Content</h1>
 					</PageHeader>
 					<DangerAlert error={error}/>
-					<ListTablePanel title="Content" onReloadClick={this.reloadContent.bind(this)}
-					                onAddClick={this.addButtonClicked.bind(this)}>
+					<ListTablePanel title="Content" onAddClick={this.addButtonClicked.bind(this)}>
 						<thead>
 						<tr>
 							<th>Name</th>
@@ -81,8 +82,9 @@ export default withRouter(class Content extends React.Component {
 						</thead>
 						<ContentList content={content}/>
 					</ListTablePanel>
-
 				</div>
 		);
 	}
-})
+}
+
+export default withRouter(Content);
