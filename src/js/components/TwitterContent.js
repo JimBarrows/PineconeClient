@@ -8,11 +8,15 @@ export default class TwitterContent extends React.Component {
 	render() {
 		let {status, useTitle, statusError} = this.props.twitter;
 		return (
-				<Panel title="Twitter">
-					<CheckboxFormGroup name="twitterUseTitle" label="Use content  title" onChange={this.props.onChange}
+				<Panel id="twitter" title="Twitter">
+					<CheckboxFormGroup id="twitterUseTitle" label="Use content  title" onChange={this.props.onChange}
 					                   value={useTitle} error=""/>
-					<TextFormGroup name="twitterStatus" label="Status" placeholder="Status"
-					               onChange={this.props.onChange} value={status} error={statusError} disabled={useTitle}/>
+					<TextFormGroup error={statusError}
+					               id="twitterStatus"
+					               label="Status"
+					               onChange={this.props.onChange}
+					               value={status}
+					               disabled={useTitle}/>
 				</Panel>
 		);
 	}

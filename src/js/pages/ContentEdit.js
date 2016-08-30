@@ -13,6 +13,7 @@ import {
 import FacebookContent from "../components/FacebookContent";
 import moment from "moment";
 import React from "react";
+import TwitterContent from "../components/TwitterContent";
 import {withRouter} from "react-router";
 
 class ContentEdit extends React.Component {
@@ -172,7 +173,7 @@ class ContentEdit extends React.Component {
 						                 options={campaignOptions}
 						                 value={campaign}/>
 						<FacebookContent facebook={facebook} onChange={this.facebookChange.bind(this)}/>
-						{/*<TwitterContent twitter={twitter} onChange={this.fieldChange.bind(this)}/>*/}
+						<TwitterContent twitter={twitter} onChange={this.twitterChange.bind(this)}/>
 						{/*<WordpressContent wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>*/}
 						<button id='saveButton' class="btn btn-primary">Save
 						</button>
@@ -237,6 +238,27 @@ class ContentEdit extends React.Component {
 		this.setState({
 			title: event.target.value,
 		});
+	}
+
+	twitterChange(event) {
+		let {twitter} = this.state;
+		switch (event.target.id) {
+			case "twitterUseTitle" :
+				twitter.useTitle = !twitter.useTitle;
+				if (twitter.useTitle) {
+					twitter.status = this.state.title
+				}
+				this.setState({
+					twitter
+				});
+				break;
+			case "twitterStatus" :
+				twitter.status = event.target.value;
+				this.setState({
+					twitter
+				});
+				break;
+		}
 	}
 }
 
