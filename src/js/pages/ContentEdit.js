@@ -10,6 +10,7 @@ import {
 		TextAreaFormGroup,
 		TextFormGroup
 } from "bootstrap-react-components";
+import FacebookContent from "../components/FacebookContent";
 import moment from "moment";
 import React from "react";
 import {withRouter} from "react-router";
@@ -104,6 +105,27 @@ class ContentEdit extends React.Component {
 		return excerpt;
 	}
 
+	facebookChange(event) {
+		let {facebook} = this.state;
+		switch (event.target.id) {
+			case "facebookPost" :
+				facebook.post = event.target.value;
+				this.setState({
+					facebook
+				});
+				break;
+			case "facebookUseBody" :
+				facebook.useBody = !facebook.useBody;
+				if (facebook.useBody) {
+					facebook.post = this.state.body;
+				}
+				this.setState({
+					facebook
+				});
+				break;
+		}
+	}
+
 	publishDateChange(publishDate) {
 		this.setState({
 			publishDate: moment(publishDate)
@@ -135,7 +157,6 @@ class ContentEdit extends React.Component {
 						<TextAreaFormGroup error={bodyError}
 						                   id="body"
 						                   label="Body"
-						                   name="body"
 						                   onChange={this.bodyChange.bind(this)}
 						                   value={body}/>
 						<DatePickerFormGroup error={publishDateError}
@@ -150,7 +171,7 @@ class ContentEdit extends React.Component {
 						                 onChange={this.campaignChange.bind(this)}
 						                 options={campaignOptions}
 						                 value={campaign}/>
-						{/*<FacebookContent facebook={facebook} onChange={this.fieldChange.bind(this)}/>*/}
+						<FacebookContent facebook={facebook} onChange={this.facebookChange.bind(this)}/>
 						{/*<TwitterContent twitter={twitter} onChange={this.fieldChange.bind(this)}/>*/}
 						{/*<WordpressContent wordpress={wordpress} onChange={this.fieldChange.bind(this)}/>*/}
 						<button id='saveButton' class="btn btn-primary">Save
