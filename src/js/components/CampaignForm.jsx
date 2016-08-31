@@ -8,7 +8,6 @@ import KeywordsListPanel from "../components/KeywordListPanel";
 import MessagesListPanel from "../components/MessageListPanel";
 import ObjectivesListPanel from "../components/ObjectiveListPanel";
 import React from "react";
-import TacticListPanel from "../components/TacticListPanel";
 
 
 export default class CampaignForm extends React.Component {
@@ -127,7 +126,6 @@ export default class CampaignForm extends React.Component {
 					                   saveMessage={this.saveMessage.bind(this)}/>
 					<ObjectivesListPanel objectives={objectives} deleteObjective={this.deleteObjective.bind(this)}
 					                     saveObjective={this.saveObjective.bind(this)}/>
-					<TacticListPanel/>
 				</form>
 		);
 	}

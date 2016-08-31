@@ -4,19 +4,21 @@ import {
 		deleteDestination,
 		deleteKeyword,
 		deleteMessage,
+		deleteWordpressAccount,
 		saveAsset,
 		saveDestination,
 		saveKeyword,
-		saveMessage
+		saveMessage,
+		saveWordpressAccount
 } from "../actions/AccountActions";
 import DestinationListPanel from "../components/DestinationListPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import MessageListPanel from "../components/MessageListPanel";
 import {PageHeader} from "bootstrap-react-components";
 import React from "react";
-import TacticListPanel from "../components/TacticListPanel";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
+import WordPressAccountPanel from "../components/WordpressAccountPanel";
 
 
 export default class Settings extends React.Component {
@@ -30,7 +32,8 @@ export default class Settings extends React.Component {
 			assets: [],
 			destinations: [],
 			keywords: [],
-			messages: []
+			messages: [],
+			wordpressAccounts: []
 		}
 	}
 
@@ -63,11 +66,13 @@ export default class Settings extends React.Component {
 			assets: UserStore.assets(),
 			destinations: UserStore.destinations,
 			keywords: UserStore.keywords,
-			messages: UserStore.messages
+			messages: UserStore.messages,
+			wordpressAccounts: UserStore.wordpressAccounts
 		});
 	}
 
 	render() {
+		console.log("Settings.render state: ", this.state);
 		return (
 				<div>
 					<PageHeader id="settings">
@@ -78,7 +83,8 @@ export default class Settings extends React.Component {
 					                      saveDestination={saveDestination}/>
 					<KeywordsListPanel keywords={this.state.keywords} deleteKeyword={deleteKeyword} saveKeyword={saveKeyword}/>
 					<MessageListPanel messages={this.state.messages} deleteMessage={deleteMessage} saveMessage={saveMessage}/>
-					<TacticListPanel/>
+					<WordPressAccountPanel itemList={this.state.wordpressAccounts} deleteItem={deleteWordpressAccount}
+					                       saveItem={saveWordpressAccount}/>
 				</div>
 		);
 	}

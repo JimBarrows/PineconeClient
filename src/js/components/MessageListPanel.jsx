@@ -16,10 +16,10 @@ export default class MessagesListPanel extends React.Component {
 
 	render() {
 		let {messages} = this.props;
-		let rows       = messages.map((message, index) => <MessageTableRow message={message}
-		                                                                   deleteMessage={this.props.deleteMessage}
+		let rows       = messages.map((message, index) => <MessageTableRow deleteMessage={this.props.deleteMessage}
 		                                                                   index={index}
 		                                                                   key={index}
+		                                                                   message={message}
 		                                                                   saveMessage={this.props.saveMessage}/>);
 
 		return (

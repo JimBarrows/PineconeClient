@@ -56,6 +56,19 @@ export function deleteMessage(message) {
 			}));
 }
 
+export function deleteWordpressAccount(wordpressAccount) {
+	axios.delete("/api/user/wordpressAccount/" + wordpressAccount._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error
+			}));
+}
+
 export function login(username, password) {
 	axios.post("/api/user/login", {
 				username
@@ -235,6 +248,34 @@ export function saveMessage(message) {
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
 					error: error,
 					message: message
+				}));
+	}
+}
+
+export function saveWordpressAccount(wordpressAccount) {
+	if (wordpressAccount._id) {
+		axios.put("/api/user/wordpressAccount/" + wordpressAccount._id, wordpressAccount)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					wordpressAccount
+				}));
+	} else {
+		axios.post("/api/user/wordpressAccounts", wordpressAccount)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					wordpressAccount
 				}));
 	}
 }

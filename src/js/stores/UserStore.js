@@ -9,12 +9,13 @@ class UserStore extends EventEmitter {
 	}
 
 	addActionContent(content) {
-		this._assets       = content.assets;
-		this._destinations = content.destinations;
-		this._id           = content._id;
-		this._keywords     = content.keywords;
-		this._messages     = content.messages;
-		this._username     = content.username;
+		this._assets            = content.assets;
+		this._destinations      = content.destinations;
+		this._id                = content._id;
+		this._keywords          = content.keywords;
+		this._messages          = content.messages;
+		this._username          = content.username;
+		this._wordPressAccounts = content.wordpressAccounts;
 	}
 
 	constructor() {
@@ -89,6 +90,10 @@ class UserStore extends EventEmitter {
 
 	user() {
 		return this._username;
+	}
+
+	get wordpressAccounts() {
+		return this._wordPressAccounts;
 	}
 
 }
