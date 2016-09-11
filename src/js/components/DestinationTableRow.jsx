@@ -1,4 +1,5 @@
 'use strict';
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -36,20 +37,11 @@ export default class DestinationTableRow extends React.Component {
 		let {editing}                           = this.state;
 		let {name, type, url}                   = this.props.destination;
 
-		let nameTd = editing ?
-				<td><input id="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-		let typeTd = editing ?
-				<td><input id="type" type="text" defaultValue={type} onChange={this.onChange.bind(this)}/></td> :
-				<td>{type}</td>;
-		let urlTd  = editing ?
-				<td><input id="url" type="url" defaultValue={url} onChange={this.onChange.bind(this)}/></td> :
-				<td>{url}</td>;
 		return (
 				<tr>
-					{nameTd}
-					{typeTd}
-					{urlTd}
+					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="type" type="text" value={type} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="url" type="url" value={url} onChange={this.onChange.bind(this)} edit={editing}/>
 					<td>
 						<RowControlButtons editing={editing} edit={this.edit.bind(this)} save={this.save.bind(this)}
 						                   remove={this.remove.bind(this)}/>

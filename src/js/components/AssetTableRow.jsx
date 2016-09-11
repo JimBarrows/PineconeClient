@@ -1,8 +1,8 @@
 'use strict';
 
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
-
 
 export default class AssetTableRow extends React.Component {
 
@@ -41,24 +41,12 @@ export default class AssetTableRow extends React.Component {
 		let {editing}                           = this.state;
 		let {name, type, size, url}             = this.props.asset;
 
-		let nameTd = editing ?
-				<td><input id="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-		let typeTd = editing ?
-				<td><input id="type" type="text" defaultValue={type} onChange={this.onChange.bind(this)}/></td> :
-				<td>{type}</td>;
-		let sizeTd = editing ?
-				<td><input id="size" type="number" defaultValue={size} onChange={this.onChange.bind(this)}/></td> :
-				<td>{size}</td>;
-		let urlTd  = editing ?
-				<td><input id="url" type="url" defaultValue={url} onChange={this.onChange.bind(this)}/></td> :
-				<td>{url}</td>;
 		return (
 				<tr>
-					{nameTd}
-					{typeTd}
-					{sizeTd}
-					{urlTd}
+					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="type" type="text" value={type} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="size" type="number" value={size} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="url" type="url" value={url} onChange={this.onChange.bind(this)} edit={editing}/>
 					<td>
 						<RowControlButtons editing={editing} edit={this.edit.bind(this)} save={this.save.bind(this)}
 						                   remove={this.remove.bind(this)}/>

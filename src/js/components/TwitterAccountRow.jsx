@@ -1,4 +1,5 @@
 'use strict';
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -35,13 +36,9 @@ export default class TwitterAccountRow extends React.Component {
 		let {item}                              = this.props;
 		let {name}                              = item;
 
-		let nameTd = editing ?
-				<td><input id="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-
 		return (
 				<tr>
-					{nameTd}
+					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
 					<td>
 						<RowControlButtons editing={editing}
 						                   edit={this.edit.bind(this)}

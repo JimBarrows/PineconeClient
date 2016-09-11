@@ -1,4 +1,5 @@
 'use strict';
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -44,25 +45,12 @@ export default class WordpressAccountRow extends React.Component {
 		let {deleteItem, index, item, saveItem} = this.props;
 		let {name, password, url, username}     = item;
 
-		let nameTd     = editing ?
-				<td><input id="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-		let passwordTd = editing ?
-				<td><input id="password" type="text" defaultValue={password} onChange={this.onChange.bind(this)}/></td> :
-				<td>{password}</td>;
-		let urlTd      = editing ?
-				<td><input id="url" type="text" defaultValue={url} onChange={this.onChange.bind(this)}/></td> :
-				<td>{url}</td>;
-		let usernameTd = editing ?
-				<td><input id="username" type="text" defaultValue={username} onChange={this.onChange.bind(this)}/></td> :
-				<td>{username}</td>;
-
 		return (
 				<tr>
-					{nameTd}
-					{passwordTd}
-					{urlTd}
-					{usernameTd}
+					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="password" type="text" value={password} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="url" type="text" value={url} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="username" type="text" value={username} onChange={this.onChange.bind(this)} edit={editing}/>
 					<td>
 						<RowControlButtons editing={editing}
 						                   edit={this.edit.bind(this)}

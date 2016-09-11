@@ -1,4 +1,5 @@
 'use strict';
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -43,38 +44,20 @@ export default class BudgetTableRow extends React.Component {
 	render() {
 		let {editing}                                                                    = this.state;
 		let {actualQuantity, actualUnitCost, estimatedQuantity, estimatedUnitCost, name} = this.props.budget;
-		let actualQuantityTd    = editing ?
-				<td><input id="actualQuantity" type="number" defaultValue={actualQuantity} onChange={this.onChange.bind(this)}/>
-				</td> :
-				<td>{actualQuantity}</td>;
-		let actualTotalTd       = <td>{actualQuantity * actualUnitCost}</td>;
-		let actualUnitCostTd    = editing ?
-				<td><input id="actualUnitCost" type="number" defaultValue={actualUnitCost} onChange={this.onChange.bind(this)}/>
-				</td> :
-				<td>{actualUnitCost}</td>;
-		let estimatedQuantityTd = editing ?
-				<td><input id="estimatedQuantity" type="number" defaultValue={estimatedQuantity}
-				           onChange={this.onChange.bind(this)}/></td> :
-				<td>{estimatedQuantity}</td>;
-		let estimatedTotalTd    = <td>{estimatedUnitCost * estimatedQuantity}</td>;
-		let estimatedUnitCostTd = editing ?
-				<td><input id="estimatedUnitCost" type="number" defaultValue={estimatedUnitCost}
-				           onChange={this.onChange.bind(this)}/></td> :
-				<td>{estimatedUnitCost}</td>;
-		let nameTd              = editing ?
-				<td><input id="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-
 
 		return (
 				<tr>
-					{nameTd}
-					{estimatedUnitCostTd}
-					{estimatedQuantityTd}
-					{estimatedTotalTd}
-					{actualUnitCostTd}
-					{actualQuantityTd}
-					{actualTotalTd}
+					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="estimatedUnitCost" type="number" value={estimatedUnitCost}
+					              onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="estimatedQuantity" type="number" value={estimatedQuantity}
+					              onChange={this.onChange.bind(this)} edit={editing}/>
+					<td>{estimatedUnitCost * estimatedQuantity}</td>
+					<EditableCell id="actualUnitCost" type="number" value={actualUnitCost} onChange={this.onChange.bind(this)}
+					              edit={editing}/>
+					<EditableCell id="actualQuantity" type="number" value={actualQuantity} onChange={this.onChange.bind(this)}
+					              edit={editing}/>
+					<td>{actualQuantity * actualUnitCost}</td>
 					<td>
 						<RowControlButtons editing={editing} edit={this.edit.bind(this)} save={this.save.bind(this)}
 						                   remove={this.remove.bind(this)}/>

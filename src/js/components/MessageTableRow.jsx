@@ -1,4 +1,6 @@
 'use strict';
+
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -33,17 +35,11 @@ export default class MessageTableRow extends React.Component {
 		let {editing}                                                = this.state;
 		let {name, description}                                      = this.props.message;
 
-		let nameTd        = editing ?
-				<td><input id="name" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-		let descriptionTd = editing ?
-				<td><input id="description" type="text" defaultValue={description} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-
 		return (
 				<tr>
-					{nameTd}
-					{descriptionTd}
+					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
+					<EditableCell id="description" type="text" value={description} onChange={this.onChange.bind(this)}
+					              edit={editing}/>
 					<td>
 						<RowControlButtons editing={editing} edit={this.edit.bind(this)} save={this.save.bind(this)}
 						                   remove={this.remove.bind(this)}/>

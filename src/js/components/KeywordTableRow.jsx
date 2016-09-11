@@ -1,4 +1,6 @@
 'use strict';
+
+import {EditableCell} from "bootstrap-react-components";
 import React from "react";
 import RowControlButtons from "../components/controls/RowControlButtons";
 
@@ -31,13 +33,9 @@ export default class KeywordTableRow extends React.Component {
 		let {editing}                                   = this.state;
 		let {name}                                      = this.props.keyword;
 
-		let nameTd = editing ?
-				<td><input id="keyword" type="text" defaultValue={name} onChange={this.onChange.bind(this)}/></td> :
-				<td>{name}</td>;
-
 		return (
 				<tr>
-					{nameTd}
+					<EditableCell id="keyword" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
 					<td>
 						<RowControlButtons editing={editing} edit={this.edit.bind(this)} save={this.save.bind(this)}
 						                   remove={this.remove.bind(this)}/>
