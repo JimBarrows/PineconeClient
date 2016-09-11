@@ -11,9 +11,11 @@ class UserStore extends EventEmitter {
 	addActionContent(content) {
 		this._assets            = content.assets;
 		this._destinations      = content.destinations;
+		this._facebookAccounts  = content.facebookAccounts;
 		this._id                = content._id;
 		this._keywords          = content.keywords;
 		this._messages          = content.messages;
+		this._twitterAccounts   = content.twitterAccounts;
 		this._username          = content.username;
 		this._wordPressAccounts = content.wordpressAccounts;
 	}
@@ -25,6 +27,10 @@ class UserStore extends EventEmitter {
 
 	get destinations() {
 		return this._destinations
+	}
+
+	get facebookAccounts() {
+		return this._facebookAccounts;
 	}
 
 	handleActions(action) {
@@ -90,6 +96,10 @@ class UserStore extends EventEmitter {
 
 	user() {
 		return this._username;
+	}
+
+	get twitterAccounts() {
+		return this._twitterAccounts;
 	}
 
 	get wordpressAccounts() {

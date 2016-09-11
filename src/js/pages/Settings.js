@@ -2,20 +2,26 @@ import AssetListPanel from "../components/AssetListPanel";
 import {
 		deleteAsset,
 		deleteDestination,
+		deleteFacebookAccount,
 		deleteKeyword,
 		deleteMessage,
+		deleteTwitterAccount,
 		deleteWordpressAccount,
 		saveAsset,
 		saveDestination,
+		saveFacebookAccount,
 		saveKeyword,
 		saveMessage,
+		saveTwitterAccount,
 		saveWordpressAccount
 } from "../actions/AccountActions";
 import DestinationListPanel from "../components/DestinationListPanel";
+import FacebookAccountPanel from "../components/FacebookAccountPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import MessageListPanel from "../components/MessageListPanel";
 import {PageHeader} from "bootstrap-react-components";
 import React from "react";
+import TwitterAccountPanel from "../components/TwitterAccountPanel";
 import {UserEventNames} from "../constants";
 import UserStore from "../stores/UserStore";
 import WordPressAccountPanel from "../components/WordpressAccountPanel";
@@ -31,8 +37,10 @@ export default class Settings extends React.Component {
 			username: "",
 			assets: [],
 			destinations: [],
+			facebookAccount: [],
 			keywords: [],
 			messages: [],
+			twitterAccount: [],
 			wordpressAccounts: []
 		}
 	}
@@ -65,14 +73,15 @@ export default class Settings extends React.Component {
 			username: UserStore.user(),
 			assets: UserStore.assets(),
 			destinations: UserStore.destinations,
+			facebookAccounts: UserStore.facebookAccounts,
 			keywords: UserStore.keywords,
 			messages: UserStore.messages,
+			twitterAccounts: UserStore.twitterAccounts,
 			wordpressAccounts: UserStore.wordpressAccounts
 		});
 	}
 
 	render() {
-		console.log("Settings.render state: ", this.state);
 		return (
 				<div>
 					<PageHeader id="settings">
@@ -81,8 +90,12 @@ export default class Settings extends React.Component {
 					<AssetListPanel assets={this.state.assets} deleteAsset={deleteAsset} saveAsset={saveAsset}/>
 					<DestinationListPanel destinations={this.state.destinations} deleteDestination={deleteDestination}
 					                      saveDestination={saveDestination}/>
+					<FacebookAccountPanel itemList={this.state.facebookAccounts} deleteItem={deleteFacebookAccount}
+					                      saveItem={saveFacebookAccount}/>
 					<KeywordsListPanel keywords={this.state.keywords} deleteKeyword={deleteKeyword} saveKeyword={saveKeyword}/>
 					<MessageListPanel messages={this.state.messages} deleteMessage={deleteMessage} saveMessage={saveMessage}/>
+					<TwitterAccountPanel itemList={this.state.twitterAccounts} deleteItem={deleteTwitterAccount}
+					                     saveItem={saveTwitterAccount}/>
 					<WordPressAccountPanel itemList={this.state.wordpressAccounts} deleteItem={deleteWordpressAccount}
 					                       saveItem={saveWordpressAccount}/>
 				</div>

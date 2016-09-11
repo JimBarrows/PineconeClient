@@ -6,7 +6,6 @@ import WordpressAccountRow from "./WordpressAccountRow";
 export default class WordpressAccountPanel extends React.Component {
 
 	add() {
-		console.log("WordpressAccountPanel.add");
 		this.props.itemList.push({
 			name: "",
 			username: "",

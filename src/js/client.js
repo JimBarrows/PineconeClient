@@ -1,17 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import {Router, Route, IndexRoute, hashHistory} from "react-router";
 import * as Application from "./actions/Application";
-import Campaigns from "./pages/Campaigns";
 import CampaignAdd from "./pages/CampaignAdd";
 import CampaignEdit from "./pages/CampaignEdit";
+import Campaigns from "./pages/Campaigns";
 import Content from "./pages/Content";
 import ContentEdit from "./pages/ContentEdit";
+import FinishTwitter from "./pages/FinishTwitter";
+import {hashHistory, IndexRoute, Route, Router} from "react-router";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
+import React from "react";
 import Register from "./pages/Register";
+import ReactDOM from "react-dom";
 import Settings from "./pages/Settings";
 import UserStore from "./stores/UserStore";
+
+
 const app = document.getElementById('app');
 
 function requireAuth(nextState, replace) {
@@ -32,6 +35,7 @@ ReactDOM.render(<Router history={hashHistory}>
 		<Route path="campaign/:campaignId" name="campaignEdit" component={CampaignEdit} onEnter={requireAuth}></Route>
 		<Route path="content" name="content" component={Content} onEnter={requireAuth}></Route>
 		<Route path="contentEdit" name="contentEdit" component={ContentEdit} onEnter={requireAuth}></Route>
+		<Route path="finish/twitter" name="finishTwitter" component={FinishTwitter} onEnter={requireAuth}></Route>
 		<Route path="settings" name="settings" component={Settings} onEnter={requireAuth}></Route>
 		<Route path="register" name="register" component={Register}></Route>
 		<Route path="login" name="login" component={Login}></Route>

@@ -2,6 +2,7 @@
 import axios from "axios";
 import dispatcher from "../Dispatcher";
 import {UserEventNames} from "../constants";
+// import FB from "fb";
 
 export function deleteAsset(asset) {
 	axios.delete("/api/user/asset/" + asset._id)
@@ -30,6 +31,19 @@ export function deleteDestination(destination) {
 			}));
 }
 
+export function deleteFacebookAccount(facebookAccount) {
+	axios.delete("/api/user/facebookAccount/" + facebookAccount._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error
+			}));
+}
+
 export function deleteKeyword(keyword) {
 	axios.delete("/api/user/keyword/" + keyword._id)
 			.then(() => axios.get("/api/user"))
@@ -45,6 +59,19 @@ export function deleteKeyword(keyword) {
 
 export function deleteMessage(message) {
 	axios.delete("/api/user/message/" + message._id)
+			.then(() => axios.get("/api/user"))
+			.then((response) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT,
+				account: response.data
+			}))
+			.catch((error) => dispatcher.dispatch({
+				type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+				error: error
+			}));
+}
+
+export function deleteTwitterAccount(twitterAccount) {
+	axios.delete("/api/user/twitterAccount/" + twitterAccount._id)
 			.then(() => axios.get("/api/user"))
 			.then((response) => dispatcher.dispatch({
 				type: UserEventNames.UPDATE_ACCOUNT,
@@ -193,8 +220,41 @@ export function saveDestination(destination) {
 					destination: destination
 				}));
 	}
-
 }
+
+export function saveFacebookAccount(facebookAccount) {
+	if (facebookAccount._id) {
+		axios.put("/api/user/facebookAccount/" + facebookAccount._id, twitterAccount)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					facebookAccount
+				}));
+	} else {
+		axios.post("/api/user/facebookAccounts", facebookAccount)
+				.then((response)=> {
+					let clientId         = "1236802509686356";
+					let redirectUrl      = encodeURIComponent("http://127.0.0.1:8080/api/user/facebookAccount/finish/");
+					window.location.href = `https://www.facebook.com/dialog/oauth?client_id=${clientId}&redirect_uri=${redirectUrl}`;
+				})
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					facebookAccount
+				}));
+	}
+}
+
 
 export function saveKeyword(keyword) {
 	if (keyword._id) {
@@ -214,7 +274,7 @@ export function saveKeyword(keyword) {
 				.then(() => axios.get("/api/user"))
 				.then((response) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT,
-					message: response.data
+					account: response.data
 				}))
 				.catch((error) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
@@ -230,7 +290,7 @@ export function saveMessage(message) {
 				.then(() => axios.get("/api/user"))
 				.then((response) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT,
-					message: response.data
+					account: response.data
 				}))
 				.catch((error) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
@@ -242,12 +302,43 @@ export function saveMessage(message) {
 				.then(() => axios.get("/api/user"))
 				.then((response) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT,
-					message: response.data
+					account: response.data
 				}))
 				.catch((error) => dispatcher.dispatch({
 					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
 					error: error,
-					message: message
+					message: error.data
+				}));
+	}
+}
+
+export function saveTwitterAccount(twitterAccount) {
+	if (twitterAccount._id) {
+		axios.put("/api/user/twitterAccount/" + twitterAccount._id, twitterAccount)
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					twitterAccount
+				}));
+	} else {
+		axios.post("/api/user/twitterAccounts", twitterAccount)
+				.then((response)=> {
+					window.location.href = "https://api.twitter.com/oauth/authorize?oauth_token=" + response.data.oauth_token;
+				})
+				.then(() => axios.get("/api/user"))
+				.then((response) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT,
+					account: response.data
+				}))
+				.catch((error) => dispatcher.dispatch({
+					type: UserEventNames.UPDATE_ACCOUNT_FAILURE,
+					error: error,
+					twitterAccount
 				}));
 	}
 }
