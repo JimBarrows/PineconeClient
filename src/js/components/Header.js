@@ -94,7 +94,6 @@ export default class Header extends React.Component {
 						<div id="navbar" class={"navbar-collapse " + navClass}>
 							<ul class="nav navbar-nav">
 								<li class={campaignClass}><Link id='campaignLink' to="/">Campaigns</Link></li>
-								<li class={contentClass}><Link id='contentLink' to="content">Content</Link></li>
 							</ul>
 							{UserComponent}
 						</div>

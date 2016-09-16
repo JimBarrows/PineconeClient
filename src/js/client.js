@@ -1,9 +1,8 @@
 import * as Application from "./actions/Application";
+import NewBlogPost from "./pages/NewBlogPost";
 import CampaignAdd from "./pages/CampaignAdd";
 import CampaignEdit from "./pages/CampaignEdit";
 import Campaigns from "./pages/Campaigns";
-import Content from "./pages/Content";
-import ContentEdit from "./pages/ContentEdit";
 import FinishTwitter from "./pages/FinishTwitter";
 import {hashHistory, IndexRoute, Route, Router} from "react-router";
 import Layout from "./components/Layout";
@@ -33,8 +32,8 @@ ReactDOM.render(<Router history={hashHistory}>
 		<IndexRoute component={Campaigns} onEnter={requireAuth}></IndexRoute>
 		<Route path="campaign" name="campaignAdd" component={CampaignAdd} onEnter={requireAuth}></Route>
 		<Route path="campaign/:campaignId" name="campaignEdit" component={CampaignEdit} onEnter={requireAuth}></Route>
-		<Route path="content" name="content" component={Content} onEnter={requireAuth}></Route>
-		<Route path="contentEdit" name="contentEdit" component={ContentEdit} onEnter={requireAuth}></Route>
+		<Route path="campaign/:campaignId/newBlogPost" name="newBlogPost" component={NewBlogPost}
+		       onEnter={requireAuth}></Route>
 		<Route path="finish/twitter" name="finishTwitter" component={FinishTwitter} onEnter={requireAuth}></Route>
 		<Route path="settings" name="settings" component={Settings} onEnter={requireAuth}></Route>
 		<Route path="register" name="register" component={Register}></Route>

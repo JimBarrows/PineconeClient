@@ -10,6 +10,10 @@ class CampaignStore extends EventEmitter {
 		return this._assets
 	}
 
+	get blogPosts() {
+		return this._blogPosts
+	}
+
 	get budgetLineItems() {
 		return this._budgetLineItems
 	}
@@ -17,6 +21,7 @@ class CampaignStore extends EventEmitter {
 	get campaign() {
 		return {
 			assets: this.assets,
+			blogPosts: this.blogPosts,
 			budgetLineItems: this.budgetLineItems,
 			destinations: this.destinations,
 			effectiveFrom: this.effectiveFrom,
@@ -61,6 +66,7 @@ class CampaignStore extends EventEmitter {
 
 	initialize() {
 		this._assets            = [];
+		this._blogPosts         = [];
 		this._budgetLineItems   = [];
 		this._destinations      = [];
 		this._effectiveFrom     = moment();
@@ -127,16 +133,17 @@ class CampaignStore extends EventEmitter {
 	}
 
 	copyFrom(action) {
-		this._assets            = action.campaign.assets;
-		this._budgetLineItems   = action.campaign.budgetLineItems;
-		this._destinations      = action.campaign.destinations;
-		this._effectiveFrom     = action.campaign.effectiveFrom;
-		this._effectiveThru     = action.campaign.effectiveThru;
-		this._facebookAccounts  = action.campaign.facebookAccounts;
-		this.__id               = action.campaign._id;
-		this._keywords          = action.campaign.keywords;
-		this._messages          = action.campaign.messages;
-		this._name              = action.campaign.name;
+		this._assets           = action.campaign.assets;
+		this._blogPosts        = action.campaign.blogPosts;
+		this._budgetLineItems  = action.campaign.budgetLineItems;
+		this._destinations     = action.campaign.destinations;
+		this._effectiveFrom    = action.campaign.effectiveFrom;
+		this._effectiveThru    = action.campaign.effectiveThru;
+		this._facebookAccounts = action.campaign.facebookAccounts;
+		this.__id              = action.campaign._id;
+		this._keywords         = action.campaign.keywords;
+		this._messages         = action.campaign.messages;
+		this._name             = action.campaign.name;
 		this._objectives        = action.campaign.objectives;
 		this._owner             = action.campaign.owner;
 		this._tags              = action.campaign.tags;

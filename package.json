@@ -10,7 +10,7 @@
   "scripts" : {
 	"pinecone:client::docker:push" : "docker push registry.gitlab.com/reallybigtree/pinecone-client",
 	"pinecone:client:docker:build" : "docker build -t registry.gitlab.com/reallybigtree/pinecone-client .",
-	"pinecone:client:docker:run" : "docker run --detach --name pinecone-client -p 80:80 --link pinecone-server:server registry.gitlab.com/reallybigtree/pinecone-client",
+	"pinecone:client:docker:run" : "docker run --detach --name pinecone-client --label=traefik.backend=client --label=traefik.port=8080 --link pinecone-server:server registry.gitlab.com/reallybigtree/pinecone-client",
 	"pinecone:client:package" : "webpack",
 	"pinecone:client:start" : "webpack-dev-server --hot --inline",
 	"pinecone:client:test" : "wdio wdio.conf.js",

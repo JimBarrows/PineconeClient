@@ -1,19 +1,30 @@
 'use strict';
 import AssetListPanel from "../components/AssetListPanel";
 import BudgetPanel from "../components/BudgetPanel";
-import ContentListPanel from "../components/ContentListPanel";
+import BlogPostPanel from "./BlogPostPanel";
 import {DateRangeFormGroup, TextFormGroup} from "bootstrap-react-components";
 import DestinationListPanel from "../components/DestinationListPanel";
 import KeywordsListPanel from "../components/KeywordListPanel";
 import MessagesListPanel from "../components/MessageListPanel";
 import ObjectivesListPanel from "../components/ObjectiveListPanel";
 import React from "react";
+import {withRouter} from "react-router";
 
 
-export default class CampaignForm extends React.Component {
+class CampaignForm extends React.Component {
+
+	addBlogPost() {
+		let {_id} = this.props.campaign;
+		this.props.router.push(`campaign/:_id/newBlogPost`);
+	}
 
 	deleteAsset(asset) {
 		this.props.campaign.assets = this.props.campaign.assets.filter((cur) => cur._id !== asset._id);
+		this.setState({});
+	}
+
+	deleteBlogPost(blogPost) {
+		this.props.campaign.blogPosts = this.props.campaign.blogPosts.filter((cur) => cur._id !== blogPost._id);
 		this.setState({});
 	}
 
@@ -81,6 +92,7 @@ export default class CampaignForm extends React.Component {
 	render() {
 		let {
 				    assets,
+				    blogPosts,
 				    budgetLineItems,
 				    destinations,
 				    effectiveFrom,
@@ -115,9 +127,12 @@ export default class CampaignForm extends React.Component {
 					<button id="saveCampaignButton" type="submit" class="btn btn-success">Save</button>
 					<AssetListPanel assets={assets} deleteAsset={this.deleteAsset.bind(this)}
 					                saveAsset={this.saveAsset.bind(this)}/>
+					<BlogPostPanel add={this.addBlogPost.bind(this)}
+					               deleteItem={this.deleteBlogPost.bind(this)}
+					               items={blogPosts}
+					               saveItem={this.saveBlogPost.bind(this)}/>
 					<BudgetPanel id="budgetPanel" budgetLineItems={budgetLineItems} deleteBudget={this.deleteBudget.bind(this)}
 					             saveBudget={this.saveBudget.bind(this)}/>
-					<ContentListPanel/>
 					<DestinationListPanel destinations={destinations} deleteDestination={this.deleteDestination.bind(this)}
 					                      saveDestination={this.saveDestination.bind(this)}/>
 					<KeywordsListPanel keywords={keywords} deleteKeyword={this.deleteKeyword.bind(this)}
@@ -131,6 +146,10 @@ export default class CampaignForm extends React.Component {
 	}
 
 	saveAsset(asset) {
+		this.setState({});
+	}
+
+	saveBlogPost(blogPost) {
 		this.setState({});
 	}
 
@@ -154,3 +173,5 @@ export default class CampaignForm extends React.Component {
 		this.setState({});
 	}
 }
+
+export default withRouter(CampaignForm);
