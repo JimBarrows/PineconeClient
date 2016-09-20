@@ -7,22 +7,6 @@ import {BlogPostEventNames} from "../constants";
 import axios from "axios";
 import dispatcher from "../Dispatcher";
 
-export function load() {
-	axios.get('/api/content')
-			.then(function (response) {
-				dispatcher.dispatch({
-					type: BlogPostEventNames.BLOG_POST_FETCH_SUCCESS,
-					content: response.data
-				})
-			})
-			.catch(function (error) {
-				dispatcher.dispatch({
-					type: BlogPostEventNames.BLOG_POST_FETCH_FAILURE,
-					message: error
-				});
-			});
-}
-
 export function create(campaignId, blogPost) {
 	axios.post(`/api/campaign/${campaignId}/blogPosts`, blogPost)
 			.then((response) =>
