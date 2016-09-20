@@ -32,7 +32,7 @@ ReactDOM.render(<Router history={hashHistory}>
 		<IndexRoute component={Campaigns} onEnter={requireAuth}></IndexRoute>
 		<Route path="campaign" name="campaignAdd" component={CampaignAdd} onEnter={requireAuth}></Route>
 		<Route path="campaign/:campaignId" name="campaignEdit" component={CampaignEdit} onEnter={requireAuth}></Route>
-		<Route path="campaign/:campaignId/newBlogPost" name="newBlogPost" component={NewBlogPost}
+		<Route path="campaign/:campaignId/blogPosts/new" name="newBlogPost" component={NewBlogPost}
 		       onEnter={requireAuth}></Route>
 		<Route path="finish/twitter" name="finishTwitter" component={FinishTwitter} onEnter={requireAuth}></Route>
 		<Route path="settings" name="settings" component={Settings} onEnter={requireAuth}></Route>

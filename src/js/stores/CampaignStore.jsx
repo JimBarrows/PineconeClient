@@ -1,7 +1,7 @@
 'use strict';
-import {EventEmitter} from "events";
+import {BlogPostEventNames, CampaignEvent} from "../constants";
 import dispatcher from "../Dispatcher";
-import {CampaignEvent} from "../constants";
+import {EventEmitter} from "events";
 import moment from "moment";
 
 class CampaignStore extends EventEmitter {
@@ -117,6 +117,10 @@ class CampaignStore extends EventEmitter {
 
 	handleActions(action) {
 		switch (action.type) {
+			case BlogPostEventNames.BLOG_POST_CREATE_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.UPDATE_SUCCESS);
+				break;
 			case CampaignEvent.CLEAR:
 				this.initialize();
 				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);

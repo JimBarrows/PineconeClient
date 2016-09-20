@@ -14,8 +14,7 @@ import {withRouter} from "react-router";
 class CampaignForm extends React.Component {
 
 	addBlogPost() {
-		let {_id} = this.props.campaign;
-		this.props.router.push(`campaign/:_id/newBlogPost`);
+		this.props.router.push(`campaign/${this.props.campaign._id}/blogPosts/new`);
 	}
 
 	deleteAsset(asset) {

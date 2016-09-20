@@ -1,19 +1,34 @@
 'use strict';
 import React from "react";
+import {ButtonGroup} from "bootstrap-react-components";
 
-export default class ContentRow extends React.Component {
+export default class BlogPostTableRow extends React.Component {
+
+	constructor() {
+		super();
+	}
+
+	edit() {
+
+	}
 
 	render() {
-		let {editing}                                                                                             = this.state;
-		let {title, publishDate, wordpress}                                                                       = this.props.blogPost;
+		let {_id, title, publishDate, wordPressAccounts}  = this.props.blogPost;
 		return (
 				<tr>
 					<td>{title}</td>
 					<td>{publishDate}</td>
-					<td>{wordPress.wordPressAccounts.map((wpa)=>wpa.name + ", ")}</td>
+					<td>{wordPressAccounts ? wordPressAccounts.map((wpa)=>wpa.name + ", ") : "All accounts."}</td>
 					<td>
-						<RowControlButtons editing={editing} edit={this.edit.bind(this)} save={this.save.bind(this)}
-						                   remove={this.remove.bind(this)}/>
+						<ButtonGroup>
+							<button id={_id + "EditButton"} type="button" class="btn btn-default btn-xs" onClick={this.edit.bind()}>
+								<span class="glyphicon glyphicon-pencil"/>
+							</button>
+							<button id={_id + "RemoveButton"} type="button" class="btn btn-danger btn-xs"
+							        onClick={this.remove.bind()}>
+								<span class="glyphicon glyphicon-remove"/>
+							</button>
+						</ButtonGroup>
 					</td>
 				</tr>
 		);
@@ -23,10 +38,4 @@ export default class ContentRow extends React.Component {
 		this.props.deleteBlogPost(this.props.blogPost)
 	}
 
-	save() {
-		this.props.saveBlogPost(this.props.blogPost);
-		this.setState({
-			editing: false
-		});
-	}
 }

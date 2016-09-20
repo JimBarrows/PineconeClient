@@ -1,13 +1,10 @@
 'use strict';
 import {BlogPostEventNames} from "../constants";
 import BlogPostForm from "../components/BlogPostForm";
-import BlogPostStore from "../stores/BlogPostStore";
 import {PageHeader} from "bootstrap-react-components";
 import React from "react";
-import {withRouter} from "react-router";
 
-
-class NewBlogPost extends React.Component {
+export default class NewBlogPost extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -16,8 +13,8 @@ class NewBlogPost extends React.Component {
 	}
 
 	componentWillMount() {
-		BlogPostStore.on(BlogPostEventNames.BLOG_POST_CREATE_FAILURE, this.saveFailure);
-		BlogPostStore.on(BlogPostEventNames.BLOG_POST_CREATE_SUCCESS, this.saveSucces);
+		BlogPostStore.on(BlogPostEventNames.BLOG_POST_UPDATE_FAILURE, this.saveFailure);
+		BlogPostStore.on(BlogPostEventNames.BLOG_POST_UPDATE_SUCCESS, this.saveSucces);
 	}
 
 	componentWillUnmount() {
@@ -31,7 +28,7 @@ class NewBlogPost extends React.Component {
 					<PageHeader >
 						<h1>New Blog Post</h1>
 					</PageHeader>
-					<BlogPostForm/>
+					<BlogPostForm campaignId={this.props.routeParams.campaignId}/>
 				</div>
 		);
 	}
@@ -43,7 +40,6 @@ class NewBlogPost extends React.Component {
 	}
 
 	saveSucces() {
-		this.props.router.push('campaign/' + this.props.routeParams.campaignId);
+		this.props.router.push('/content');
 	}
 }
-export default withRouter(NewBlogPost);
