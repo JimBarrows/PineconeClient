@@ -1,7 +1,9 @@
 'use strict';
-import {BlogPostEventNames} from "../constants";
+import * as Actions from "../actions/BlogPostActions";
+import {CampaignEvent} from "../constants";
 import BlogPostForm from "../components/BlogPostForm";
-import BlogPostStore from "../stores/BlogPostStore";
+import CampaignStore from "../stores/CampaignStore";
+import moment from "moment";
 import {PageHeader} from "bootstrap-react-components";
 import React from "react";
 import {withRouter} from "react-router";
@@ -9,31 +11,60 @@ import {withRouter} from "react-router";
 
 class NewBlogPost extends React.Component {
 
+	componentWillMount() {
+		CampaignStore.on(CampaignEvent.UPDATE_FAILURE, this.saveFailure);
+		CampaignStore.on(CampaignEvent.UPDATE_SUCCESS, this.saveSucces);
+	}
+
+	componentWillUnmount() {
+		CampaignStore.removeListener(CampaignEvent.UPDATE_FAILURE, this.saveFailure);
+		CampaignStore.removeListener(CampaignEvent.UPDATE_SUCCESS, this.saveSucces);
+
+	}
 	constructor(props) {
 		super(props);
 		this.saveSucces  = this.saveSucces.bind(this);
 		this.saveFailure = this.saveFailure.bind(this);
 	}
 
-	componentWillMount() {
-		BlogPostStore.on(BlogPostEventNames.BLOG_POST_CREATE_FAILURE, this.saveFailure);
-		BlogPostStore.on(BlogPostEventNames.BLOG_POST_CREATE_SUCCESS, this.saveSucces);
-	}
-
-	componentWillUnmount() {
-		BlogPostStore.removeListener(BlogPostEventNames.BLOG_POST_CREATE_SUCCESS, this.saveSucces);
-		BlogPostStore.removeListener(BlogPostEventNames.BLOG_POST_CREATE_FAILURE, this.saveFailure);
-	}
 
 	render() {
+		let blogPost = {
+			_id: '',
+			body: '',
+			createDate: moment(),
+			publishDate: moment(),
+			title: '',
+			wordpress: {
+				excerpt: '',
+				status: 'publish',
+				format: '',
+				useBody: true,
+				count: 140,
+				typeToCount: 'characters'
+			},
+			twitter: {
+				status: '',
+				useTitle: true
+			},
+			facebook: {
+				post: '',
+				useBody: true
+			},
+			valid: true
+		};
 		return (
 				<div id="newBlogPostPage">
 					<PageHeader >
 						<h1>New Blog Post</h1>
 					</PageHeader>
-					<BlogPostForm/>
+					<BlogPostForm blogPost={blogPost} onSubmit={this.onSubmit.bind(this)}/>
 				</div>
 		);
+	}
+
+	onSubmit(blogId, campaignId, blogPost) {
+		Actions.create(campaignId, blogPost);
 	}
 
 	saveFailure() {
@@ -43,7 +74,7 @@ class NewBlogPost extends React.Component {
 	}
 
 	saveSucces() {
-		this.props.router.push('campaign/' + this.props.routeParams.campaignId);
+		this.props.router.push('campaign/' + CampaignStore._id);
 	}
 }
 export default withRouter(NewBlogPost);

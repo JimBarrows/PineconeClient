@@ -8,14 +8,14 @@ export default class BlogPostPanel extends React.Component {
 
 	render() {
 		let {
-				    add, deleteItem,
-				    id, items, saveItem, title
+				    add, deleteItem, items, saveItem, updateItem
 		    }    = this.props;
 		let rows = items.map((blogPost, index) => <BlogPostTableRow blogPost={blogPost}
 		                                                            deleteBlogPost={deleteItem}
 		                                                            index={index}
 		                                                            key={index}
-		                                                            saveBlogPost={saveItem}/>);
+		                                                            saveBlogPost={saveItem}
+		                                                            updateBlogPost={updateItem}/>);
 		return (
 				<ListTablePanel id="blogPostPanel" title="Blog Posts" onAddClick={add}>
 					<thead>

@@ -44,6 +44,25 @@ class CampaignStore extends EventEmitter {
 		this.initialize();
 	}
 
+	copyFrom(action) {
+		this._assets            = action.campaign.assets;
+		this._blogPosts         = action.campaign.blogPosts;
+		this._budgetLineItems   = action.campaign.budgetLineItems;
+		this._destinations      = action.campaign.destinations;
+		this._effectiveFrom     = action.campaign.effectiveFrom;
+		this._effectiveThru     = action.campaign.effectiveThru;
+		this._facebookAccounts  = action.campaign.facebookAccounts;
+		this.__id               = action.campaign._id;
+		this._keywords          = action.campaign.keywords;
+		this._messages          = action.campaign.messages;
+		this._name              = action.campaign.name;
+		this._objectives        = action.campaign.objectives;
+		this._owner             = action.campaign.owner;
+		this._tags              = action.campaign.tags;
+		this._twitterAccounts   = action.campaign.twitterAccounts;
+		this._wordPressAccounts = action.campaign.wordPressAccounts;
+	}
+
 	get destinations() {
 		return this._destinations
 	}
@@ -58,6 +77,40 @@ class CampaignStore extends EventEmitter {
 
 	get facebookAccounts() {
 		return this._facebookAccounts
+	}
+
+	findBlogPostById(id) {
+		let filteredList = this._blogPosts.filter((bp) => bp._id === id);
+		if (filteredList) {
+			return filteredList[0];
+		} else {
+			return null;
+		}
+	}
+
+	handleActions(action) {
+		switch (action.type) {
+			case BlogPostEventNames.BLOG_POST_CREATE_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.UPDATE_SUCCESS);
+				break;
+			case BlogPostEventNames.BLOG_POST_UPDATE_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.UPDATE_SUCCESS);
+				break;
+			case CampaignEvent.CLEAR:
+				this.initialize();
+				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
+				break;
+			case CampaignEvent.LOAD_CAMPAIGN_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
+				break;
+			case CampaignEvent.UPDATE_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.UPDATE_SUCCESS);
+				break;
+		}
 	}
 
 	get _id() {
@@ -113,46 +166,6 @@ class CampaignStore extends EventEmitter {
 
 	get wordPressAccounts() {
 		return this._wordPressAccounts
-	}
-
-	handleActions(action) {
-		switch (action.type) {
-			case BlogPostEventNames.BLOG_POST_CREATE_SUCCESS:
-				this.copyFrom(action);
-				this.emit(CampaignEvent.UPDATE_SUCCESS);
-				break;
-			case CampaignEvent.CLEAR:
-				this.initialize();
-				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
-				break;
-			case CampaignEvent.LOAD_CAMPAIGN_SUCCESS:
-				this.copyFrom(action);
-				this.emit(CampaignEvent.LOAD_CAMPAIGN_SUCCESS);
-				break;
-			case CampaignEvent.UPDATE_SUCCESS:
-				this.copyFrom(action);
-				this.emit(CampaignEvent.UPDATE_SUCCESS);
-				break;
-		}
-	}
-
-	copyFrom(action) {
-		this._assets           = action.campaign.assets;
-		this._blogPosts        = action.campaign.blogPosts;
-		this._budgetLineItems  = action.campaign.budgetLineItems;
-		this._destinations     = action.campaign.destinations;
-		this._effectiveFrom    = action.campaign.effectiveFrom;
-		this._effectiveThru    = action.campaign.effectiveThru;
-		this._facebookAccounts = action.campaign.facebookAccounts;
-		this.__id              = action.campaign._id;
-		this._keywords         = action.campaign.keywords;
-		this._messages         = action.campaign.messages;
-		this._name             = action.campaign.name;
-		this._objectives        = action.campaign.objectives;
-		this._owner             = action.campaign.owner;
-		this._tags              = action.campaign.tags;
-		this._twitterAccounts   = action.campaign.twitterAccounts;
-		this._wordPressAccounts = action.campaign.wordPressAccounts;
 	}
 }
 

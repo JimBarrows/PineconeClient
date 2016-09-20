@@ -23,12 +23,12 @@ export function create(campaignId, blogPost) {
 			);
 }
 
-export function update(id, content) {
-	axios.put('/api/content/' + id, content)
+export function update(blogId, campaignId, blogPost) {
+	axios.put(`/api/campaign/${campaignId}/blogPosts/${blogId}`, blogPost)
 			.then((response) => {
 				dispatcher.dispatch({
 					type: BlogPostEventNames.BLOG_POST_UPDATE_SUCCESS,
-					content
+					campaign: response.data
 				})
 			})
 			.catch((error) => {

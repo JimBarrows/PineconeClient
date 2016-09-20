@@ -1,5 +1,5 @@
 'use strict';
-import * as Actions from "../actions/BlogPostActions";
+
 import CampaignStore from "../stores/CampaignStore";
 import {DatePickerFormGroup, TextAreaFormGroup, TextFormGroup} from "bootstrap-react-components";
 import FacebookContent from "../components/FacebookContent";
@@ -33,30 +33,13 @@ class BlogPostForm extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
-			_id: '',
-			body: '',
-			createDate: moment(),
-			isNew: true,
-			publishDate: moment(),
-			title: '',
-			wordpress: {
-				excerpt: '',
-				status: 'publish',
-				format: '',
-				useBody: true,
-				count: 140,
-				typeToCount: 'characters'
-			},
-			twitter: {
-				status: '',
-				useTitle: true
-			},
-			facebook: {
-				post: '',
-				useBody: true
-			},
-			valid: true
+		let {
+				    _id, body, createDate, owner, publishDate,
+				    title, wordpress, facebook, twitter
+		    }               = this.props.blogPost;
+		this.state          = {
+			valid: true, _id, body, createDate, owner, publishDate,
+			title, wordpress, facebook, twitter
 		};
 
 	}
@@ -144,39 +127,25 @@ class BlogPostForm extends React.Component {
 
 	save(event) {
 		event.preventDefault();
-		let {
-				    _id, body, createDate, owner,
-				    publishDate, title, wordpress, twitter, facebook
-		    }     = this.state;
 		this.validateBody();
 		this.validatePublishDate();
 		this.validateTitle();
 
 		if (this.state.valid) {
-			if (this.state.isNew) {
-				Actions.create(CampaignStore._id, {
-					body,
-					createDate,
-					owner,
-					publishDate,
-					title,
-					wordpress,
-					facebook,
-					twitter
-				});
-			} else {
-				Actions.update(_id, CampaignStore._id, {
-					body,
-					createDate,
-					owner,
-					publishDate,
-					title,
-					wordpress,
-					facebook,
-					twitter
-				});
-
-			}
+			let {
+					    _id, body, createDate, owner,
+					    publishDate, title, wordpress, twitter, facebook
+			    }     = this.state;
+			this.props.onSubmit(_id, CampaignStore._id, {
+				body,
+				createDate,
+				owner,
+				publishDate,
+				title,
+				wordpress,
+				facebook,
+				twitter
+			})
 		}
 	}
 

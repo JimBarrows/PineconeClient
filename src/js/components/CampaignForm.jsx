@@ -129,7 +129,8 @@ class CampaignForm extends React.Component {
 					<BlogPostPanel add={this.addBlogPost.bind(this)}
 					               deleteItem={this.deleteBlogPost.bind(this)}
 					               items={blogPosts}
-					               saveItem={this.saveBlogPost.bind(this)}/>
+					               saveItem={this.saveBlogPost.bind(this)}
+					               updateItem={(this.updateBlogPost.bind(this))}/>
 					<BudgetPanel id="budgetPanel" budgetLineItems={budgetLineItems} deleteBudget={this.deleteBudget.bind(this)}
 					             saveBudget={this.saveBudget.bind(this)}/>
 					<DestinationListPanel destinations={destinations} deleteDestination={this.deleteDestination.bind(this)}
@@ -170,6 +171,10 @@ class CampaignForm extends React.Component {
 
 	saveObjective(objective) {
 		this.setState({});
+	}
+
+	updateBlogPost(blogPost) {
+		this.props.router.push(`/campaign/${this.props.campaign._id}/blogPosts/${blogPost._id}`);
 	}
 }
 

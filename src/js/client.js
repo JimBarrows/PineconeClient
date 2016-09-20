@@ -1,12 +1,13 @@
 import * as Application from "./actions/Application";
-import NewBlogPost from "./pages/NewBlogPost";
 import CampaignAdd from "./pages/CampaignAdd";
 import CampaignEdit from "./pages/CampaignEdit";
 import Campaigns from "./pages/Campaigns";
+import EditBlogPost from "./pages/EditBlogPost";
 import FinishTwitter from "./pages/FinishTwitter";
 import {hashHistory, IndexRoute, Route, Router} from "react-router";
 import Layout from "./components/Layout";
 import Login from "./pages/Login";
+import NewBlogPost from "./pages/NewBlogPost";
 import React from "react";
 import Register from "./pages/Register";
 import ReactDOM from "react-dom";
@@ -33,6 +34,8 @@ ReactDOM.render(<Router history={hashHistory}>
 		<Route path="campaign" name="campaignAdd" component={CampaignAdd} onEnter={requireAuth}></Route>
 		<Route path="campaign/:campaignId" name="campaignEdit" component={CampaignEdit} onEnter={requireAuth}></Route>
 		<Route path="campaign/:campaignId/blogPosts/new" name="newBlogPost" component={NewBlogPost}
+		       onEnter={requireAuth}></Route>
+		<Route path="campaign/:campaignId/blogPosts/:blogPostId" name="editBlogPost" component={EditBlogPost}
 		       onEnter={requireAuth}></Route>
 		<Route path="finish/twitter" name="finishTwitter" component={FinishTwitter} onEnter={requireAuth}></Route>
 		<Route path="settings" name="settings" component={Settings} onEnter={requireAuth}></Route>

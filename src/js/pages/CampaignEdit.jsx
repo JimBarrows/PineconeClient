@@ -13,7 +13,10 @@ import {withRouter} from "react-router";
 class CampaignEdit extends React.Component {
 
 	componentDidMount() {
-		CampaignAction.findById(this.props.routeParams.campaignId);
+		if ((!CampaignStore._id) || (CampaignStore._id !== this.props.routeParams.campaignId)) {
+			CampaignAction.findById(this.props.routeParams.campaignId);
+		}
+
 	}
 
 	componentWillMount() {

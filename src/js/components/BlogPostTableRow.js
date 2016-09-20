@@ -9,7 +9,7 @@ export default class BlogPostTableRow extends React.Component {
 	}
 
 	edit() {
-
+		this.props.updateBlogPost(this.props.blogPost);
 	}
 
 	render() {
@@ -21,11 +21,12 @@ export default class BlogPostTableRow extends React.Component {
 					<td>{wordPressAccounts ? wordPressAccounts.map((wpa)=>wpa.name + ", ") : "All accounts."}</td>
 					<td>
 						<ButtonGroup>
-							<button id={_id + "EditButton"} type="button" class="btn btn-default btn-xs" onClick={this.edit.bind()}>
+							<button id={_id + "EditButton"} type="button" class="btn btn-default btn-xs"
+							        onClick={this.edit.bind(this)}>
 								<span class="glyphicon glyphicon-pencil"/>
 							</button>
 							<button id={_id + "RemoveButton"} type="button" class="btn btn-danger btn-xs"
-							        onClick={this.remove.bind()}>
+							        onClick={this.remove.bind(this)}>
 								<span class="glyphicon glyphicon-remove"/>
 							</button>
 						</ButtonGroup>

@@ -1,10 +1,25 @@
 'use strict';
-import {BlogPostEventNames} from "../constants";
+import * as Actions from "../actions/BlogPostActions";
+import {CampaignEvent} from "../constants";
 import BlogPostForm from "../components/BlogPostForm";
+import CampaignStore from "../stores/CampaignStore";
 import {PageHeader} from "bootstrap-react-components";
 import React from "react";
+import {withRouter} from "react-router";
 
-export default class NewBlogPost extends React.Component {
+
+class EditBlogPost extends React.Component {
+
+	componentWillMount() {
+		CampaignStore.on(CampaignEvent.UPDATE_FAILURE, this.saveFailure);
+		CampaignStore.on(CampaignEvent.UPDATE_SUCCESS, this.saveSucces);
+	}
+
+	componentWillUnmount() {
+		CampaignStore.removeListener(CampaignEvent.UPDATE_FAILURE, this.saveFailure);
+		CampaignStore.removeListener(CampaignEvent.UPDATE_SUCCESS, this.saveSucces);
+
+	}
 
 	constructor(props) {
 		super(props);
@@ -12,34 +27,31 @@ export default class NewBlogPost extends React.Component {
 		this.saveFailure = this.saveFailure.bind(this);
 	}
 
-	componentWillMount() {
-		BlogPostStore.on(BlogPostEventNames.BLOG_POST_UPDATE_FAILURE, this.saveFailure);
-		BlogPostStore.on(BlogPostEventNames.BLOG_POST_UPDATE_SUCCESS, this.saveSucces);
-	}
-
-	componentWillUnmount() {
-		BlogPostStore.removeListener(BlogPostEventNames.BLOG_POST_CREATE_SUCCESS, this.saveSucces);
-		BlogPostStore.removeListener(BlogPostEventNames.BLOG_POST_CREATE_FAILURE, this.saveFailure);
-	}
-
 	render() {
+		let blogPost = CampaignStore.findBlogPostById(this.props.routeParams.blogPostId);
 		return (
 				<div id="newBlogPostPage">
 					<PageHeader >
-						<h1>New Blog Post</h1>
+						<h1>Edit Blog Post</h1>
 					</PageHeader>
-					<BlogPostForm campaignId={this.props.routeParams.campaignId}/>
+					<BlogPostForm blogPost={blogPost} onSubmit={this.onSubmit.bind(this)}/>
 				</div>
 		);
 	}
 
+	onSubmit(blogId, campaignId, blogPost) {
+		Actions.update(blogId, campaignId, blogPost);
+	}
+
 	saveFailure() {
 		this.setState({
-			error: BlogPostStore.error()
+			error: "Could not save blog post"
 		})
 	}
 
 	saveSucces() {
-		this.props.router.push('/content');
+		this.props.router.push('/campaign/' + this.props.routeParams.campaignId);
 	}
 }
+
+export default withRouter(EditBlogPost);
