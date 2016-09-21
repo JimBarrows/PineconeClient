@@ -24,6 +24,7 @@ export function create(campaignId, blogPost) {
 }
 
 export function update(blogId, campaignId, blogPost) {
+	blogPost._id = blogId;
 	axios.put(`/api/campaign/${campaignId}/blogPosts/${blogId}`, blogPost)
 			.then((response) => {
 				dispatcher.dispatch({
@@ -41,11 +42,11 @@ export function update(blogId, campaignId, blogPost) {
 			)
 }
 
-export function remove(content) {
-	axios.delete('/api/content/' + content._id)
+export function remove(blogPostId, campaignId) {
+	axios.delete(`/api/campaign/${campaignId}/blogPosts/${blogPostId}`)
 			.then((response) => dispatcher.dispatch({
 				type: BlogPostEventNames.BLOG_POST_DELETE_SUCCESS,
-				content: content
+				campaign: response.data
 			}))
 			.catch((error) =>dispatcher.dispatch({
 				type: BlogPostEventNames.BLOG_POST_DELETE_FAILURE,

@@ -1,6 +1,7 @@
 'use strict';
 import AssetListPanel from "../components/AssetListPanel";
 import BudgetPanel from "../components/BudgetPanel";
+import * as BlogPostActions from "../actions/BlogPostActions";
 import BlogPostPanel from "./BlogPostPanel";
 import {DateRangeFormGroup, TextFormGroup} from "bootstrap-react-components";
 import DestinationListPanel from "../components/DestinationListPanel";
@@ -23,8 +24,7 @@ class CampaignForm extends React.Component {
 	}
 
 	deleteBlogPost(blogPost) {
-		this.props.campaign.blogPosts = this.props.campaign.blogPosts.filter((cur) => cur._id !== blogPost._id);
-		this.setState({});
+		BlogPostActions.remove(blogPost._id, this.props.campaign._id);
 	}
 
 	deleteBudget(budget) {

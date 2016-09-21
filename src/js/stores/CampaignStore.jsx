@@ -94,6 +94,10 @@ class CampaignStore extends EventEmitter {
 				this.copyFrom(action);
 				this.emit(CampaignEvent.UPDATE_SUCCESS);
 				break;
+			case BlogPostEventNames.BLOG_POST_DELETE_SUCCESS:
+				this.copyFrom(action);
+				this.emit(CampaignEvent.UPDATE_SUCCESS);
+				break;
 			case BlogPostEventNames.BLOG_POST_UPDATE_SUCCESS:
 				this.copyFrom(action);
 				this.emit(CampaignEvent.UPDATE_SUCCESS);
