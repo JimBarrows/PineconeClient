@@ -1,5 +1,8 @@
 FROM nginx
 
+ARG NPM_TOKEN
+ENV NODE_ENV="production"
+
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY mime.types /etc/nginx/mime.types
 
