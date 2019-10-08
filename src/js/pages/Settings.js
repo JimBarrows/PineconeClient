@@ -1,30 +1,30 @@
-import AssetListPanel from "../components/AssetListPanel";
+import {PageHeader}          from "bootstrap-react-components"
+import React                 from "react"
 import {
-		deleteAsset,
-		deleteDestination,
-		deleteFacebookAccount,
-		deleteKeyword,
-		deleteMessage,
-		deleteTwitterAccount,
-		deleteWordpressAccount,
-		saveAsset,
-		saveDestination,
-		saveFacebookAccount,
-		saveKeyword,
-		saveMessage,
-		saveTwitterAccount,
-		saveWordpressAccount
-} from "../actions/AccountActions";
-import DestinationListPanel from "../components/DestinationListPanel";
-import FacebookAccountPanel from "../components/FacebookAccountPanel";
-import KeywordsListPanel from "../components/KeywordListPanel";
-import MessageListPanel from "../components/MessageListPanel";
-import {PageHeader} from "bootstrap-react-components";
-import React from "react";
-import TwitterAccountPanel from "../components/TwitterAccountPanel";
-import {UserEventNames} from "../constants";
-import UserStore from "../stores/UserStore";
-import WordPressAccountPanel from "../components/WordpressAccountPanel";
+	deleteAsset,
+	deleteDestination,
+	deleteFacebookAccount,
+	deleteKeyword,
+	deleteMessage,
+	deleteTwitterAccount,
+	deleteWordpressAccount,
+	saveAsset,
+	saveDestination,
+	saveFacebookAccount,
+	saveKeyword,
+	saveMessage,
+	saveTwitterAccount,
+	saveWordpressAccount
+}                            from "../actions/AccountActions"
+import AssetListPanel        from "../components/AssetListPanel"
+import DestinationListPanel  from "../components/DestinationListPanel"
+import FacebookAccountPanel  from "../components/FacebookAccountPanel"
+import KeywordsListPanel     from "../components/KeywordListPanel"
+import MessageListPanel      from "../components/MessageListPanel"
+import TwitterAccountPanel   from "../components/TwitterAccountPanel"
+import WordPressAccountPanel from "../components/WordpressAccountPanel"
+import {UserEventNames}      from "../constants"
+import UserStore             from "../stores/UserStore"
 
 
 export default class Settings extends React.Component {

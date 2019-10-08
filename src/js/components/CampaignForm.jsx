@@ -1,15 +1,15 @@
 'use strict';
-import AssetListPanel from "../components/AssetListPanel";
-import BudgetPanel from "../components/BudgetPanel";
-import * as BlogPostActions from "../actions/BlogPostActions";
-import BlogPostPanel from "./BlogPostPanel";
-import {DateRangeFormGroup, TextFormGroup} from "bootstrap-react-components";
-import DestinationListPanel from "../components/DestinationListPanel";
-import KeywordsListPanel from "../components/KeywordListPanel";
-import MessagesListPanel from "../components/MessageListPanel";
-import ObjectivesListPanel from "../components/ObjectiveListPanel";
-import React from "react";
-import {withRouter} from "react-router";
+import {DateRangeFormGroup, TextFormGroup} from "bootstrap-react-components"
+import React                               from "react"
+import {withRouter}                        from "react-router"
+import * as BlogPostActions                from "../actions/BlogPostActions"
+import BudgetPanel                         from "../components/BudgetPanel"
+import KeywordsListPanel                   from "../components/KeywordListPanel"
+import ObjectivesListPanel                 from "../components/ObjectiveListPanel"
+import AssetListPanel                      from "./AssetListPanel"
+import BlogPostPanel                       from "./BlogPostPanel"
+import DestinationListPanel                from "./DestinationListPanel"
+import MessagesListPanel                   from "./MessageListPanel"
 
 
 class CampaignForm extends React.Component {
