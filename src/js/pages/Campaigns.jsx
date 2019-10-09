@@ -55,19 +55,6 @@ export default withRouter(class Campaigns extends React.Component {
 					</TableHead >
 					{campaignRows}
 				</PanelStripedTable >
-				{/*<ListTablePanel id="currentCampaigns" title="Current Campaigns"*/}
-				{/*                onAddClick={this.add.bind(this)}>*/}
-				{/*	<thead>*/}
-				{/*	<tr>*/}
-				{/*		<th>Name</th>*/}
-				{/*		<th>Start Date</th>*/}
-				{/*		<th>End Date</th>*/}
-				{/*	</tr>*/}
-				{/*	</thead>*/}
-				{/*	<tbody>*/}
-				{/*	{campaignRows}*/}
-				{/*	</tbody>*/}
-				{/*</ListTablePanel>*/}
 			</div >
 		)
 	}
