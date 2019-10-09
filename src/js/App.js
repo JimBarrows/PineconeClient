@@ -27,26 +27,38 @@ function requireAuth (nextState, replace) {
 
 export default withRouter(class App extends Component {
 
-	gotoIndex = () => this.props.history.push('/')
+	static getDerivedStateFromError (error) {
+		console.log('error: ', error)
+		return {hasError: true}
+	}
+
+
+	gotoIndex=() => this.props.history.push('/')
 
 	render () {
 		return (
-			<div >
+			<div className = "container" role = {"main"} >
 				<Header id = {'app'} indexLinkClicked = {this.gotoIndex} />
-				<div id = {"layout"} className = "container" role = {"main"} >
+				<div id = {"layout"} >
 					<Switch >
-						<Route exact path = "/" component = {Campaigns} onEnter = {requireAuth} />
-						<Route exact path = 'campaign' component = {CampaignAdd} />
+						<Route exact path = "campaign" component = {CampaignAdd} />
 						<Route exact path = {"campaign/:campaignId"} component = {CampaignEdit} />
 						<Route path = "campaign/:campaignId/blogPosts/new" name = "newBlogPost" component = {NewBlogPost}
-									 onEnter = {requireAuth} ></Route >
+									 onEnter = {requireAuth} />
 						<Route path = "campaign/:campaignId/blogPosts/:blogPostId" name = "editBlogPost" component = {EditBlogPost}
-									 onEnter = {requireAuth} ></Route >
+									 onEnter = {requireAuth} />
 						<Route path = "finish/twitter" name = "finishTwitter" component = {FinishTwitter}
-									 onEnter = {requireAuth} ></Route >
-						<Route path = "settings" name = "settings" component = {Settings} onEnter = {requireAuth} ></Route >
-						<Route path = "register" name = "register" component = {Register} ></Route >
-						<Route path = "login" name = "login" component = {Login} ></Route >
+									 onEnter = {requireAuth} />
+						<Route path = "settings" name = "settings" component = {Settings} onEnter = {requireAuth} />
+						<Route path = "/register" >
+							<Register />
+						</Route >
+						<Route path = "/login" >
+							<Login />
+						</Route >
+						<Route path = "/" >
+							<Campaigns />
+						</Route >
 					</Switch >
 				</div >
 			</div >

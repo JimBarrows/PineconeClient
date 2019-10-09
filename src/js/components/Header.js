@@ -75,7 +75,7 @@ export default withRouter(class Header extends React.Component {
 		} else {
 			UserComponent = (
 				<ul class = "nav navbar-nav navbar-right" >
-					<li class = {registerClass} ><Link id = "registerLink" to = "register" >Register</Link ></li >
+					<li class = {registerClass} ><Link id = "registerLink" to = "/register" >Register</Link ></li >
 					<li class = {loginClass} ><Link id = "loginLink" to = "login" >Login</Link ></li >
 				</ul >
 			)
