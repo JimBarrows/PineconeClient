@@ -83,14 +83,20 @@ export default class Register extends React.Component {
 				{alertError && <Alert id = {id} context = {'danger'} >
 					{alertError}
 				</Alert >}
-				<TextFormGroup label = "Username" placeholder = "bob@email.com" id = "username"
-											 onChange = {this.usernameChanged} required = {true} valid = {usernameError === null}
-											 validationMessage = {usernameError} value = {username} />
-				<PasswordFormGroup label = "Password" id = "password" valid = {passwordError !== null}
+				<TextFormGroup label = "Username"
+											 placeholder = "bob@email.com"
+											 id = "username"
+											 onChange = {this.usernameChanged}
+											 required = {true}
+											 valid = {usernameError === null}
+											 validationMessage = {usernameError}
+											 value = {username} />
+				<PasswordFormGroup label = "Password" id = "password" valid = {passwordError === null}
 													 validationMessage = {passwordError}
 													 onChange = {this.passwordChanged} required = {true} value = {password} />
 				<PasswordFormGroup label = "Confirm Password" id = "confirmPassword" required = {true}
-													 onChange = {this.confirmPasswordChanged} validationMessage = {passwordConfirmError}
+													 onChange = {this.confirmPasswordChanged} valid = {passwordConfirmError === null}
+													 validationMessage = {passwordConfirmError}
 													 value = {confirmPassword} />
 
 				<button id = "registerButton" type = "button" class = "btn btn-default" onClick = {this.register} >
