@@ -1,7 +1,7 @@
 'use strict';
-import KeywordTableRow from "./KeywordTableRow";
-import React from "react";
-import {ListTablePanel} from "bootstrap-react-components";
+import {PanelStripedTable, TableHead} from "bootstrap-react-components"
+import React                          from "react"
+import KeywordTableRow                from "./KeywordTableRow"
 
 export default class KeywordsListPanel extends React.Component {
 
@@ -21,16 +21,16 @@ export default class KeywordsListPanel extends React.Component {
 		                                                                   saveKeyword={this.props.saveKeyword}/>);
 
 		return (
-				<ListTablePanel name="keywords" title="Keywords" onAddClick={this.add.bind(this)}>
-					<thead>
+			<PanelStripedTable name = "keywords" title = "Keywords" onAddClick = {this.add.bind(this)} >
+				<TableHead >
 					<tr>
 						<th>Name</th>
 					</tr>
-					</thead>
+				</TableHead >
 					<tbody>
 					{rows}
 					</tbody>
-				</ListTablePanel>
+			</PanelStripedTable >
 		);
 	}
 }

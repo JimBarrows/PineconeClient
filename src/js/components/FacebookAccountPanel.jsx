@@ -1,7 +1,7 @@
 'use strict';
-import React from "react";
-import {ListTablePanel} from "bootstrap-react-components";
-import FacebookAccountRow from "./FacebookAccountRow";
+import {PanelStripedTable, TableHead} from "bootstrap-react-components"
+import React                          from "react"
+import FacebookAccountRow             from "./FacebookAccountRow"
 
 export default class FacebookAccountPanel extends React.Component {
 
@@ -25,16 +25,16 @@ export default class FacebookAccountPanel extends React.Component {
 				/>
 		);
 		return (
-				<ListTablePanel id="facebookAccounts" title="Facebook Accounts" onAddClick={this.add.bind(this)}>
-					<thead>
+			<PanelStripedTable id = "facebookAccounts" title = "Facebook Accounts" onAddClick = {this.add.bind(this)} >
+				<TableHead >
 					<tr>
 						<th>Name</th>
 					</tr>
-					</thead>
+				</TableHead >
 					<tbody>
 					{rows}
 					</tbody>
-				</ListTablePanel>
+			</PanelStripedTable >
 		);
 	}
 }

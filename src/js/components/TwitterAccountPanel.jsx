@@ -1,7 +1,7 @@
 'use strict';
-import React from "react";
-import {ListTablePanel} from "bootstrap-react-components";
-import TwitterAccountRow from "./TwitterAccountRow";
+import {PanelStripedTable, TableHead} from "bootstrap-react-components"
+import React                          from "react"
+import TwitterAccountRow              from "./TwitterAccountRow"
 
 export default class TwitterAccountPanel extends React.Component {
 
@@ -27,16 +27,16 @@ export default class TwitterAccountPanel extends React.Component {
 				/>
 		);
 		return (
-				<ListTablePanel id="twitterAccounts" title="Twitter Accounts" onAddClick={this.add.bind(this)}>
-					<thead>
+			<PanelStripedTable id = "twitterAccounts" title = "Twitter Accounts" onAddClick = {this.add.bind(this)} >
+				<TableHead >
 					<tr>
 						<th>Name</th>
 					</tr>
-					</thead>
+				</TableHead >
 					<tbody>
 					{rows}
 					</tbody>
-				</ListTablePanel>
+			</PanelStripedTable >
 		);
 	}
 }

@@ -49,7 +49,9 @@ export default withRouter(class App extends Component {
 									 onEnter = {requireAuth} />
 						<Route path = "finish/twitter" name = "finishTwitter" component = {FinishTwitter}
 									 onEnter = {requireAuth} />
-						<Route path = "settings" name = "settings" component = {Settings} onEnter = {requireAuth} />
+						<Route path = "/settings" >
+							<Settings />
+						</Route >
 						<Route path = "/register" >
 							<Register />
 						</Route >

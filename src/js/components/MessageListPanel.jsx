@@ -1,7 +1,7 @@
 'use strict';
-import MessageTableRow from "./MessageTableRow";
-import React from "react";
-import {ListTablePanel} from "bootstrap-react-components";
+import {PanelStripedTable, TableHead} from "bootstrap-react-components"
+import React                          from "react"
+import MessageTableRow                from "./MessageTableRow"
 
 
 export default class MessagesListPanel extends React.Component {
@@ -23,17 +23,17 @@ export default class MessagesListPanel extends React.Component {
 		                                                                   saveMessage={this.props.saveMessage}/>);
 
 		return (
-				<ListTablePanel id="messages" title="Messages" onAddClick={this.add.bind(this)}>
-					<thead>
+			<PanelStripedTable id = "messages" title = "Messages" onAddClick = {this.add.bind(this)} >
+				<TableHead >
 					<tr>
 						<th>Name</th>
 						<th>Description</th>
 					</tr>
-					</thead>
+				</TableHead >
 					<tbody>
 					{rows}
 					</tbody>
-				</ListTablePanel>
+			</PanelStripedTable >
 		);
 	}
 }

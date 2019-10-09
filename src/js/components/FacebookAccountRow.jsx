@@ -1,59 +1,60 @@
-'use strict';
+'use strict'
 
-import {EditableCell} from "bootstrap-react-components";
-import React from "react";
-import RowControlButtons from "../components/controls/RowControlButtons";
+import {EditableTextCell} from "bootstrap-react-components"
+import React              from "react"
+import RowControlButtons  from "../components/controls/RowControlButtons"
 
 export default class TwitterAccountRow extends React.Component {
 
-	constructor(props) {
-		super(props);
-		let {_id}  = props.item;
-		this.state = {
+	constructor (props) {
+		super(props)
+		let {_id} =props.item
+		this.state={
 			editing: !_id
 		}
 	}
 
-	edit() {
+	edit () {
 		this.setState({
-			editing: true
-		})
+										editing: true
+									})
 	}
 
-	onChange(event) {
+	onChange=event => {
 		switch (event.target.id) {
 			case "name":
-				this.props.item.name = event.target.value;
-				break;
+				this.props.item.name=event.target.value
+				break
 		}
 	}
 
-	remove() {
+	remove () {
 		this.props.deleteItem(this.props.item)
 	}
 
-	render() {
-		let {editing}                           = this.state;
-		let {item}                              = this.props;
-		let {name}                              = item;
+	render () {
+		let {editing}=this.state
+		let {item}   =this.props
+		let {name}   =item
 
 		return (
-				<tr>
-					<EditableCell id="name" type="text" value={name} onChange={this.onChange.bind(this)} edit={editing}/>
-					<td>
-						<RowControlButtons editing={editing}
-						                   edit={this.edit.bind(this)}
-						                   save={this.save.bind(this)}
-						                   remove={this.remove.bind(this)}/>
-					</td>
-				</tr>
-		);
+			<tr >
+				<EditableTextCell id = "name" type = "text" value = {name} onChange = {this.onChange}
+													edit = {editing} />
+				<td >
+					<RowControlButtons editing = {editing}
+														 edit = {this.edit.bind(this)}
+														 save = {this.save.bind(this)}
+														 remove = {this.remove.bind(this)} />
+				</td >
+			</tr >
+		)
 	}
 
-	save() {
-		this.props.saveItem(this.props.item);
+	save () {
+		this.props.saveItem(this.props.item)
 		this.setState({
-			editing: false
-		});
+										editing: false
+									})
 	}
 }
