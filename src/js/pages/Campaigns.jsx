@@ -9,15 +9,30 @@ import CampaignStore                              from "../stores/CampaignListSt
 
 export default withRouter(class Campaigns extends React.Component {
 
-	constructor (props) {
-		super(props)
-		this.updateCampaignList = this.updateCampaignList.bind(this)
-		this.state              = {
-			campaigns: []
-		}
-	}
+	add = () => this.props.history.push('/campaign')
 
-	add = () => this.props.router.push('/campaign')
+	render () {
+		let campaignRows = this.state.campaigns.map((campaign, index) =>
+																									<CampaignTableRow key={index} campaign={campaign} />)
+		const id         = 'campaigns'
+		return (
+			<div >
+				<PageHeader id={id} >
+					<h1 >Campaigns</h1 >
+				</PageHeader >
+				<PanelStripedTable id={id} onAddClick={this.add} title={'Campaigns'} >
+					<TableHead id={id} >
+						<tr >
+							<th >Name</th >
+							<th >Start Date</th >
+							<th >End Date</th >
+						</tr >
+					</TableHead >
+					{campaignRows}
+				</PanelStripedTable >
+			</div >
+		)
+	}
 
 	componentDidMount () {
 		CampaignStore.on(CampaignEvent.CREATE_SUCCESS, this.updateCampaignList)
@@ -35,34 +50,13 @@ export default withRouter(class Campaigns extends React.Component {
 
 	}
 
-
-	render () {
-		let campaignRows = this.state.campaigns.map((campaign, index) =>
-																									<CampaignTableRow key = {index} campaign = {campaign} />)
-		const id         = 'campaigns'
-		return (
-			<div >
-				<PageHeader id = {id} >
-					<h1 >Campaigns</h1 >
-				</PageHeader >
-				<PanelStripedTable id = {id} onAddClick = {this.add} title = {'Campaigns'} >
-					<TableHead id = {id} >
-						<tr >
-							<th >Name</th >
-							<th >Start Date</th >
-							<th >End Date</th >
-						</tr >
-					</TableHead >
-					{campaignRows}
-				</PanelStripedTable >
-			</div >
-		)
+	state = {
+		campaigns: []
 	}
 
-	updateCampaignList () {
-		this.setState({
-										campaigns: CampaignStore.campaigns
-									})
-	}
+	updateCampaignList = () => this.setState({
+																						 campaigns: CampaignStore.campaigns
+																					 })
+
 })
 

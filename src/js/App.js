@@ -41,24 +41,31 @@ export default withRouter(class App extends Component {
 				<Header id = {'app'} indexLinkClicked = {this.gotoIndex} />
 				<div id = {"layout"} >
 					<Switch >
-						<Route exact path = "campaign" component = {CampaignAdd} />
-						<Route exact path = {"campaign/:campaignId"} component = {CampaignEdit} />
-						<Route path = "campaign/:campaignId/blogPosts/new" name = "newBlogPost" component = {NewBlogPost}
-									 onEnter = {requireAuth} />
-						<Route path = "campaign/:campaignId/blogPosts/:blogPostId" name = "editBlogPost" component = {EditBlogPost}
-									 onEnter = {requireAuth} />
-						<Route path = "finish/twitter" name = "finishTwitter" component = {FinishTwitter}
-									 onEnter = {requireAuth} />
-						<Route path = "/settings" >
+						<Route exact path="/campaign" >
+							<CampaignAdd />
+						</Route >
+						<Route exact path={"/campaign/:campaignId"} >
+							<CampaignEdit />
+						</Route >
+						<Route path="/campaign/:campaignId/blogPosts/new" name="newBlogPost" onEnter={requireAuth} >
+							<NewBlogPost />
+						</Route >
+						<Route path="/campaign/:campaignId/blogPosts/:blogPostId" name="editBlogPost" onEnter={requireAuth} >
+							<EditBlogPost />
+						</Route >
+						<Route path="/finish/twitter" name="finishTwitter" onEnter={requireAuth} >
+							<FinishTwitter />
+						</Route >
+						<Route path="/settings" >
 							<Settings />
 						</Route >
-						<Route path = "/register" >
+						<Route path="/register" >
 							<Register />
 						</Route >
-						<Route path = "/login" >
+						<Route path="/login" >
 							<Login />
 						</Route >
-						<Route path = "/" >
+						<Route path="/" >
 							<Campaigns />
 						</Route >
 					</Switch >
